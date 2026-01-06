@@ -1,0 +1,1548 @@
+{
+  "ASSIST_LEVELS": [
+    {
+      "id": "I",
+      "label": "I",
+      "full": "Independent"
+    },
+    {
+      "id": "ModI",
+      "label": "Mod I",
+      "full": "Modified Independent"
+    },
+    {
+      "id": "S",
+      "label": "S",
+      "full": "Supervision"
+    },
+    {
+      "id": "CGA",
+      "label": "CGA",
+      "full": "CGA"
+    },
+    {
+      "id": "MinA",
+      "label": "Min A",
+      "full": "Min physical assist"
+    },
+    {
+      "id": "ModA",
+      "label": "Mod A",
+      "full": "Mod physical assist"
+    },
+    {
+      "id": "MaxA",
+      "label": "Max A",
+      "full": "Max physical assist"
+    },
+    {
+      "id": "Total",
+      "label": "Total",
+      "full": "Total assist"
+    }
+  ],
+  "ASSIST_PURPOSES": [
+    "for stability",
+    "for balance support",
+    "for safety",
+    "for controlled lowering",
+    "for controlled descent",
+    "to stand",
+    "to stand from W/C",
+    "to stand from toilet",
+    "to stand from bed",
+    "to stand from mat",
+    "to sit",
+    "to sit EOB",
+    "to sit on toilet",
+    "to sit in W/C",
+    "to lower to surface",
+    "for weight shift",
+    "for anterior weight shift",
+    "for lateral weight shift",
+    "for initial lift-off from surface",
+    "for hip extension",
+    "for knee extension",
+    "for postural control",
+    "for alignment",
+    "for transfer",
+    "for trunk control",
+    "during pivoting",
+    "to clear feet during pivot",
+    "to scoot to edge of surface",
+    "for proper foot placement",
+    "to block knee(s)",
+    "to guide/facilitate movement",
+    "for generating momentum",
+    "for supine-to-sit",
+    "for sit-to-supine",
+    "for rolling",
+    "for scooting",
+    "for bridging",
+    "for positioning",
+    "for trunk rotation",
+    "for LE management in bed",
+    "to scoot to EOB",
+    "to scoot up in bed",
+    "for head/trunk dissociation",
+    "for segmental rolling",
+    "to thread BUE into sleeve",
+    "to thread UUE into sleeve",
+    "for garment orientation",
+    "for gathering garment",
+    "to manage garment over head",
+    "to clear head/face",
+    "to position garment on shoulders",
+    "to pull garment down trunk",
+    "for final garment adjustments",
+    "to manage front closure",
+    "to reach behind for closure",
+    "for affected arm management",
+    "for overhead garment management",
+    "for front-opening garment management",
+    "for pain management during UE ROM",
+    "to don pants over feet/ankles",
+    "to don RLE",
+    "to don LLE",
+    "to pull pants to knees",
+    "to pull pants to thighs",
+    "to pull pants over hips",
+    "to manage waistband",
+    "for hip lift/bridging to clear clothing",
+    "for transition to stand to manage pants",
+    "for seated pants management",
+    "for positioning LE for dressing",
+    "to cross leg for foot access",
+    "to reach feet for socks",
+    "to don socks",
+    "to doff socks",
+    "to reach feet for shoes",
+    "to don shoes",
+    "to doff shoes",
+    "to manage shoe closures",
+    "for managing adaptive equipment",
+    "to manage sock aid",
+    "to manage reacher",
+    "to manage dressing stick",
+    "for forward trunk flexion",
+    "for functional reach to feet",
+    "for fastener management",
+    "to manage buttons",
+    "to manage zipper",
+    "to manage snaps",
+    "to manage hooks",
+    "to manage belt",
+    "for button grasp",
+    "for button manipulation",
+    "for zipper grasp",
+    "for zipper pull",
+    "for toilet transfer",
+    "to lower to toilet",
+    "to stand from toilet",
+    "to pivot to toilet",
+    "to manage clothing down standing",
+    "to manage clothing down seated",
+    "to manage clothing up standing",
+    "to manage clothing up seated",
+    "to reach clothing behind body",
+    "for perineal reach",
+    "for perineal hygiene",
+    "for toilet paper management",
+    "for wiping",
+    "for grab bar use",
+    "for one-handed stabilization",
+    "for managing incontinence products",
+    "for shower/tub transfer",
+    "for shower/tub entry",
+    "for tub exit",
+    "for seated bathing balance",
+    "for dynamic balance during reaching",
+    "to wash anterior trunk/UEs",
+    "to wash BLEs",
+    "to reach feet for washing",
+    "to wash posterior trunk",
+    "for hair washing",
+    "to reach overhead for hair",
+    "for sustained overhead reach",
+    "for managing water controls",
+    "for managing soap/shampoo",
+    "for drying",
+    "for managing towel",
+    "for standing at sink",
+    "for seated grooming",
+    "to reach mouth for oral care",
+    "for hand-to-mouth",
+    "to reach face",
+    "to reach hair",
+    "for seated feeding position",
+    "to manage utensil",
+    "to scoop food",
+    "to cut food",
+    "for grasp on utensil"
+  ],
+  "ASSIST_LOCATIONS_BY_ACTIVITY": {
+    "UE Dressing": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Overhead garment donning": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Overhead garment doffing": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Front-opening garment donning": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Sleeve threading": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Button management": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Zipper management": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Bra management": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "LE Dressing": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at ankles/feet",
+      "at BLE",
+      "at RLE",
+      "at LLE",
+      "at affected side"
+    ],
+    "LE threading": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at RLE",
+      "at LLE"
+    ],
+    "Pants pull-up to thighs": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at RLE",
+      "at LLE"
+    ],
+    "Standing to pull pants above hips": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance support"
+    ],
+    "Seated pants donning": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at RLE",
+      "at LLE"
+    ],
+    "Standing pants donning": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance support"
+    ],
+    "Sock donning": [
+      "at trunk",
+      "at knees",
+      "at ankles/feet",
+      "for balance support"
+    ],
+    "Sock doffing": [
+      "at trunk",
+      "at knees",
+      "at ankles/feet",
+      "for balance support"
+    ],
+    "Shoe donning": [
+      "at trunk",
+      "at knees",
+      "at ankles/feet",
+      "for balance support"
+    ],
+    "Shoe doffing": [
+      "at trunk",
+      "at knees",
+      "at ankles/feet",
+      "for balance support"
+    ],
+    "Sit-to-stand": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BUE",
+      "with transfer belt"
+    ],
+    "Stand-to-sit": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Stand-pivot transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Bed-to-chair transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Chair-to-bed transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "W/C-to-bed transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Toilet transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Tub/shower transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Car transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Transfers": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Stand-pivot": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Bed Mobility": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at BUE",
+      "at affected side"
+    ],
+    "Rolling to R": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at knees",
+      "at BUE"
+    ],
+    "Rolling to L": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at knees",
+      "at BUE"
+    ],
+    "Supine-to-sit": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at BUE"
+    ],
+    "Sit-to-supine": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at knees"
+    ],
+    "Scooting up in bed": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at BUE"
+    ],
+    "Scooting to EOB": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at BUE"
+    ],
+    "Bathing": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at BUE",
+      "at BLE",
+      "for balance support"
+    ],
+    "UB washing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance support"
+    ],
+    "LB washing": [
+      "at trunk",
+      "at hips",
+      "at pelvis",
+      "for balance support"
+    ],
+    "Hair washing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance support"
+    ],
+    "Back washing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE"
+    ],
+    "Shower transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Self-Feeding": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "Utensil use": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "Cup management": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "Hygiene/Grooming": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "for balance support"
+    ],
+    "Oral care": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance support"
+    ],
+    "Hair brushing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance support"
+    ],
+    "Tooth brushing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance support"
+    ],
+    "Balance - Sitting": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders",
+      "at hips"
+    ],
+    "Balance - Standing": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "for balance support"
+    ],
+    "Static sitting balance": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders"
+    ],
+    "Dynamic sitting balance": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders"
+    ],
+    "Static standing balance": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance support"
+    ],
+    "Dynamic standing balance": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance support"
+    ],
+    "Strengthening": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at hips",
+      "at knees",
+      "at BLE"
+    ],
+    "UE strengthening": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "LE strengthening": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at RLE",
+      "at LLE"
+    ],
+    "Core strengthening": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders"
+    ],
+    "Toileting": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance support",
+      "with transfer belt"
+    ],
+    "Toilet approach": [
+      "at trunk",
+      "at hips",
+      "for balance support"
+    ],
+    "Clothing management": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance support"
+    ],
+    "Perineal hygiene": [
+      "at trunk",
+      "for balance support"
+    ],
+    "W/C": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "W/C propulsion": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "W/C transfers": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Medication Management": [
+      "for safety",
+      "for setup"
+    ],
+    "Safety Awareness": [
+      "for safety",
+      "for setup"
+    ],
+    "Memory Strategies": [
+      "for setup"
+    ],
+    "Default": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at shoulders",
+      "at BUE",
+      "at BLE",
+      "at RUE",
+      "at LUE",
+      "at RLE",
+      "at LLE",
+      "at affected side",
+      "for balance support",
+      "with transfer belt"
+    ]
+  },
+  "ASSIST_PURPOSES_BY_ACTIVITY": {
+    "Transfers": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for controlled lowering",
+      "for controlled descent",
+      "to stand",
+      "to stand from W/C",
+      "to stand from toilet",
+      "to stand from bed",
+      "to stand from mat",
+      "to sit",
+      "to sit EOB",
+      "to sit on toilet",
+      "to sit in W/C",
+      "to lower to surface",
+      "for weight shift",
+      "for anterior weight shift",
+      "for lateral weight shift",
+      "for initial lift-off from surface",
+      "for hip extension",
+      "for knee extension",
+      "for postural control",
+      "for alignment",
+      "for transfer",
+      "for trunk control",
+      "during pivoting",
+      "to clear feet during pivot",
+      "to scoot to edge of surface",
+      "for proper foot placement",
+      "to block knee(s)",
+      "to guide/facilitate movement",
+      "for generating momentum"
+    ],
+    "Sit-to-stand": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "to stand",
+      "to stand from W/C",
+      "to stand from toilet",
+      "to stand from bed",
+      "for weight shift",
+      "for anterior weight shift",
+      "for initial lift-off from surface",
+      "for hip extension",
+      "for knee extension",
+      "for postural control",
+      "for trunk control",
+      "to scoot to edge of surface",
+      "for generating momentum"
+    ],
+    "Stand-to-sit": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for controlled lowering",
+      "for controlled descent",
+      "to sit",
+      "to sit EOB",
+      "to sit on toilet",
+      "to sit in W/C",
+      "to lower to surface",
+      "for postural control",
+      "for trunk control"
+    ],
+    "Stand-pivot": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "during pivoting",
+      "to clear feet during pivot",
+      "for proper foot placement",
+      "for weight shift",
+      "for lateral weight shift",
+      "for postural control"
+    ],
+    "Stand-pivot transfer": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "during pivoting",
+      "to clear feet during pivot",
+      "for proper foot placement",
+      "for weight shift",
+      "for lateral weight shift",
+      "for postural control",
+      "for transfer"
+    ],
+    "Bed-to-chair transfer": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for transfer",
+      "to stand",
+      "to sit",
+      "for controlled lowering",
+      "for weight shift",
+      "for postural control"
+    ],
+    "Chair-to-bed transfer": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for transfer",
+      "to stand",
+      "to sit",
+      "for controlled lowering",
+      "for weight shift",
+      "for postural control"
+    ],
+    "W/C-to-bed transfer": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for transfer",
+      "to stand",
+      "to sit",
+      "for controlled lowering",
+      "for weight shift",
+      "for postural control"
+    ],
+    "Toilet transfer": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for toilet transfer",
+      "to lower to toilet",
+      "to stand from toilet",
+      "to pivot to toilet",
+      "for grab bar use",
+      "for postural control"
+    ],
+    "Tub/shower transfer": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for shower/tub transfer",
+      "for shower/tub entry",
+      "for tub exit",
+      "for grab bar use",
+      "for postural control"
+    ],
+    "Car transfer": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for transfer",
+      "for controlled lowering",
+      "for weight shift",
+      "for positioning",
+      "for postural control"
+    ],
+    "Bed Mobility": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for supine-to-sit",
+      "for sit-to-supine",
+      "for rolling",
+      "for scooting",
+      "for bridging",
+      "for positioning",
+      "for trunk rotation",
+      "for LE management in bed",
+      "to scoot to EOB",
+      "to scoot up in bed",
+      "for head/trunk dissociation",
+      "for segmental rolling",
+      "for postural control",
+      "for trunk control",
+      "to guide/facilitate movement"
+    ],
+    "Rolling": [
+      "for stability",
+      "for rolling",
+      "for trunk rotation",
+      "for head/trunk dissociation",
+      "for segmental rolling",
+      "for postural control",
+      "to guide/facilitate movement"
+    ],
+    "Rolling to R": [
+      "for stability",
+      "for rolling",
+      "for trunk rotation",
+      "for head/trunk dissociation",
+      "for segmental rolling",
+      "to guide/facilitate movement"
+    ],
+    "Rolling to L": [
+      "for stability",
+      "for rolling",
+      "for trunk rotation",
+      "for head/trunk dissociation",
+      "for segmental rolling",
+      "to guide/facilitate movement"
+    ],
+    "Supine-to-sit": [
+      "for stability",
+      "for balance support",
+      "for supine-to-sit",
+      "for trunk control",
+      "for postural control",
+      "to guide/facilitate movement"
+    ],
+    "Sit-to-supine": [
+      "for stability",
+      "for balance support",
+      "for sit-to-supine",
+      "for controlled lowering",
+      "for trunk control",
+      "for positioning"
+    ],
+    "Scooting up in bed": [
+      "for stability",
+      "for scooting",
+      "to scoot up in bed",
+      "for positioning",
+      "for LE management in bed"
+    ],
+    "Scooting to EOB": [
+      "for stability",
+      "for scooting",
+      "to scoot to EOB",
+      "for positioning",
+      "for LE management in bed"
+    ],
+    "Bridging": [
+      "for stability",
+      "for bridging",
+      "for hip extension",
+      "for trunk control",
+      "for positioning"
+    ],
+    "Balance - Sitting": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "for alignment",
+      "for trunk control",
+      "for weight shift",
+      "for lateral weight shift"
+    ],
+    "Static sitting balance": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for alignment",
+      "for trunk control"
+    ],
+    "Dynamic sitting balance": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for weight shift",
+      "for lateral weight shift",
+      "for trunk control"
+    ],
+    "Balance - Standing": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "for alignment",
+      "for trunk control",
+      "for weight shift",
+      "for anterior weight shift",
+      "for lateral weight shift",
+      "for proper foot placement"
+    ],
+    "Static standing balance": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "for alignment",
+      "for proper foot placement"
+    ],
+    "Dynamic standing balance": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "for weight shift",
+      "for anterior weight shift",
+      "for lateral weight shift"
+    ],
+    "UE Dressing": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for trunk control",
+      "to thread BUE into sleeve",
+      "to thread UUE into sleeve",
+      "for garment orientation",
+      "for gathering garment",
+      "to manage garment over head",
+      "to clear head/face",
+      "to position garment on shoulders",
+      "to pull garment down trunk",
+      "for final garment adjustments",
+      "to manage front closure",
+      "to reach behind for closure",
+      "for affected arm management",
+      "for overhead garment management",
+      "for front-opening garment management"
+    ],
+    "Upper Body": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for trunk control",
+      "to thread BUE into sleeve",
+      "to thread UUE into sleeve",
+      "for garment orientation",
+      "for gathering garment",
+      "to manage garment over head",
+      "to clear head/face",
+      "to position garment on shoulders",
+      "to pull garment down trunk",
+      "for final garment adjustments",
+      "to manage front closure",
+      "to reach behind for closure",
+      "for affected arm management",
+      "for overhead garment management",
+      "for front-opening garment management"
+    ],
+    "Overhead garment donning": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to manage garment over head",
+      "to clear head/face",
+      "to position garment on shoulders",
+      "to pull garment down trunk",
+      "for affected arm management"
+    ],
+    "Overhead garment doffing": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to manage garment over head",
+      "to clear head/face",
+      "for affected arm management"
+    ],
+    "Front-opening garment donning": [
+      "for stability",
+      "for postural control",
+      "to thread BUE into sleeve",
+      "to thread UUE into sleeve",
+      "for garment orientation",
+      "to manage front closure",
+      "for affected arm management"
+    ],
+    "Sleeve threading": [
+      "for stability",
+      "for postural control",
+      "to thread BUE into sleeve",
+      "to thread UUE into sleeve",
+      "for affected arm management"
+    ],
+    "Button management": [
+      "for stability",
+      "for postural control",
+      "for fastener management",
+      "to manage buttons",
+      "for button grasp",
+      "for button manipulation"
+    ],
+    "Zipper management": [
+      "for stability",
+      "for postural control",
+      "for fastener management",
+      "to manage zipper",
+      "for zipper grasp",
+      "for zipper pull"
+    ],
+    "Bra management": [
+      "for stability",
+      "for postural control",
+      "to reach behind for closure",
+      "for fastener management"
+    ],
+    "LE Dressing": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "for trunk control",
+      "to don pants over feet/ankles",
+      "to don RLE",
+      "to don LLE",
+      "to pull pants to knees",
+      "to pull pants to thighs",
+      "to pull pants over hips",
+      "to manage waistband",
+      "for hip lift/bridging to clear clothing",
+      "for transition to stand to manage pants",
+      "for seated pants management",
+      "for positioning LE for dressing",
+      "to cross leg for foot access",
+      "for forward trunk flexion",
+      "for functional reach to feet"
+    ],
+    "Lower Body": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "for trunk control",
+      "to don pants over feet/ankles",
+      "to don RLE",
+      "to don LLE",
+      "to pull pants to knees",
+      "to pull pants to thighs",
+      "to pull pants over hips",
+      "to manage waistband",
+      "for hip lift/bridging to clear clothing",
+      "for transition to stand to manage pants",
+      "for seated pants management",
+      "for positioning LE for dressing",
+      "to cross leg for foot access",
+      "for forward trunk flexion",
+      "for functional reach to feet"
+    ],
+    "LE threading": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to don pants over feet/ankles",
+      "to don RLE",
+      "to don LLE",
+      "for positioning LE for dressing"
+    ],
+    "Pants pull-up to thighs": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to pull pants to knees",
+      "to pull pants to thighs"
+    ],
+    "Standing to pull pants above hips": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "to pull pants over hips",
+      "to manage waistband"
+    ],
+    "Seated pants donning": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to don pants over feet/ankles",
+      "to pull pants to knees",
+      "for seated pants management"
+    ],
+    "Standing pants donning": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "to pull pants over hips",
+      "to manage waistband",
+      "for transition to stand to manage pants"
+    ],
+    "Footwear": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to reach feet for socks",
+      "to don socks",
+      "to doff socks",
+      "to reach feet for shoes",
+      "to don shoes",
+      "to doff shoes",
+      "to manage shoe closures",
+      "for managing adaptive equipment",
+      "to manage sock aid",
+      "to manage reacher",
+      "to manage dressing stick",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "to cross leg for foot access"
+    ],
+    "Sock donning": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to reach feet for socks",
+      "to don socks",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "to cross leg for foot access"
+    ],
+    "Sock doffing": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to doff socks",
+      "for forward trunk flexion",
+      "for functional reach to feet"
+    ],
+    "Shoe donning": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to reach feet for shoes",
+      "to don shoes",
+      "to manage shoe closures",
+      "for forward trunk flexion",
+      "for functional reach to feet"
+    ],
+    "Shoe doffing": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to doff shoes",
+      "for forward trunk flexion",
+      "for functional reach to feet"
+    ],
+    "Fasteners": [
+      "for stability",
+      "for postural control",
+      "for fastener management",
+      "to manage buttons",
+      "to manage zipper",
+      "to manage snaps",
+      "to manage hooks",
+      "to manage belt",
+      "for button grasp",
+      "for button manipulation",
+      "for zipper grasp",
+      "for zipper pull"
+    ],
+    "Toileting": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for toilet transfer",
+      "to lower to toilet",
+      "to stand from toilet",
+      "to pivot to toilet",
+      "to manage clothing down standing",
+      "to manage clothing down seated",
+      "to manage clothing up standing",
+      "to manage clothing up seated",
+      "to reach clothing behind body",
+      "for perineal reach",
+      "for perineal hygiene",
+      "for toilet paper management",
+      "for wiping",
+      "for grab bar use",
+      "for one-handed stabilization",
+      "for managing incontinence products",
+      "for postural control"
+    ],
+    "Toilet approach": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "during pivoting"
+    ],
+    "Clothing management": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "to manage clothing down standing",
+      "to manage clothing down seated",
+      "to manage clothing up standing",
+      "to manage clothing up seated",
+      "to reach clothing behind body"
+    ],
+    "Perineal hygiene": [
+      "for stability",
+      "for balance support",
+      "for perineal reach",
+      "for perineal hygiene",
+      "for toilet paper management",
+      "for wiping"
+    ],
+    "Bathing": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for shower/tub transfer",
+      "for shower/tub entry",
+      "for tub exit",
+      "for seated bathing balance",
+      "for dynamic balance during reaching",
+      "to wash anterior trunk/UEs",
+      "to wash BLEs",
+      "to reach feet for washing",
+      "to wash posterior trunk",
+      "for hair washing",
+      "to reach overhead for hair",
+      "for sustained overhead reach",
+      "for managing water controls",
+      "for managing soap/shampoo",
+      "for drying",
+      "for managing towel",
+      "for grab bar use",
+      "for postural control"
+    ],
+    "UB washing": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to wash anterior trunk/UEs",
+      "to wash posterior trunk",
+      "for seated bathing balance"
+    ],
+    "LB washing": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "to wash BLEs",
+      "to reach feet for washing",
+      "for forward trunk flexion",
+      "for seated bathing balance"
+    ],
+    "Hair washing": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for hair washing",
+      "to reach overhead for hair",
+      "for sustained overhead reach"
+    ],
+    "Back washing": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to wash posterior trunk",
+      "to reach behind for closure"
+    ],
+    "Shower/Tub": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for shower/tub transfer",
+      "for shower/tub entry",
+      "for tub exit",
+      "for seated bathing balance",
+      "for dynamic balance during reaching",
+      "for grab bar use",
+      "for postural control",
+      "for drying",
+      "for managing towel"
+    ],
+    "Shower transfer": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for shower/tub transfer",
+      "for shower/tub entry",
+      "for tub exit",
+      "for grab bar use"
+    ],
+    "Hygiene/Grooming": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for standing at sink",
+      "for seated grooming",
+      "to reach mouth for oral care",
+      "for hand-to-mouth",
+      "to reach face",
+      "to reach hair",
+      "for postural control",
+      "for hair washing",
+      "to reach overhead for hair",
+      "for sustained overhead reach"
+    ],
+    "Oral care": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for standing at sink",
+      "for seated grooming",
+      "to reach mouth for oral care"
+    ],
+    "Oral Care": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for standing at sink",
+      "for seated grooming",
+      "to reach mouth for oral care"
+    ],
+    "Hair brushing": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for standing at sink",
+      "to reach hair",
+      "to reach overhead for hair",
+      "for sustained overhead reach"
+    ],
+    "Hair Care": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "to reach hair",
+      "to reach overhead for hair",
+      "for sustained overhead reach",
+      "for hair washing"
+    ],
+    "Tooth brushing": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for standing at sink",
+      "to reach mouth for oral care"
+    ],
+    "Face/Skin": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for standing at sink",
+      "for seated grooming",
+      "to reach face"
+    ],
+    "Self-Feeding": [
+      "for stability",
+      "for balance support",
+      "for seated feeding position",
+      "to manage utensil",
+      "to scoop food",
+      "to cut food",
+      "for grasp on utensil",
+      "for hand-to-mouth",
+      "for postural control",
+      "for trunk control"
+    ],
+    "Utensil use": [
+      "for stability",
+      "for postural control",
+      "to manage utensil",
+      "to scoop food",
+      "for grasp on utensil",
+      "for hand-to-mouth"
+    ],
+    "Cup management": [
+      "for stability",
+      "for postural control",
+      "for hand-to-mouth",
+      "for grasp on utensil"
+    ],
+    "W/C": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for transfer",
+      "for postural control",
+      "for positioning",
+      "for weight shift"
+    ],
+    "W/C propulsion": [
+      "for stability",
+      "for postural control",
+      "for positioning",
+      "to guide/facilitate movement"
+    ],
+    "W/C transfers": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for transfer",
+      "for postural control",
+      "for weight shift"
+    ],
+    "Strengthening": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for trunk control",
+      "for positioning",
+      "to guide/facilitate movement"
+    ],
+    "UE strengthening": [
+      "for stability",
+      "for postural control",
+      "for trunk control",
+      "for positioning",
+      "to guide/facilitate movement"
+    ],
+    "LE strengthening": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for trunk control",
+      "to guide/facilitate movement"
+    ],
+    "Core strengthening": [
+      "for stability",
+      "for postural control",
+      "for trunk control",
+      "to guide/facilitate movement"
+    ],
+    "ROM - UE": [
+      "for stability",
+      "for postural control",
+      "for pain management during UE ROM",
+      "to guide/facilitate movement",
+      "for positioning"
+    ],
+    "Weight Bearing - UE": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for weight shift",
+      "for anterior weight shift",
+      "for lateral weight shift",
+      "for trunk control"
+    ],
+    "Postural Control - UE Tasks": [
+      "for stability",
+      "for balance support",
+      "for postural control",
+      "for trunk control",
+      "for weight shift",
+      "for alignment"
+    ],
+    "Fine Motor": [
+      "for stability",
+      "for postural control",
+      "to guide/facilitate movement"
+    ],
+    "Medication Management": [
+      "for safety",
+      "for postural control"
+    ],
+    "Safety Awareness": [
+      "for safety",
+      "for postural control"
+    ],
+    "Meal Preparation": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "for standing at sink"
+    ],
+    "Home Management": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control"
+    ],
+    "Default": [
+      "for stability",
+      "for balance support",
+      "for safety",
+      "for postural control",
+      "for alignment",
+      "for trunk control",
+      "for weight shift",
+      "to guide/facilitate movement",
+      "for positioning"
+    ]
+  },
+  "MODI_MODIFIERS": [
+    "with use of adaptive equipment",
+    "with increased time for completion",
+    "with compensatory techniques",
+    "with setup assistance",
+    "with verbal cues only",
+    "with environmental modifications",
+    "with safety concerns",
+    "with assistive device",
+    "with one-handed techniques",
+    "with energy conservation methods"
+  ]
+}

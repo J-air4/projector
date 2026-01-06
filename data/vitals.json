@@ -1,0 +1,65 @@
+{
+  "PAIN_LOCATIONS": [
+    "right shoulder",
+    "left shoulder",
+    "bilateral shoulders",
+    "right knee",
+    "left knee",
+    "bilateral knees",
+    "lower back",
+    "upper back",
+    "neck",
+    "right hip",
+    "left hip",
+    "bilateral hips",
+    "right ankle",
+    "left ankle",
+    "bilateral ankles"
+  ],
+  "PAIN_RATINGS": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10"
+  ],
+  "HR_OPTIONS": [
+    "60",
+    "65",
+    "70",
+    "75",
+    "80",
+    "85",
+    "90",
+    "95",
+    "100",
+    "105",
+    "110"
+  ],
+  "O2SAT_OPTIONS": [
+    "92",
+    "93",
+    "94",
+    "95",
+    "96",
+    "97",
+    "98",
+    "99",
+    "100"
+  ],
+  "BP_OPTIONS": [
+    "110/70",
+    "120/80",
+    "130/80",
+    "130/85",
+    "140/90",
+    "150/90",
+    "160/90"
+  ]
+}

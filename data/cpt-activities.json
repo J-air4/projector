@@ -1,0 +1,1021 @@
+{
+  "CPT_CODES": [
+    {
+      "code": "97530",
+      "label": "Therapeutic Activities"
+    },
+    {
+      "code": "97533",
+      "label": "Cognitive Skills Development"
+    },
+    {
+      "code": "97535",
+      "label": "Self-Care / Home Management"
+    },
+    {
+      "code": "97112",
+      "label": "Neuromuscular Re-education"
+    },
+    {
+      "code": "97110",
+      "label": "Therapeutic Exercise"
+    },
+    {
+      "code": "97542",
+      "label": "Wheelchair Management"
+    },
+    {
+      "code": "97140",
+      "label": "Manual Therapy"
+    }
+  ],
+  "ACTIVITIES_BY_CPT": {
+    "97110": {
+      "ROM - UE": [
+        "Shoulder AROM all planes",
+        "Shoulder AAROM all planes",
+        "Elbow AROM flexion/extension",
+        "Forearm AROM supination/pronation",
+        "Wrist AROM flexion/extension",
+        "Wrist AROM radial/ulnar deviation",
+        "Finger AROM composite",
+        "Thumb AROM opposition"
+      ],
+      "ROM - Trunk/Neck": [
+        "Cervical AROM",
+        "Thoracic rotation AROM",
+        "Trunk lateral flexion",
+        "Trunk rotation",
+        "Combined trunk patterns"
+      ],
+      "Stretching": [
+        "UE stretching routine",
+        "Pectoralis stretching",
+        "Shoulder capsule stretching",
+        "Wrist flexor stretching",
+        "Wrist extensor stretching",
+        "Finger flexor stretching",
+        "Trunk stretching"
+      ],
+      "Strengthening - UE": [
+        "Shoulder strengthening progressive",
+        "Elbow strengthening progressive",
+        "Wrist strengthening progressive",
+        "Grip strengthening progressive",
+        "Pinch strengthening progressive",
+        "Intrinsic strengthening"
+      ],
+      "Strengthening - Core": [
+        "Core stabilization supine",
+        "Core stabilization sitting",
+        "Core stabilization standing",
+        "Bridging progressions",
+        "Plank progressions",
+        "Anti-rotation training"
+      ],
+      "Strengthening - Functional": [
+        "Push-up progressions",
+        "Pull patterns",
+        "Carry patterns",
+        "Lifting patterns",
+        "Lowering patterns"
+      ],
+      "Endurance": [
+        "Graded activity tolerance",
+        "Interval training UE",
+        "Sustained activity training",
+        "Repetitive task endurance",
+        "ADL simulation endurance"
+      ]
+    },
+    "97112": {
+      "Balance Training": [
+        "Static balance",
+        "Dynamic balance",
+        "Reactive balance",
+        "Anticipatory balance",
+        "Sensory integration for balance",
+        "Balance with dual-task",
+        "Balance on unstable surfaces"
+      ],
+      "Coordination": [
+        "Gross motor coordination",
+        "Fine motor coordination",
+        "Bilateral coordination",
+        "Eye-hand coordination",
+        "Rhythmic movement patterns",
+        "Alternating movements"
+      ],
+      "Postural Control": [
+        "Core stabilization",
+        "Trunk control",
+        "Postural alignment",
+        "Weight shifting",
+        "Righting reactions",
+        "Equilibrium reactions"
+      ],
+      "Motor Planning": [
+        "Sequencing movements",
+        "Motor learning activities",
+        "Praxis training",
+        "Movement timing",
+        "Force modulation",
+        "Movement transitions"
+      ],
+      "Proprioception": [
+        "Joint position sense",
+        "Movement awareness",
+        "Weight bearing feedback",
+        "Body scheme training",
+        "Position matching"
+      ],
+      "Motor Control UE": [
+        "Movement pattern retraining UE",
+        "Coordination training UE",
+        "Reach-grasp-release patterns",
+        "Timing/rhythm training UE"
+      ],
+      "Motor Control Trunk": [
+        "Trunk control training",
+        "Core stabilization dynamic",
+        "Trunk dissociation",
+        "Trunk rotation control"
+      ],
+      "Sensory Integration": [
+        "Proprioceptive training",
+        "Vestibular activities",
+        "Visual-motor integration",
+        "Sensory discrimination training"
+      ],
+      "Neuromuscular Facilitation": [
+        "PNF patterns D1/D2",
+        "Rhythmic initiation",
+        "Slow reversal",
+        "Agonist reversal",
+        "Repeated contractions"
+      ]
+    },
+    "97140": {
+      "Soft Tissue": [
+        "Myofascial release UE",
+        "Scar mobilization",
+        "Scar desensitization",
+        "Muscle lengthening techniques",
+        "Trigger point release",
+        "Cross-friction massage",
+        "Soft tissue mobilization shoulder",
+        "Soft tissue mobilization forearm",
+        "Soft tissue mobilization hand"
+      ],
+      "Joint Mobilization": [
+        "PROM shoulder",
+        "PROM elbow",
+        "PROM wrist",
+        "PROM digits",
+        "Joint glides shoulder",
+        "Joint glides elbow",
+        "Joint glides wrist",
+        "Joint glides digits",
+        "Capsular stretching shoulder",
+        "Capsular stretching digits"
+      ],
+      "Manual Stretching": [
+        "PNF stretching UE",
+        "Contract-relax technique",
+        "Hold-relax technique",
+        "Prolonged passive stretch",
+        "Low-load prolonged stretch"
+      ],
+      "Edema Management": [
+        "Retrograde massage",
+        "Manual lymphatic drainage",
+        "Compression wrapping",
+        "Elevation positioning",
+        "AROM for edema"
+      ],
+      "Desensitization": [
+        "Texture grading",
+        "Pressure grading",
+        "Vibration exposure",
+        "Temperature grading",
+        "Functional desensitization"
+      ]
+    },
+    "97530": {
+      "Therapeutic Balance Training": [
+        "Dynamic standing balance",
+        "Static standing balance",
+        "Single leg stance",
+        "Standing weight shifts",
+        "Lateral weight shifts",
+        "Forward/backward weight shifts",
+        "Standing on uneven surfaces",
+        "Standing on foam",
+        "Standing balance perturbations",
+        "Dynamic balance reactions",
+        "Compensatory stepping",
+        "Protective stepping reactions",
+        "Standing reach-and-return",
+        "Standing with dual-task",
+        "Eyes closed balance",
+        "Head turn balance challenges"
+      ],
+      "Functional Stepping Skills": [
+        "Step-ups on step stool",
+        "Lateral step-ups",
+        "Stepping up/down",
+        "Sidestepping",
+        "Step-to pattern",
+        "Lateral stepping",
+        "Backward stepping",
+        "In-place stepping",
+        "Step initiation practice",
+        "Step termination practice",
+        "Multi-directional stepping"
+      ],
+      "Weight Bearing - UE": [
+        "Weight bearing through extended UEs",
+        "Weight bearing through BUE at table",
+        "Weight bearing through affected UE",
+        "Weight shifting through UEs",
+        "Quadruped weight bearing",
+        "Modified plank weight bearing",
+        "Wall push-up weight bearing",
+        "Counter weight bearing",
+        "Prone on elbows weight bearing",
+        "Seated weight bearing through UEs",
+        "Weight bearing with reaching",
+        "Dynamic weight bearing UE",
+        "Progressive UE weight bearing",
+        "Weight bearing with object manipulation"
+      ],
+      "Postural Control - UE Tasks": [
+        "Seated reaching activities",
+        "Standing reaching activities",
+        "Overhead reaching with trunk control",
+        "Bilateral UE lifting tasks",
+        "UE activities with trunk stabilization",
+        "Reaching across midline",
+        "Reaching outside base of support",
+        "Push-pull activities seated",
+        "Push-pull activities standing",
+        "Carrying objects with postural control",
+        "Lifting objects with postural control",
+        "UE activities with weight shift"
+      ],
+      "Transfers": [
+        "Sit-to-stand",
+        "Stand-to-sit",
+        "Stand-pivot",
+        "Squat-pivot",
+        "Sliding board",
+        "Surface-to-surface",
+        "Bed \u2194 W/C",
+        "W/C \u2194 mat",
+        "W/C \u2194 toilet",
+        "W/C \u2194 tub bench",
+        "Car transfer",
+        "Floor-to-stand",
+        "Stand-to-floor",
+        "Recliner transfer",
+        "Transfer with varying surface heights"
+      ],
+      "Balance - Sitting": [
+        "Sitting EOB for dressing",
+        "Sitting EOB to manage shoes/socks",
+        "Sitting to reach nightstand",
+        "Sitting to manage bedside items",
+        "Seated reaching for clothing",
+        "Seated reaching for grooming items",
+        "Sitting unsupported during ADL",
+        "Seated weight shift for LE dressing",
+        "Sitting at sink for grooming",
+        "Seated meal preparation tasks",
+        "Sitting to fold laundry",
+        "Seated reaching into drawers",
+        "Sitting to manage phone/remote",
+        "Seated trunk rotation for ADL",
+        "Sitting on toilet for clothing management",
+        "Sitting on shower bench",
+        "Seated reaching for bath items",
+        "Sitting in W/C reaching for objects"
+      ],
+      "Balance - Standing": [
+        "Standing at sink for grooming",
+        "Standing at counter for meal prep",
+        "Standing to fold laundry",
+        "Standing to load/unload dishwasher",
+        "Reaching into low cabinet",
+        "Reaching into high cabinet",
+        "Reaching into refrigerator",
+        "Retrieving items from floor",
+        "Picking up laundry basket",
+        "Wiping counters standing",
+        "Standing to sort mail",
+        "Standing at closet for clothing selection",
+        "Standing at dresser for dressing",
+        "Watering plants",
+        "Standing at stove simulation",
+        "Standing to manage trash",
+        "Standing to open/close drawers",
+        "Standing with walker during ADL",
+        "Standing with cane during ADL",
+        "Multi-step standing task"
+      ],
+      "Bed Mobility": [
+        "Supine-to-sit",
+        "Sit-to-supine",
+        "Rolling to L",
+        "Rolling to R",
+        "Segmental rolling",
+        "Log rolling",
+        "Scooting up in bed",
+        "Scooting to EOB",
+        "Scooting side-to-side",
+        "Bridging",
+        "Bridging with marching",
+        "LE management in bed",
+        "UE positioning in bed",
+        "Head of bed adjustment",
+        "Blanket management",
+        "Bed rail use"
+      ],
+      "Postural Control": [
+        "Midline orientation",
+        "Core activation",
+        "Trunk stabilization",
+        "Postural transitions",
+        "Antigravity trunk control",
+        "Trunk extension strengthening",
+        "Trunk rotation control",
+        "Lateral trunk control",
+        "Seated postural alignment",
+        "Standing postural alignment"
+      ],
+      "Functional Bending/Retrieval": [
+        "Retrieving shoes from floor",
+        "Picking up dropped object",
+        "Retrieving item from low shelf",
+        "Loading/unloading lower dishwasher rack",
+        "Retrieving laundry from dryer",
+        "Picking up laundry from basket",
+        "Retrieving item from under bed",
+        "Pet care - feeding bowl",
+        "Retrieving newspaper",
+        "Emptying low trash can",
+        "Loading washer/dryer",
+        "Retrieving pots from low cabinet",
+        "Picking up grandchild simulation",
+        "Floor-to-counter object transfer",
+        "Gardening simulation - reaching ground"
+      ],
+      "Functional Reaching": [
+        "Forward reaching",
+        "Lateral reaching",
+        "Overhead reaching",
+        "Cross-body reaching",
+        "Floor-level reaching",
+        "Reaching with rotation",
+        "Reaching in standing",
+        "Reaching in sitting",
+        "Sustained reaching",
+        "Graded reaching distances"
+      ],
+      "Bilateral Integration": [
+        "Bimanual tasks",
+        "Stabilize-manipulate activities",
+        "Bilateral sequencing",
+        "Alternating bilateral patterns",
+        "Simultaneous bilateral patterns",
+        "Bilateral folding tasks",
+        "Bilateral carrying",
+        "Opening containers with two hands"
+      ],
+      "Fine Motor": [
+        "Pincer grasp",
+        "Tripod grasp",
+        "Lateral pinch",
+        "In-hand manipulation translation",
+        "In-hand manipulation rotation",
+        "In-hand manipulation shift",
+        "Precision placement",
+        "Grasp/release graded objects",
+        "Finger isolation",
+        "Finger opposition",
+        "Coin manipulation",
+        "Peg activities",
+        "Bead stringing"
+      ],
+      "Gross Motor UE": [
+        "Shoulder flexion patterns",
+        "Shoulder abduction patterns",
+        "Elbow flexion/extension",
+        "Forearm rotation",
+        "Wrist motion patterns",
+        "Combined UE patterns",
+        "Bilateral pushing",
+        "Bilateral pulling",
+        "Throwing patterns",
+        "Catching patterns"
+      ],
+      "Strengthening": [
+        "Resistive band exercises",
+        "Therapy ball exercises",
+        "Graded weight activities",
+        "Eccentric control training",
+        "Isometric holds",
+        "Progressive resistance training",
+        "Functional strengthening tasks",
+        "Weight bearing through UE",
+        "Pushing/pulling activities",
+        "Grip strengthening"
+      ],
+      "Eye-Hand Coordination": [
+        "Ball toss/catch",
+        "Target toss",
+        "Balloon batting",
+        "Ring toss",
+        "Stacking activities",
+        "Pouring activities",
+        "Pegboard activities",
+        "Lacing activities",
+        "Threading activities"
+      ],
+      "Overhead Activities": [
+        "Overhead reaching",
+        "Shelf stocking simulation",
+        "Sustained overhead holding",
+        "Cabinet reaching",
+        "Hanging items",
+        "Overhead weight bearing",
+        "Hair care simulation",
+        "Overhead dressing simulation"
+      ],
+      "Clothing Fasteners": [
+        "Button board training",
+        "Zipper practice",
+        "Hook/snap fasteners",
+        "One-handed buttoning",
+        "One-handed zipping",
+        "Velcro management",
+        "Shoelace tying",
+        "Buckle management"
+      ],
+      "Kitchen/Homemaking": [
+        "Counter work simulation",
+        "Stove safety training",
+        "Refrigerator access",
+        "Cabinet access",
+        "Dishwashing simulation",
+        "Table wiping",
+        "Sweeping/mopping simulation",
+        "Laundry simulation",
+        "Bed making",
+        "Object retrieval from floor"
+      ],
+      "Functional Ambulation": [
+        "Ambulation with object carry",
+        "Ambulation to bathroom",
+        "Ambulation to kitchen",
+        "Ambulation with walker and item",
+        "Stair negotiation - IADL context",
+        "Threshold navigation",
+        "Outdoor ambulation simulation",
+        "Ambulation on uneven surfaces",
+        "Distance ambulation training"
+      ],
+      "Stair Training": [
+        "Step-up training",
+        "Step-down training",
+        "Stair negotiation with rail",
+        "Stair negotiation without rail",
+        "Curb negotiation",
+        "Step-over-step pattern",
+        "Step-to pattern",
+        "Multiple step training",
+        "Stair safety training"
+      ]
+    },
+    "97533": {
+      "Medication Management": [
+        "Pill box setup",
+        "Medication schedule training",
+        "Dosage calculation",
+        "Reading medication labels",
+        "Identifying pills by shape/color",
+        "Setting alarms/reminders",
+        "Medication safety review",
+        "Side effect awareness",
+        "Prescription refill management"
+      ],
+      "Safety Awareness": [
+        "Home safety assessment review",
+        "Kitchen safety training",
+        "Bathroom safety training",
+        "Emergency procedures",
+        "Fall risk awareness",
+        "Tool safety",
+        "Fire safety",
+        "Medication safety",
+        "Driving safety assessment"
+      ],
+      "Sequencing/Planning": [
+        "Multi-step ADL sequencing",
+        "Task planning strategies",
+        "Meal preparation sequencing",
+        "Dressing sequence training",
+        "Bathing sequence training",
+        "Grooming routine sequencing",
+        "Problem-solving steps",
+        "Priority setting",
+        "Time management"
+      ],
+      "Memory Strategies": [
+        "Memory aid training",
+        "Calendar use training",
+        "Note-taking strategies",
+        "Repetition techniques",
+        "Visual memory cues",
+        "Auditory memory techniques",
+        "External memory aids",
+        "Recall strategies",
+        "Recognition training"
+      ],
+      "Attention Training": [
+        "Sustained attention tasks",
+        "Divided attention training",
+        "Selective attention",
+        "Alternating attention",
+        "Attention to safety",
+        "Visual attention training",
+        "Auditory attention training",
+        "Attention during ADL"
+      ],
+      "Executive Function": [
+        "Problem-solving training",
+        "Decision-making strategies",
+        "Impulse control training",
+        "Cognitive flexibility training",
+        "Working memory tasks",
+        "Inhibition training",
+        "Planning/organization",
+        "Self-monitoring strategies"
+      ],
+      "Orientation Training": [
+        "Person orientation",
+        "Place orientation",
+        "Time orientation",
+        "Situation awareness",
+        "Reality orientation",
+        "Environmental awareness",
+        "Social awareness"
+      ],
+      "Money Management": [
+        "Coin identification",
+        "Bill identification",
+        "Making change",
+        "Basic math skills",
+        "Checkbook management",
+        "Budget planning",
+        "Bill paying",
+        "ATM use",
+        "Credit card safety"
+      ],
+      "Communication": [
+        "Following verbal instructions",
+        "Following written instructions",
+        "Phone use training",
+        "Emergency calling",
+        "Taking messages",
+        "Social communication",
+        "Requesting assistance",
+        "Expressing needs"
+      ],
+      "Visual Processing": [
+        "Visual scanning training",
+        "Figure-ground training",
+        "Visual attention tasks",
+        "Visual sequencing",
+        "Pattern recognition",
+        "Spatial relationships",
+        "Visual discrimination",
+        "Contrast sensitivity training"
+      ],
+      "Reading/Writing": [
+        "Functional reading",
+        "Form completion",
+        "Signature practice",
+        "List making",
+        "Note writing",
+        "Email/text practice",
+        "Calendar entries",
+        "Medication log completion"
+      ]
+    },
+    "97535": {
+      "Bathing": {
+        "Upper Body": {
+          "short": [
+            "Arm washing",
+            "Axilla care",
+            "Back washing with long-handled sponge",
+            "Chest washing",
+            "Face washing",
+            "Neck washing"
+          ],
+          "phrases": [
+            "Patient instructed in one-handed techniques for washing and managing soap/shampoo",
+            "UB washing performed at sink with seated positioning"
+          ]
+        },
+        "Lower Body": {
+          "short": [
+            "Between-toes cleaning",
+            "Foot washing",
+            "Leg washing",
+            "Perineal care education"
+          ],
+          "phrases": [
+            "LB washing performed using long-handled sponge while seated on shower bench",
+            "Perineal care technique and safety instructed while seated on tub bench"
+          ]
+        },
+        "Shower/Tub": {
+          "short": [
+            "Grab bar use",
+            "Reaching for bath items",
+            "Shower bench use",
+            "Shower organization",
+            "Shower transfer",
+            "Tub transfer",
+            "Water temperature management"
+          ],
+          "phrases": [
+            "Bathing routine performed focusing on balance and problem-solving strategies",
+            "Drying routine trained/rehearsed using adaptive techniques for limited reach",
+            "Drying UB/LB performed while seated EOB/on shower chair",
+            "Patient and caregiver educated on setup and use of shower chair/bench for safe transfers",
+            "Patient educated on energy conservation techniques and breathing strategies during bathing",
+            "Patient educated on techniques for thorough skin inspection post-bathing",
+            "Patient facilitated in completing bathing routine focusing on sequencing and safety",
+            "Patient facilitated in shower/tub entry and exit",
+            "Patient instructed in proper sequencing of bathing routine",
+            "Patient instructed in safe tub/shower transfer technique adhering to hip precautions",
+            "Patient instructed in techniques for drying lower back and feet using towel or bathrobe",
+            "Shower transfer performed using tub bench and grab bar",
+            "Shower/tub transfer trained using tub transfer bench and grab bar",
+            "Stand pivot transfer to/from shower chair performed using RW",
+            "Transfer to rolling shower commode and positioning in shower stall trained/rehearsed",
+            "UB/LB washing performed seated on shower chair using long-handled sponge for lower extremities"
+          ]
+        }
+      },
+      "Dressing": {
+        "Upper Body": {
+          "short": [
+            "Bra management",
+            "Button-up shirt",
+            "Hospital gown management",
+            "Jacket/coat donning",
+            "Pullover shirt",
+            "Shirt donning/doffing"
+          ],
+          "phrases": [
+            "Button-up shirt donning/doffing trained/rehearsed using one-handed technique",
+            "Clothing management tasks performed",
+            "Full dressing routine simulated seated EOB",
+            "Hospital gown management trained/rehearsed",
+            "Patient facilitated in complete dressing sequence",
+            "Patient facilitated in donning/doffing pullover shirt",
+            "Patient instructed in affected arm first technique for UB dressing",
+            "Patient instructed in donning/doffing t-shirt with demonstration",
+            "Patient instructed in UB dressing training implementing one-hand technique",
+            "UB dressing performed seated EOB",
+            "UB dressing tasks performed",
+            "UB dressing training using adaptive equipment",
+            "UB/LB dressing training using adaptive equipment",
+            "Upper and lower body dressing trained/rehearsed"
+          ]
+        },
+        "Lower Body": {
+          "short": [
+            "Pants donning/doffing",
+            "Shorts donning",
+            "Skirt management",
+            "Underwear management"
+          ],
+          "phrases": [
+            "Clothing management tasks performed",
+            "Full dressing routine simulated seated EOB",
+            "LB dressing performed using reacher and dressing stick",
+            "LB dressing simulation using theraband loop performed",
+            "LB dressing task training with education on compensatory LE threading techniques",
+            "LB dressing tasks performed while seated EOB",
+            "LB dressing training with long-handled shoehorn use",
+            "Pants donning/doffing trained/rehearsed while seated",
+            "Patient educated on use of sock aid for independent sock donning",
+            "Patient facilitated in complete dressing sequence",
+            "Patient facilitated in LB dressing and shoe donning tasks",
+            "Patient instructed in LB dressing adhering to hip precautions",
+            "UB/LB dressing training using adaptive equipment",
+            "Upper and lower body dressing trained/rehearsed"
+          ]
+        },
+        "Footwear": {
+          "short": [
+            "Adaptive footwear use",
+            "AFO/brace donning",
+            "Compression stocking application",
+            "Shoe donning/doffing",
+            "Sock donning/doffing"
+          ],
+          "phrases": []
+        },
+        "Fasteners": {
+          "short": [
+            "Button management",
+            "Shoelace tying",
+            "Snap closure",
+            "Velcro management",
+            "Zipper management"
+          ],
+          "phrases": [
+            "Fastener management trained using button hook",
+            "One-handed buttoning technique instructed",
+            "Patient instructed in adaptive fastener techniques",
+            "Shoelace tying alternatives educated (elastic laces, slip-on shoes)",
+            "Zipper management trained/rehearsed using zipper pull"
+          ]
+        }
+      },
+      "Grooming": {
+        "Oral Care": {
+          "short": [
+            "Denture care",
+            "Flossing",
+            "Mouthwash use",
+            "Toothbrushing"
+          ],
+          "phrases": [
+            "Grooming at sink trained using built-up handle toothbrush for improved grip",
+            "Oral care routine performed with adapted equipment for one-handed use",
+            "Oral hygiene tasks (toothbrushing, flossing) performed seated at sink",
+            "Patient facilitated in denture care routine focusing on sequencing",
+            "Patient instructed in use of electric toothbrush to compensate for limited fine motor control/endurance"
+          ]
+        },
+        "Hair Care": {
+          "short": [
+            "Hair brushing/combing",
+            "Hair drying",
+            "Hair styling",
+            "Hair washing"
+          ],
+          "phrases": [
+            "Hair brushing/combing performed seated focusing on postural control",
+            "Hair washing performed at sink with seated positioning",
+            "Patient facilitated in hair care routine using adaptive equipment",
+            "Patient instructed in use of long-handled comb/brush to compensate for limited shoulder ROM"
+          ]
+        },
+        "Face/Skin": {
+          "short": [
+            "Deodorant application",
+            "Face washing",
+            "Lotion application",
+            "Makeup application",
+            "Shaving"
+          ],
+          "phrases": [
+            "Face washing and application of makeup/lotion performed using one-handed techniques",
+            "Grooming tasks at sink trained/rehearsed focusing on static/dynamic standing balance",
+            "Lotion/deodorant application practiced using adaptive techniques",
+            "Patient facilitated in setup and cleanup for shaving task",
+            "Patient instructed in safe shaving techniques while seated at sink",
+            "Patient instructed in seated grooming routine at sink for safety",
+            "Shaving routine trained/rehearsed with mirror positioning for visual compensation",
+            "Shaving tasks simulated/performed using electric razor for safety and ease of use"
+          ]
+        },
+        "Nail Care": {
+          "short": [
+            "Fingernail care",
+            "Nail filing",
+            "Toenail care"
+          ],
+          "phrases": []
+        }
+      },
+      "Toileting": {
+        "Transfer": {
+          "short": [
+            "Bedpan use",
+            "Commode transfer",
+            "Toilet transfer sit-to-stand",
+            "Toilet transfer stand-to-sit"
+          ],
+          "phrases": [
+            "Patient instructed in safe toilet transfer technique adhering to hip precautions",
+            "Patient instructed in w/c <> standard toilet stand pivot transfer",
+            "Scooting pivot transfer from bed <> w/c <> raised toilet seat performed",
+            "Stand pivot transfer from w/c <> raised toilet seat performed with RW",
+            "Stand pivot transfer to/from toilet with grab bar use trained/rehearsed",
+            "Toilet transfer performed with bedside commode",
+            "Toilet transfer trained/rehearsed",
+            "Toileting routine performed utilizing grab bar, raised commode",
+            "Toileting routine performed utilizing standard toilet"
+          ]
+        },
+        "Clothing Management": {
+          "short": [
+            "Fastener management for toileting",
+            "Lower body clothing for toileting",
+            "Managing garments at toilet"
+          ],
+          "phrases": [
+            "Clothing management at toilet trained/rehearsed using adaptive techniques",
+            "LB clothing management for toileting performed while seated",
+            "LB clothing management for toileting performed while standing with grab bar",
+            "Patient facilitated in toileting routine and LB clothing management",
+            "Patient instructed in one-handed techniques for managing clothing at toilet"
+          ]
+        },
+        "Hygiene": {
+          "short": [
+            "Feminine hygiene management",
+            "Hand washing after toileting",
+            "Perineal hygiene"
+          ],
+          "phrases": [
+            "LB hygiene tasks performed",
+            "Patient educated on proper hygiene techniques and sequencing",
+            "Patient facilitated in toileting routine, brief change/management",
+            "Perineal hygiene technique instructed while seated on raised toilet seat",
+            "Toileting hygiene routine performed focusing on safety"
+          ]
+        }
+      },
+      "Feeding": {
+        "Self-Feeding": {
+          "short": [
+            "Adaptive utensil training",
+            "Cup/glass management",
+            "Finger feeding",
+            "Straw use",
+            "Utensil use"
+          ],
+          "phrases": [
+            "Cup/glass management trained using two-handled cup or cup with lid for stability and spill prevention",
+            "Patient educated on proper cup positioning to prevent spills",
+            "Patient facilitated in hand-to-mouth pattern training",
+            "Patient instructed in safe drinking techniques using adapted cup",
+            "Patient instructed in use of universal cuff for independent utensil management",
+            "Rocking T-knife or other adapted knife used for one-handed cutting practice",
+            "Self-feeding tasks practiced using built-up handle/weighted utensils for improved grip/tremor control",
+            "Straw use trained for patients with limited head/neck mobility",
+            "Utensil use trained focusing on pacing and safety"
+          ]
+        },
+        "Meal Setup": {
+          "short": [
+            "Condiment management",
+            "Cutting food",
+            "Opening containers",
+            "Plate organization",
+            "Tray management"
+          ],
+          "phrases": [
+            "Meal setup and tray management performed",
+            "Mealtime routine simulated, including opening containers and using condiments",
+            "Patient educated on proper positioning and posture during meals to promote safe swallowing",
+            "Patient instructed in compensatory feeding strategies (e.g., smaller bites, alternating solids/liquids)",
+            "Use of plate guard or scoop dish trained/rehearsed to facilitate independent scooping of food"
+          ]
+        }
+      },
+      "Home Management": {
+        "Kitchen": {
+          "short": [
+            "Appliance use",
+            "Cooking safety",
+            "Dishwashing",
+            "Food storage",
+            "Kitchen organization",
+            "Meal preparation"
+          ],
+          "phrases": [
+            "Hot beverage preparation simulated with safety education",
+            "Kitchen task trained/rehearsed with focus on energy conservation, work simplification, and joint protection principles",
+            "Patient educated on safety procedures for microwave or stovetop use",
+            "Patient instructed in use of adaptive equipment (e.g., jar opener, dycem, cutting board with nails) for kitchen tasks",
+            "Patient practiced gathering items from cabinet/refrigerator using rolling walker basket or cart",
+            "Simple meal preparation task (e.g., making sandwich, pouring cereal) simulated in therapy kitchen"
+          ]
+        },
+        "Cleaning": {
+          "short": [
+            "Bed making",
+            "Dusting",
+            "Laundry management",
+            "Light housekeeping",
+            "Vacuuming"
+          ],
+          "phrases": [
+            "Bed making trained/rehearsed using energy conservation techniques",
+            "Laundry management simulated including sorting, folding, and putting away",
+            "Light housekeeping tasks (e.g., wiping counter, folding laundry, making bed) performed while seated/standing",
+            "Patient educated on activity modification and pacing for completing home chores",
+            "Patient trained on proper body mechanics for tasks like loading/unloading dishwasher or laundry machine",
+            "Task of sweeping/tidying up simulated using long-handled equipment to avoid bending"
+          ]
+        },
+        "Safety": {
+          "short": [
+            "Emergency response",
+            "Fall prevention strategies",
+            "Fire safety",
+            "Medication management"
+          ],
+          "phrases": [
+            "Caregiver and patient trained on proper use and setup of medication dispenser",
+            "Medication management routine simulated using weekly pill organizer",
+            "Patient educated on strategies for medication adherence, such as setting alarms or using a tracking chart",
+            "Patient instructed in strategies for opening pill bottles using non-slip mat or bottle opener"
+          ]
+        },
+        "Communication/Financial": {
+          "short": [],
+          "phrases": [
+            "Mail management task simulated, including sorting and opening envelopes",
+            "Patient instructed in use of smartphone/tablet accessibility features for communication or online bill pay",
+            "Phone use trained for emergency calling and daily communication",
+            "Writing and checkbook management tasks practiced using built-up pen and writing guide"
+          ]
+        }
+      }
+    },
+    "97542": {
+      "W/C Propulsion": [
+        "Forward propulsion bilateral",
+        "Forward propulsion one-arm",
+        "Forward propulsion one-arm/one-leg",
+        "Backward propulsion",
+        "Turning techniques",
+        "Speed modulation",
+        "Distance training",
+        "Propulsion on carpet",
+        "Propulsion on tile",
+        "Propulsion outdoors"
+      ],
+      "W/C Management": [
+        "Brake management",
+        "Brake application for transfers",
+        "Leg rest management",
+        "Armrest management",
+        "Footrest positioning",
+        "Anti-tip management",
+        "Cushion management",
+        "W/C parts identification"
+      ],
+      "W/C Positioning": [
+        "Pelvic positioning",
+        "Trunk positioning",
+        "UE positioning on armrests",
+        "Head positioning",
+        "Pressure distribution",
+        "Repositioning techniques",
+        "Weight shifts for pressure relief"
+      ],
+      "W/C Navigation": [
+        "Doorway navigation forward",
+        "Doorway navigation backward",
+        "Elevator use",
+        "Ramp ascent",
+        "Ramp descent",
+        "Tight space maneuvering",
+        "Threshold crossing",
+        "Curb cuts",
+        "Furniture navigation",
+        "Bathroom navigation"
+      ],
+      "W/C Safety": [
+        "Pressure relief routine",
+        "Transfer positioning",
+        "Obstacle avoidance",
+        "Fall prevention from W/C",
+        "Locking brakes habit",
+        "Wheel lock verification",
+        "Safe reach limits"
+      ],
+      "W/C Transfers": [
+        "W/C to bed",
+        "W/C to mat",
+        "W/C to toilet",
+        "W/C to car",
+        "W/C to shower bench",
+        "Level transfers",
+        "Uneven surface transfers"
+      ]
+    }
+  }
+}

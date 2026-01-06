@@ -1,0 +1,1510 @@
+{
+  "GOALS": [
+    {
+      "id": "toilet_safety",
+      "label": "Toilet transfer safety",
+      "phrase": "improve toilet transfer safety"
+    },
+    {
+      "id": "toileting_independence",
+      "label": "Toileting independence",
+      "phrase": "increase independence with toileting"
+    },
+    {
+      "id": "lb_dressing",
+      "label": "Lower body dressing",
+      "phrase": "increase independence with lower body dressing"
+    },
+    {
+      "id": "ub_dressing",
+      "label": "Upper body dressing",
+      "phrase": "increase independence with upper body dressing"
+    },
+    {
+      "id": "bathing_safety",
+      "label": "Bathing safety",
+      "phrase": "improve safety during bathing"
+    },
+    {
+      "id": "bathing_independence",
+      "label": "Bathing independence",
+      "phrase": "increase independence with bathing"
+    },
+    {
+      "id": "self_feeding",
+      "label": "Self-feeding",
+      "phrase": "improve independence with self-feeding"
+    },
+    {
+      "id": "grooming",
+      "label": "Grooming",
+      "phrase": "increase independence with grooming/hygiene"
+    },
+    {
+      "id": "functional_mobility",
+      "label": "Functional mobility",
+      "phrase": "improve functional mobility"
+    },
+    {
+      "id": "fall_prevention",
+      "label": "Fall prevention",
+      "phrase": "decrease fall risk during functional activities"
+    },
+    {
+      "id": "bed_mobility",
+      "label": "Bed mobility",
+      "phrase": "improve bed mobility for functional independence"
+    },
+    {
+      "id": "wc_mobility",
+      "label": "W/C mobility",
+      "phrase": "improve wheelchair mobility and safety"
+    },
+    {
+      "id": "transfer_independence",
+      "label": "Transfer independence",
+      "phrase": "increase independence with transfers"
+    },
+    {
+      "id": "standing_tolerance",
+      "label": "Standing tolerance",
+      "phrase": "improve standing tolerance for ADL performance"
+    },
+    {
+      "id": "sitting_balance",
+      "label": "Sitting balance",
+      "phrase": "improve sitting balance for ADL performance"
+    },
+    {
+      "id": "standing_balance",
+      "label": "Standing balance",
+      "phrase": "improve standing balance for ADL performance"
+    },
+    {
+      "id": "ue_function",
+      "label": "Upper extremity function",
+      "phrase": "improve upper extremity function for ADL performance"
+    },
+    {
+      "id": "le_function",
+      "label": "Lower extremity function",
+      "phrase": "improve lower extremity function for ADL performance"
+    },
+    {
+      "id": "fine_motor",
+      "label": "Fine motor",
+      "phrase": "improve fine motor coordination for ADL performance"
+    },
+    {
+      "id": "functional_reach",
+      "label": "Functional reach",
+      "phrase": "improve functional reach for ADL performance"
+    },
+    {
+      "id": "activity_tolerance",
+      "label": "Activity tolerance",
+      "phrase": "improve activity tolerance for ADL participation"
+    },
+    {
+      "id": "safety_awareness",
+      "label": "Safety awareness",
+      "phrase": "improve safety awareness during functional tasks"
+    },
+    {
+      "id": "sequencing",
+      "label": "Sequencing/cognition",
+      "phrase": "improve sequencing skills for ADL completion"
+    },
+    {
+      "id": "energy_conservation",
+      "label": "Energy conservation",
+      "phrase": "improve energy conservation for ADL participation"
+    },
+    {
+      "id": "medication_management",
+      "label": "Medication management",
+      "phrase": "improve independence with medication management"
+    },
+    {
+      "id": "memory_strategies",
+      "label": "Memory strategies",
+      "phrase": "improve memory skills for daily functioning"
+    },
+    {
+      "id": "attention_skills",
+      "label": "Attention skills",
+      "phrase": "improve attention/concentration for task completion"
+    },
+    {
+      "id": "executive_function",
+      "label": "Executive function",
+      "phrase": "improve problem-solving and planning skills for daily activities"
+    },
+    {
+      "id": "orientation",
+      "label": "Orientation",
+      "phrase": "improve orientation to person/place/time/situation"
+    },
+    {
+      "id": "money_management",
+      "label": "Money management",
+      "phrase": "improve functional money management skills"
+    },
+    {
+      "id": "communication_skills",
+      "label": "Communication skills",
+      "phrase": "improve communication for daily functioning"
+    },
+    {
+      "id": "visual_processing",
+      "label": "Visual processing",
+      "phrase": "improve visual processing skills for daily activities"
+    },
+    {
+      "id": "reading_writing",
+      "label": "Reading/writing",
+      "phrase": "improve functional reading and writing skills"
+    },
+    {
+      "id": "meal_prep_independence",
+      "label": "Meal prep independence",
+      "phrase": "improve independence with meal preparation"
+    },
+    {
+      "id": "kitchen_safety",
+      "label": "Kitchen safety",
+      "phrase": "improve safety awareness during kitchen tasks"
+    },
+    {
+      "id": "home_management",
+      "label": "Home management",
+      "phrase": "improve independence with home management tasks"
+    },
+    {
+      "id": "laundry_independence",
+      "label": "Laundry independence",
+      "phrase": "improve independence with laundry tasks"
+    },
+    {
+      "id": "problem_solving",
+      "label": "Problem-solving",
+      "phrase": "improve problem-solving skills for daily activities"
+    },
+    {
+      "id": "adaptive_equipment_use",
+      "label": "Adaptive equipment use",
+      "phrase": "improve use of adaptive equipment for independence"
+    },
+    {
+      "id": "trunk_control",
+      "label": "Trunk control",
+      "phrase": "improve trunk control for ADL performance"
+    },
+    {
+      "id": "postural_control",
+      "label": "Postural control",
+      "phrase": "improve postural control for ADL performance"
+    },
+    {
+      "id": "core_strength",
+      "label": "Core strength",
+      "phrase": "improve core strength for ADL performance"
+    },
+    {
+      "id": "pain_management",
+      "label": "Pain management",
+      "phrase": "decrease pain to improve tolerance for ADL performance"
+    },
+    {
+      "id": "shoulder_stability",
+      "label": "Shoulder stability",
+      "phrase": "improve shoulder stability for ADL performance"
+    },
+    {
+      "id": "toileting_hygiene",
+      "label": "Toileting hygiene",
+      "phrase": "improve toileting hygiene for ADL performance"
+    },
+    {
+      "id": "oral_hygiene",
+      "label": "Oral hygiene",
+      "phrase": "increase independence with oral hygiene"
+    },
+    {
+      "id": "hair_care",
+      "label": "Hair care",
+      "phrase": "increase independence with hair care"
+    },
+    {
+      "id": "face_care",
+      "label": "Face/skin care",
+      "phrase": "increase independence with face and skin care"
+    },
+    {
+      "id": "nail_care",
+      "label": "Nail care",
+      "phrase": "increase independence with nail care"
+    },
+    {
+      "id": "shaving",
+      "label": "Shaving",
+      "phrase": "increase independence with shaving"
+    },
+    {
+      "id": "fastener_management",
+      "label": "Fastener management",
+      "phrase": "increase independence with managing clothing fasteners"
+    },
+    {
+      "id": "footwear_management",
+      "label": "Footwear management",
+      "phrase": "increase independence with donning/doffing footwear and socks"
+    },
+    {
+      "id": "utensil_use",
+      "label": "Utensil use",
+      "phrase": "improve ability to use utensils for self-feeding"
+    },
+    {
+      "id": "meal_setup",
+      "label": "Meal setup",
+      "phrase": "improve safety and independence with meal setup"
+    },
+    {
+      "id": "adaptive_feeding",
+      "label": "Adaptive feeding equipment",
+      "phrase": "improve ability to use adaptive feeding equipment"
+    },
+    {
+      "id": "cup_management",
+      "label": "Cup/glass management",
+      "phrase": "improve independence with cup and glass management"
+    },
+    {
+      "id": "light_housekeeping",
+      "label": "Light housekeeping",
+      "phrase": "increase independence with light housekeeping tasks"
+    },
+    {
+      "id": "phone_management",
+      "label": "Phone/communication",
+      "phrase": "improve ability to manage phone and communication devices"
+    },
+    {
+      "id": "financial_management",
+      "label": "Financial management",
+      "phrase": "improve ability to manage basic financial tasks"
+    },
+    {
+      "id": "shower_transfer",
+      "label": "Shower transfer safety",
+      "phrase": "improve shower/tub transfer safety"
+    },
+    {
+      "id": "ub_bathing",
+      "label": "Upper body bathing",
+      "phrase": "increase independence with upper body bathing"
+    },
+    {
+      "id": "lb_bathing",
+      "label": "Lower body bathing",
+      "phrase": "increase independence with lower body bathing"
+    },
+    {
+      "id": "drying_independence",
+      "label": "Drying independence",
+      "phrase": "increase independence with drying after bathing"
+    }
+  ],
+  "GOALS_BY_ACTIVITY": {
+    "Transfers": [
+      "toilet_safety",
+      "transfer_independence",
+      "fall_prevention",
+      "standing_balance",
+      "functional_mobility",
+      "safety_awareness",
+      "standing_tolerance"
+    ],
+    "Sit-to-stand": [
+      "toilet_safety",
+      "transfer_independence",
+      "fall_prevention",
+      "standing_balance",
+      "standing_tolerance",
+      "functional_mobility"
+    ],
+    "Stand-pivot": [
+      "toilet_safety",
+      "transfer_independence",
+      "fall_prevention",
+      "standing_balance",
+      "safety_awareness"
+    ],
+    "Sliding board": [
+      "transfer_independence",
+      "safety_awareness",
+      "sitting_balance",
+      "ue_function",
+      "trunk_control",
+      "functional_mobility"
+    ],
+    "Surface-to-surface": [
+      "transfer_independence",
+      "fall_prevention",
+      "standing_balance",
+      "safety_awareness"
+    ],
+    "Balance - Sitting": [
+      "sitting_balance",
+      "fall_prevention",
+      "safety_awareness",
+      "bed_mobility",
+      "transfer_independence",
+      "trunk_control",
+      "postural_control"
+    ],
+    "Balance - Standing": [
+      "standing_balance",
+      "fall_prevention",
+      "functional_mobility",
+      "safety_awareness",
+      "standing_tolerance"
+    ],
+    "Bed Mobility": [
+      "bed_mobility",
+      "transfer_independence",
+      "functional_mobility",
+      "safety_awareness",
+      "core_strength",
+      "pain_management"
+    ],
+    "Supine-to-sit": [
+      "bed_mobility",
+      "transfer_independence",
+      "safety_awareness"
+    ],
+    "Sit-to-supine": [
+      "bed_mobility",
+      "transfer_independence",
+      "safety_awareness"
+    ],
+    "Rolling": [
+      "bed_mobility",
+      "safety_awareness"
+    ],
+    "Scooting": [
+      "bed_mobility",
+      "transfer_independence"
+    ],
+    "Bridging": [
+      "bed_mobility",
+      "transfer_independence",
+      "lb_dressing"
+    ],
+    "Postural Control": [
+      "sitting_balance",
+      "standing_balance",
+      "fall_prevention",
+      "functional_mobility"
+    ],
+    "Bathing": [
+      "bathing_safety",
+      "bathing_independence",
+      "standing_tolerance",
+      "standing_balance",
+      "fall_prevention",
+      "energy_conservation",
+      "safety_awareness",
+      "sequencing",
+      "problem_solving"
+    ],
+    "Shower chair use": [
+      "bathing_safety",
+      "bathing_independence",
+      "transfer_independence"
+    ],
+    "Long-handled sponge": [
+      "bathing_independence",
+      "energy_conservation"
+    ],
+    "Seated bathing": [
+      "bathing_independence",
+      "energy_conservation",
+      "sitting_balance"
+    ],
+    "Grab bar use": [
+      "bathing_safety",
+      "fall_prevention",
+      "transfer_independence"
+    ],
+    "Upper Body": [
+      "ub_dressing",
+      "ue_function",
+      "fine_motor",
+      "sequencing",
+      "energy_conservation",
+      "sitting_balance"
+    ],
+    "Shirt donning": [
+      "ub_dressing",
+      "ue_function",
+      "sitting_balance",
+      "sequencing"
+    ],
+    "Shirt donning/doffing": [
+      "ub_dressing",
+      "ue_function",
+      "sitting_balance",
+      "sequencing"
+    ],
+    "Bra management": [
+      "ub_dressing",
+      "ue_function",
+      "fine_motor",
+      "sequencing"
+    ],
+    "Button-up shirt": [
+      "ub_dressing",
+      "fine_motor",
+      "sequencing"
+    ],
+    "Pullover shirt": [
+      "ub_dressing",
+      "ue_function",
+      "sitting_balance",
+      "sequencing"
+    ],
+    "Jacket/coat donning": [
+      "ub_dressing",
+      "ue_function",
+      "sequencing"
+    ],
+    "Hospital gown management": [
+      "ub_dressing",
+      "ue_function",
+      "sequencing"
+    ],
+    "Lower Body": [
+      "lb_dressing",
+      "sitting_balance",
+      "standing_balance",
+      "sequencing",
+      "energy_conservation",
+      "fall_prevention",
+      "functional_mobility",
+      "le_function",
+      "functional_reach",
+      "ue_function",
+      "fine_motor"
+    ],
+    "Pants donning": [
+      "lb_dressing",
+      "sitting_balance",
+      "sequencing",
+      "energy_conservation",
+      "functional_reach",
+      "le_function"
+    ],
+    "Pants donning/doffing": [
+      "lb_dressing",
+      "sitting_balance",
+      "sequencing",
+      "energy_conservation",
+      "functional_reach",
+      "le_function"
+    ],
+    "Underwear management": [
+      "lb_dressing",
+      "sitting_balance",
+      "sequencing",
+      "fall_prevention"
+    ],
+    "Shorts donning": [
+      "lb_dressing",
+      "sitting_balance",
+      "sequencing",
+      "le_function"
+    ],
+    "Skirt management": [
+      "lb_dressing",
+      "sitting_balance",
+      "sequencing",
+      "standing_balance"
+    ],
+    "Footwear": [
+      "lb_dressing",
+      "sitting_balance",
+      "fine_motor",
+      "sequencing",
+      "functional_reach"
+    ],
+    "Sock donning": [
+      "lb_dressing",
+      "sitting_balance",
+      "fine_motor",
+      "sequencing",
+      "functional_reach"
+    ],
+    "Sock donning/doffing": [
+      "lb_dressing",
+      "sitting_balance",
+      "fine_motor",
+      "sequencing",
+      "functional_reach"
+    ],
+    "Shoe donning": [
+      "lb_dressing",
+      "sitting_balance",
+      "fine_motor",
+      "sequencing",
+      "functional_reach"
+    ],
+    "Shoe donning/doffing": [
+      "lb_dressing",
+      "sitting_balance",
+      "fine_motor",
+      "sequencing",
+      "functional_reach"
+    ],
+    "Compression stocking": [
+      "lb_dressing",
+      "sitting_balance",
+      "fine_motor",
+      "sequencing",
+      "ue_function"
+    ],
+    "AFO/brace donning": [
+      "lb_dressing",
+      "sitting_balance",
+      "sequencing",
+      "safety_awareness"
+    ],
+    "Adaptive footwear": [
+      "lb_dressing",
+      "sitting_balance",
+      "sequencing",
+      "safety_awareness"
+    ],
+    "Dressing": [
+      "lb_dressing",
+      "ub_dressing",
+      "sequencing",
+      "energy_conservation",
+      "sitting_balance"
+    ],
+    "Fasteners": [
+      "fine_motor",
+      "ub_dressing",
+      "lb_dressing",
+      "ue_function"
+    ],
+    "Button management": [
+      "fine_motor",
+      "ub_dressing",
+      "ue_function"
+    ],
+    "Zipper management": [
+      "fine_motor",
+      "ub_dressing",
+      "lb_dressing"
+    ],
+    "Snap closure": [
+      "fine_motor",
+      "ub_dressing",
+      "lb_dressing"
+    ],
+    "Velcro management": [
+      "fine_motor",
+      "ub_dressing",
+      "lb_dressing"
+    ],
+    "Shoelace tying": [
+      "fine_motor",
+      "lb_dressing",
+      "sitting_balance",
+      "sequencing"
+    ],
+    "Hygiene/Grooming": [
+      "grooming",
+      "ue_function",
+      "fine_motor",
+      "standing_tolerance",
+      "energy_conservation",
+      "sequencing",
+      "standing_balance"
+    ],
+    "Oral care": [
+      "grooming",
+      "sequencing",
+      "fine_motor"
+    ],
+    "Hair care": [
+      "grooming",
+      "ue_function",
+      "standing_tolerance"
+    ],
+    "Shaving": [
+      "grooming",
+      "fine_motor",
+      "standing_tolerance",
+      "safety_awareness"
+    ],
+    "Self-Feeding": [
+      "self_feeding",
+      "ue_function",
+      "fine_motor",
+      "sitting_balance",
+      "sequencing",
+      "safety_awareness",
+      "adaptive_equipment_use"
+    ],
+    "Built-up utensils": [
+      "self_feeding",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Plate guard": [
+      "self_feeding",
+      "fine_motor"
+    ],
+    "Rocker knife": [
+      "self_feeding",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Toileting": [
+      "toilet_safety",
+      "toileting_independence",
+      "transfer_independence",
+      "standing_balance",
+      "fall_prevention",
+      "safety_awareness",
+      "toileting_hygiene"
+    ],
+    "Toilet Transfers": [
+      "toilet_safety",
+      "toileting_independence",
+      "transfer_independence",
+      "standing_balance",
+      "fall_prevention"
+    ],
+    "Clothing Management": [
+      "toileting_independence",
+      "lb_dressing",
+      "standing_balance",
+      "fall_prevention"
+    ],
+    "Hygiene Techniques": [
+      "toileting_independence",
+      "safety_awareness"
+    ],
+    "Fine Motor": [
+      "fine_motor",
+      "ue_function",
+      "self_feeding",
+      "grooming"
+    ],
+    "Theraputty": [
+      "fine_motor",
+      "ue_function",
+      "grooming"
+    ],
+    "Pincer grasp": [
+      "fine_motor",
+      "self_feeding",
+      "ue_function"
+    ],
+    "In-hand manipulation": [
+      "fine_motor",
+      "self_feeding",
+      "grooming"
+    ],
+    "Strengthening": [
+      "ue_function",
+      "standing_tolerance",
+      "activity_tolerance",
+      "functional_mobility"
+    ],
+    "Weight Bearing - UE": [
+      "ue_function",
+      "trunk_control",
+      "postural_control",
+      "sitting_balance",
+      "standing_balance",
+      "shoulder_stability"
+    ],
+    "Postural Control - UE Tasks": [
+      "trunk_control",
+      "postural_control",
+      "ue_function",
+      "sitting_balance",
+      "standing_balance",
+      "functional_reach"
+    ],
+    "Bilateral Integration": [
+      "ue_function",
+      "fine_motor",
+      "sequencing"
+    ],
+    "Gross Motor": [
+      "functional_mobility",
+      "activity_tolerance",
+      "sequencing"
+    ],
+    "W/C Propulsion": [
+      "wc_mobility",
+      "activity_tolerance",
+      "safety_awareness",
+      "ue_function"
+    ],
+    "W/C Management": [
+      "wc_mobility",
+      "safety_awareness",
+      "transfer_independence"
+    ],
+    "W/C Navigation": [
+      "wc_mobility",
+      "safety_awareness",
+      "functional_mobility"
+    ],
+    "Overhead Activities": [
+      "ue_function",
+      "ub_dressing",
+      "bathing_independence",
+      "grooming"
+    ],
+    "Eye-Hand Coordination": [
+      "fine_motor",
+      "ue_function",
+      "self_feeding"
+    ],
+    "ROM Activities": [
+      "ue_function",
+      "functional_mobility",
+      "activity_tolerance"
+    ],
+    "Balance Training": [
+      "standing_balance",
+      "sitting_balance",
+      "fall_prevention",
+      "functional_mobility",
+      "safety_awareness"
+    ],
+    "Motor Control": [
+      "sequencing",
+      "functional_mobility",
+      "safety_awareness",
+      "fine_motor"
+    ],
+    "Sensory Integration": [
+      "safety_awareness",
+      "functional_mobility",
+      "sequencing"
+    ],
+    "Medication Management": [
+      "medication_management",
+      "safety_awareness",
+      "sequencing",
+      "memory_strategies",
+      "executive_function",
+      "problem_solving"
+    ],
+    "Pill box setup": [
+      "medication_management",
+      "sequencing",
+      "memory_strategies"
+    ],
+    "Medication schedule training": [
+      "medication_management",
+      "memory_strategies",
+      "sequencing"
+    ],
+    "Medication safety review": [
+      "medication_management",
+      "safety_awareness"
+    ],
+    "Safety Awareness": [
+      "safety_awareness",
+      "memory_strategies",
+      "sequencing",
+      "executive_function"
+    ],
+    "Home safety assessment review": [
+      "safety_awareness",
+      "executive_function"
+    ],
+    "Kitchen safety training": [
+      "safety_awareness",
+      "sequencing"
+    ],
+    "Emergency procedures": [
+      "safety_awareness",
+      "memory_strategies",
+      "sequencing"
+    ],
+    "Sequencing/Planning": [
+      "sequencing",
+      "executive_function",
+      "memory_strategies",
+      "attention_skills"
+    ],
+    "Multi-step ADL sequencing": [
+      "sequencing",
+      "memory_strategies",
+      "executive_function"
+    ],
+    "Task planning strategies": [
+      "executive_function",
+      "sequencing",
+      "attention_skills"
+    ],
+    "Problem-solving steps": [
+      "executive_function",
+      "sequencing"
+    ],
+    "Memory Strategies": [
+      "memory_strategies",
+      "sequencing",
+      "attention_skills",
+      "executive_function"
+    ],
+    "Memory aid training": [
+      "memory_strategies",
+      "sequencing"
+    ],
+    "Calendar use training": [
+      "memory_strategies",
+      "sequencing",
+      "visual_processing"
+    ],
+    "External memory aids": [
+      "memory_strategies",
+      "sequencing"
+    ],
+    "Attention Training": [
+      "attention_skills",
+      "sequencing",
+      "executive_function",
+      "safety_awareness"
+    ],
+    "Sustained attention tasks": [
+      "attention_skills",
+      "executive_function"
+    ],
+    "Divided attention training": [
+      "attention_skills",
+      "executive_function"
+    ],
+    "Attention during ADL": [
+      "attention_skills",
+      "sequencing",
+      "safety_awareness"
+    ],
+    "Executive Function": [
+      "executive_function",
+      "sequencing",
+      "attention_skills",
+      "safety_awareness"
+    ],
+    "Problem-solving training": [
+      "executive_function",
+      "sequencing"
+    ],
+    "Decision-making strategies": [
+      "executive_function",
+      "safety_awareness"
+    ],
+    "Planning/organization": [
+      "executive_function",
+      "sequencing"
+    ],
+    "Orientation Training": [
+      "orientation",
+      "memory_strategies",
+      "attention_skills",
+      "safety_awareness"
+    ],
+    "Reality orientation": [
+      "orientation",
+      "memory_strategies"
+    ],
+    "Environmental awareness": [
+      "orientation",
+      "safety_awareness"
+    ],
+    "Money Management": [
+      "money_management",
+      "sequencing",
+      "attention_skills",
+      "executive_function"
+    ],
+    "Making change": [
+      "money_management",
+      "sequencing",
+      "attention_skills"
+    ],
+    "Budget planning": [
+      "money_management",
+      "executive_function",
+      "sequencing"
+    ],
+    "Communication": [
+      "communication_skills",
+      "sequencing",
+      "attention_skills",
+      "safety_awareness"
+    ],
+    "Following instructions": [
+      "communication_skills",
+      "attention_skills",
+      "sequencing"
+    ],
+    "Emergency calling": [
+      "communication_skills",
+      "safety_awareness",
+      "sequencing"
+    ],
+    "Visual Processing": [
+      "visual_processing",
+      "attention_skills",
+      "sequencing",
+      "safety_awareness"
+    ],
+    "Visual scanning training": [
+      "visual_processing",
+      "attention_skills"
+    ],
+    "Figure-ground training": [
+      "visual_processing",
+      "attention_skills"
+    ],
+    "Reading/Writing": [
+      "reading_writing",
+      "visual_processing",
+      "attention_skills",
+      "sequencing"
+    ],
+    "Functional reading": [
+      "reading_writing",
+      "visual_processing",
+      "attention_skills"
+    ],
+    "Form completion": [
+      "reading_writing",
+      "sequencing",
+      "attention_skills"
+    ],
+    "Functional Stepping Skills": [
+      "standing_balance",
+      "functional_mobility",
+      "transfer_independence",
+      "fall_prevention",
+      "safety_awareness",
+      "le_function"
+    ],
+    "Functional Bending/Retrieval": [
+      "functional_mobility",
+      "standing_balance",
+      "fall_prevention",
+      "core_strength",
+      "trunk_control",
+      "functional_reach"
+    ],
+    "Functional Reaching": [
+      "standing_balance",
+      "functional_mobility",
+      "ue_function",
+      "shoulder_stability",
+      "functional_reach",
+      "trunk_control"
+    ],
+    "Kitchen/Homemaking": [
+      "meal_prep_independence",
+      "kitchen_safety",
+      "home_management",
+      "laundry_independence",
+      "fine_motor",
+      "sequencing",
+      "problem_solving",
+      "energy_conservation",
+      "standing_tolerance",
+      "safety_awareness"
+    ],
+    "Functional Ambulation": [
+      "functional_mobility",
+      "standing_balance",
+      "activity_tolerance",
+      "safety_awareness",
+      "fall_prevention"
+    ],
+    "Stair Training": [
+      "functional_mobility",
+      "standing_balance",
+      "activity_tolerance",
+      "le_function",
+      "safety_awareness",
+      "fall_prevention"
+    ],
+    "ROM - UE": [
+      "ue_function",
+      "pain_management",
+      "shoulder_stability",
+      "functional_reach"
+    ],
+    "ROM - Trunk/Neck": [
+      "trunk_control",
+      "postural_control",
+      "pain_management"
+    ],
+    "Stretching": [
+      "ue_function",
+      "le_function",
+      "pain_management",
+      "functional_mobility"
+    ],
+    "Strengthening - UE": [
+      "ue_function",
+      "fine_motor",
+      "shoulder_stability",
+      "functional_reach"
+    ],
+    "Strengthening - Core": [
+      "core_strength",
+      "trunk_control",
+      "postural_control",
+      "sitting_balance",
+      "standing_balance"
+    ],
+    "Strengthening - Functional": [
+      "ue_function",
+      "le_function",
+      "core_strength",
+      "functional_mobility",
+      "activity_tolerance"
+    ],
+    "Endurance": [
+      "activity_tolerance",
+      "energy_conservation",
+      "functional_mobility"
+    ],
+    "Coordination": [
+      "fine_motor",
+      "ue_function",
+      "sequencing"
+    ],
+    "Motor Planning": [
+      "sequencing",
+      "fine_motor",
+      "safety_awareness"
+    ],
+    "Proprioception": [
+      "standing_balance",
+      "sitting_balance",
+      "safety_awareness",
+      "fall_prevention"
+    ],
+    "Motor Control UE": [
+      "ue_function",
+      "fine_motor",
+      "sequencing"
+    ],
+    "Motor Control Trunk": [
+      "trunk_control",
+      "postural_control",
+      "sitting_balance",
+      "standing_balance"
+    ],
+    "Neuromuscular Facilitation": [
+      "ue_function",
+      "trunk_control",
+      "standing_balance",
+      "sitting_balance"
+    ],
+    "Soft Tissue": [
+      "pain_management",
+      "ue_function",
+      "functional_reach"
+    ],
+    "Joint Mobilization": [
+      "pain_management",
+      "ue_function",
+      "functional_reach"
+    ],
+    "Manual Stretching": [
+      "ue_function",
+      "le_function",
+      "pain_management",
+      "functional_reach"
+    ],
+    "Edema Management": [
+      "pain_management",
+      "ue_function",
+      "fine_motor"
+    ],
+    "Desensitization": [
+      "pain_management",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Grooming": [
+      "grooming",
+      "oral_hygiene",
+      "hair_care",
+      "face_care",
+      "shaving",
+      "ue_function",
+      "fine_motor",
+      "standing_tolerance",
+      "energy_conservation",
+      "sequencing",
+      "standing_balance"
+    ],
+    "Oral Care": [
+      "oral_hygiene",
+      "grooming",
+      "sequencing",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Toothbrushing": [
+      "oral_hygiene",
+      "grooming",
+      "fine_motor",
+      "sequencing"
+    ],
+    "Denture care": [
+      "oral_hygiene",
+      "grooming",
+      "fine_motor",
+      "sequencing"
+    ],
+    "Flossing": [
+      "oral_hygiene",
+      "grooming",
+      "fine_motor"
+    ],
+    "Mouthwash use": [
+      "oral_hygiene",
+      "grooming",
+      "sequencing"
+    ],
+    "Hair Care": [
+      "hair_care",
+      "grooming",
+      "ue_function",
+      "standing_tolerance",
+      "functional_reach"
+    ],
+    "Hair brushing/combing": [
+      "hair_care",
+      "grooming",
+      "ue_function",
+      "functional_reach"
+    ],
+    "Hair washing": [
+      "hair_care",
+      "grooming",
+      "ue_function",
+      "standing_tolerance",
+      "bathing_independence"
+    ],
+    "Hair styling": [
+      "hair_care",
+      "grooming",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Hair drying": [
+      "hair_care",
+      "grooming",
+      "ue_function",
+      "activity_tolerance"
+    ],
+    "Face/Skin": [
+      "face_care",
+      "grooming",
+      "fine_motor",
+      "standing_balance",
+      "ue_function"
+    ],
+    "Face washing": [
+      "face_care",
+      "grooming",
+      "ue_function",
+      "sequencing"
+    ],
+    "Makeup application": [
+      "face_care",
+      "grooming",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Lotion application": [
+      "face_care",
+      "grooming",
+      "ue_function",
+      "functional_reach"
+    ],
+    "Deodorant application": [
+      "face_care",
+      "grooming",
+      "ue_function",
+      "functional_reach"
+    ],
+    "Nail Care": [
+      "nail_care",
+      "grooming",
+      "fine_motor",
+      "ue_function",
+      "safety_awareness"
+    ],
+    "Fingernail care": [
+      "nail_care",
+      "grooming",
+      "fine_motor",
+      "safety_awareness"
+    ],
+    "Toenail care": [
+      "nail_care",
+      "grooming",
+      "fine_motor",
+      "functional_reach",
+      "sitting_balance"
+    ],
+    "Nail filing": [
+      "nail_care",
+      "grooming",
+      "fine_motor"
+    ],
+    "Feeding": [
+      "self_feeding",
+      "utensil_use",
+      "cup_management",
+      "meal_setup",
+      "fine_motor",
+      "ue_function",
+      "sitting_balance",
+      "sequencing"
+    ],
+    "Utensil use": [
+      "utensil_use",
+      "self_feeding",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Finger feeding": [
+      "self_feeding",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Cup/glass management": [
+      "cup_management",
+      "self_feeding",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Straw use": [
+      "self_feeding",
+      "cup_management"
+    ],
+    "Adaptive utensil training": [
+      "adaptive_feeding",
+      "self_feeding",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Meal Setup": [
+      "meal_setup",
+      "self_feeding",
+      "fine_motor",
+      "sequencing",
+      "ue_function",
+      "safety_awareness"
+    ],
+    "Opening containers": [
+      "meal_setup",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Cutting food": [
+      "meal_setup",
+      "self_feeding",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Condiment management": [
+      "meal_setup",
+      "fine_motor",
+      "sequencing"
+    ],
+    "Plate organization": [
+      "meal_setup",
+      "sequencing",
+      "visual_processing"
+    ],
+    "Tray management": [
+      "meal_setup",
+      "ue_function",
+      "sitting_balance"
+    ],
+    "Shower/Tub": [
+      "shower_transfer",
+      "bathing_safety",
+      "bathing_independence",
+      "transfer_independence",
+      "standing_balance",
+      "fall_prevention",
+      "drying_independence"
+    ],
+    "Compression stocking application": [
+      "footwear_management",
+      "lb_dressing",
+      "fine_motor",
+      "ue_function"
+    ],
+    "Adaptive footwear use": [
+      "footwear_management",
+      "lb_dressing",
+      "adaptive_equipment_use"
+    ],
+    "Home Management": [
+      "home_management",
+      "meal_prep_independence",
+      "light_housekeeping",
+      "kitchen_safety",
+      "medication_management",
+      "phone_management",
+      "financial_management",
+      "safety_awareness",
+      "sequencing",
+      "executive_function",
+      "energy_conservation"
+    ],
+    "Kitchen": [
+      "meal_prep_independence",
+      "kitchen_safety",
+      "safety_awareness",
+      "sequencing",
+      "standing_tolerance",
+      "energy_conservation"
+    ],
+    "Meal preparation": [
+      "meal_prep_independence",
+      "kitchen_safety",
+      "sequencing",
+      "safety_awareness",
+      "standing_tolerance"
+    ],
+    "Cooking safety": [
+      "kitchen_safety",
+      "safety_awareness",
+      "sequencing"
+    ],
+    "Dishwashing": [
+      "home_management",
+      "standing_tolerance",
+      "ue_function",
+      "energy_conservation"
+    ],
+    "Kitchen organization": [
+      "home_management",
+      "sequencing",
+      "executive_function"
+    ],
+    "Appliance use": [
+      "kitchen_safety",
+      "safety_awareness",
+      "sequencing"
+    ],
+    "Food storage": [
+      "home_management",
+      "sequencing",
+      "safety_awareness"
+    ],
+    "Cleaning": [
+      "light_housekeeping",
+      "home_management",
+      "standing_tolerance",
+      "energy_conservation",
+      "activity_tolerance"
+    ],
+    "Light housekeeping": [
+      "light_housekeeping",
+      "home_management",
+      "standing_tolerance",
+      "energy_conservation"
+    ],
+    "Laundry management": [
+      "laundry_independence",
+      "home_management",
+      "standing_tolerance",
+      "sequencing",
+      "energy_conservation"
+    ],
+    "Bed making": [
+      "light_housekeeping",
+      "home_management",
+      "standing_tolerance",
+      "ue_function"
+    ],
+    "Vacuuming": [
+      "light_housekeeping",
+      "home_management",
+      "standing_tolerance",
+      "activity_tolerance"
+    ],
+    "Dusting": [
+      "light_housekeeping",
+      "home_management",
+      "ue_function",
+      "functional_reach"
+    ],
+    "Safety": [
+      "safety_awareness",
+      "medication_management",
+      "fall_prevention",
+      "executive_function"
+    ],
+    "Emergency response": [
+      "safety_awareness",
+      "sequencing",
+      "memory_strategies"
+    ],
+    "Fire safety": [
+      "safety_awareness",
+      "sequencing"
+    ],
+    "Fall prevention strategies": [
+      "fall_prevention",
+      "safety_awareness",
+      "executive_function"
+    ],
+    "Medication management": [
+      "medication_management",
+      "safety_awareness",
+      "sequencing",
+      "memory_strategies"
+    ],
+    "Communication/Financial": [
+      "phone_management",
+      "financial_management",
+      "fine_motor",
+      "sequencing",
+      "executive_function"
+    ],
+    "Default": [
+      "functional_mobility",
+      "activity_tolerance",
+      "safety_awareness",
+      "fall_prevention",
+      "transfer_independence",
+      "standing_balance",
+      "sitting_balance",
+      "ue_function",
+      "fine_motor",
+      "sequencing",
+      "energy_conservation"
+    ]
+  }
+}
