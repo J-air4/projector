@@ -2231,20 +2231,19 @@
                 <div style={{ background: 'var(--bg-tertiary)', padding: '10px', borderRadius: '6px' }}>
                   <div style={{ fontWeight: 600, fontSize: '11px', marginBottom: '8px' }}>{editingCueIndex !== null ? 'Edit Cue' : 'Add Cue'}</div>
                   <div style={{ marginBottom: '8px' }}>
-                    <label style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)', marginBottom: '3px' }}>Quick-add common cues:</label>
+                    <label style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)', marginBottom: '3px' }}>Quick-add common cues{selectedActivities.length > 0 ? ` for ${selectedActivities[0]}` : ''}:</label>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                      {[
-                        { level: 'Min', type: 'verbal', bodyPart: '', purpose: 'safety', context: 'during functional mobility', label: 'Min verbal for safety' },
-                        { level: 'Mod', type: 'verbal', bodyPart: '', purpose: 'task sequencing', context: 'during ADL tasks', label: 'Mod verbal for sequencing' },
-                        { level: 'Min', type: 'tactile', bodyPart: 'trunk', purpose: 'postural control', context: 'during sit-to-stand', label: 'Min tactile to trunk for posture' },
-                        { level: 'Mod', type: 'tactile', bodyPart: 'pelvis', purpose: 'weight shift', context: 'during transfers', label: 'Mod tactile to pelvis for weight shift' },
-                        { level: 'Min', type: 'visual', bodyPart: '', purpose: 'technique', context: 'during dressing tasks', label: 'Min visual for technique' },
-                        { level: 'Mod', type: 'verbal/tactile', bodyPart: 'trunk', purpose: 'balance', context: 'during standing ADL', label: 'Mod verbal/tactile for balance' }
-                      ].map((cue) => (
-                        <button key={cue.label} onClick={() => { if (editingCueIndex === null) { setCues(prev => [...prev, { level: cue.level, type: cue.type, bodyPart: cue.bodyPart, purpose: cue.purpose, context: cue.context, id: generateId() }]); }}} style={{ padding: '4px 8px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer', fontSize: '10px', color: 'var(--text-primary)' }}>
-                          {cue.label}
-                        </button>
-                      ))}
+                      {(() => {
+                        const activityKey = selectedActivities.length > 0 ? selectedActivities[0] : null;
+                        const quickCues = (activityKey && data.QUICK_ADD_CUES_BY_ACTIVITY && data.QUICK_ADD_CUES_BY_ACTIVITY[activityKey])
+                          || (data.QUICK_ADD_CUES_BY_ACTIVITY && data.QUICK_ADD_CUES_BY_ACTIVITY['Default'])
+                          || [];
+                        return quickCues.map((cue) => (
+                          <button key={cue.label} onClick={() => { if (editingCueIndex === null) { setCues(prev => [...prev, { level: cue.level, type: cue.type, bodyPart: cue.bodyPart, purpose: cue.purpose, context: cue.context, id: generateId() }]); }}} style={{ padding: '4px 8px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer', fontSize: '10px', color: 'var(--text-primary)' }}>
+                            {cue.label}
+                          </button>
+                        ));
+                      })()}
                     </div>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '8px' }}>
