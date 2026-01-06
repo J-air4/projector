@@ -1,0 +1,361 @@
+{
+  "CUE_LEVELS": [
+    "Min",
+    "Mod",
+    "Max",
+    "Multiple"
+  ],
+  "CUE_TYPES": [
+    "verbal",
+    "tactile",
+    "visual",
+    "verbal/tactile",
+    "demonstration",
+    "gestural",
+    "hand-over-hand"
+  ],
+  "CUE_PURPOSES": [
+    "optimal trunk alignment",
+    "weight shift",
+    "increased hip extension",
+    "increased knee extension",
+    "hip and knee extension",
+    "technique",
+    "proper body mechanics",
+    "task organization",
+    "task sequencing",
+    "increased safety awareness",
+    "pacing",
+    "safety",
+    "controlled lowering",
+    "controlled descent",
+    "RW management",
+    "FWW management",
+    "walker management",
+    "hand placement",
+    "foot placement",
+    "postural control",
+    "midline orientation",
+    "anterior weight shift",
+    "lateral weight shift",
+    "motor planning",
+    "initiation",
+    "follow-through",
+    "attention to task",
+    "problem-solving",
+    "decreased impulsivity",
+    "balance",
+    "stability",
+    "engagement",
+    "muscle activation",
+    "compensatory strategy use",
+    "energy conservation",
+    "breathing"
+  ],
+  "CUE_CONTEXTS": {
+    "Transfers": [
+      "during sit-to-stand phase",
+      "during stand-to-sit phase",
+      "during standing phase",
+      "during lowering phase",
+      "during weight shift phase",
+      "during pivoting",
+      "during initial lift-off",
+      "during controlled descent",
+      "during surface contact",
+      "during position adjustment"
+    ],
+    "Sit-to-stand": [
+      "during anterior lean",
+      "during weight shift forward",
+      "during initial lift-off",
+      "during standing phase",
+      "during seat clearance",
+      "during knee extension",
+      "during postural stabilization"
+    ],
+    "Stand-pivot": [
+      "during initial stand",
+      "during pivoting phase",
+      "during weight transfer",
+      "during foot repositioning",
+      "during lowering to seat"
+    ],
+    "Balance - Sitting": [
+      "during forward reach",
+      "during lateral reach",
+      "during weight shift",
+      "during trunk movement",
+      "during perturbation response",
+      "during object manipulation"
+    ],
+    "Balance - Standing": [
+      "during counter work",
+      "during cabinet reach",
+      "during floor retrieval",
+      "during overhead reach",
+      "during lateral movement",
+      "during forward lean",
+      "during recovery response"
+    ],
+    "Bed Mobility": [
+      "during rolling initiation",
+      "during log roll",
+      "during segmental roll",
+      "during supine-to-sit",
+      "during scooting up",
+      "during EOB positioning",
+      "during leg management",
+      "during roll from supine to side-lying",
+      "during transition from side-lying to sitting",
+      "while positioning legs",
+      "during bridging"
+    ],
+    "LE Dressing": [
+      "during leg threading",
+      "during pants pull-up to knees",
+      "during pants pull-up to hips",
+      "during hip lift/bridging",
+      "during forward reach to feet",
+      "during sock application",
+      "during shoe donning",
+      "during stand transition"
+    ],
+    "Lower Body": [
+      "during leg threading",
+      "during pants pull-up to knees",
+      "during pants pull-up to hips",
+      "during hip lift/bridging",
+      "during forward reach to feet",
+      "during sock application",
+      "during shoe donning",
+      "during stand transition"
+    ],
+    "UE Dressing": [
+      "during sleeve threading",
+      "during garment over head",
+      "during garment pull-down",
+      "during affected arm positioning",
+      "during fastener management",
+      "during final adjustments"
+    ],
+    "Upper Body": [
+      "during sleeve threading",
+      "during garment over head",
+      "during garment pull-down",
+      "during affected arm positioning",
+      "during fastener management",
+      "during final adjustments"
+    ],
+    "Dressing": [
+      "during garment orientation",
+      "during threading",
+      "during pull-through",
+      "during fastener manipulation",
+      "during final positioning"
+    ],
+    "Bathing": [
+      "during tub/shower entry",
+      "during washing UB",
+      "during washing LB",
+      "during back reach",
+      "during hair care",
+      "during drying",
+      "during supply retrieval",
+      "during shower/tub transfer",
+      "while washing lower body",
+      "while reaching posterior trunk",
+      "when managing water temperature",
+      "during drying off"
+    ],
+    "Hygiene/Grooming": [
+      "during oral care",
+      "during hair brushing",
+      "during face washing",
+      "during reach to sink",
+      "during tool manipulation",
+      "during standing at sink",
+      "while applying toothpaste",
+      "during manipulation of razor/toothbrush",
+      "while reaching into cabinet",
+      "during task setup"
+    ],
+    "Self-Feeding": [
+      "during utensil setup",
+      "during food cutting",
+      "during hand-to-mouth",
+      "during cup lifting",
+      "during swallow/chew",
+      "during plate navigation",
+      "during utensil grasp",
+      "while scooping food",
+      "when bringing food to mouth",
+      "while using adaptive equipment",
+      "during chewing/swallowing"
+    ],
+    "Toileting": [
+      "during approach to toilet",
+      "during clothing management",
+      "during transfer to toilet",
+      "during hygiene care",
+      "during tissue management",
+      "during transfer off toilet"
+    ],
+    "W/C": [
+      "during forward propulsion",
+      "during turning",
+      "during brake engagement",
+      "during positioning",
+      "during navigation",
+      "during transfer preparation"
+    ],
+    "Strengthening": [
+      "during resistance phase",
+      "during return phase",
+      "during setup",
+      "during weight bearing",
+      "during movement control"
+    ],
+    "Fine Motor": [
+      "during grasp formation",
+      "during precision placement",
+      "during manipulation",
+      "during release",
+      "during bilateral coordination"
+    ],
+    "Medication Management": [
+      "during pill identification",
+      "during box setup",
+      "during schedule review",
+      "during safety check"
+    ],
+    "Safety Awareness": [
+      "during hazard review",
+      "during environment scan",
+      "during emergency practice",
+      "during safety planning",
+      "during obstacle negotiation",
+      "when identifying potential hazards",
+      "during use of adaptive equipment",
+      "before initiating transfer"
+    ],
+    "Sequencing/Planning": [
+      "during task breakdown",
+      "during step sequencing",
+      "during planning review",
+      "during execution"
+    ],
+    "Memory Strategies": [
+      "during strategy practice",
+      "during aid setup",
+      "during recall attempt",
+      "during technique application"
+    ],
+    "Attention Training": [
+      "during focus tasks",
+      "during distraction management",
+      "during sustained attention",
+      "during task switching"
+    ],
+    "Executive Function": [
+      "during problem-solving",
+      "during decision-making",
+      "during planning",
+      "during strategy selection"
+    ],
+    "Orientation Training": [
+      "during person questions",
+      "during place questions",
+      "during time questions",
+      "during reality orientation"
+    ],
+    "Money Management": [
+      "during coin counting",
+      "during change calculation",
+      "during bill identification",
+      "during transaction practice"
+    ],
+    "Communication": [
+      "during instruction following",
+      "during phone practice",
+      "during emergency calling",
+      "during expression attempts"
+    ],
+    "Visual Processing": [
+      "during scanning tasks",
+      "during discrimination tasks",
+      "during pattern recognition",
+      "during visual search"
+    ],
+    "Reading/Writing": [
+      "during reading tasks",
+      "during writing practice",
+      "during form completion",
+      "during comprehension check"
+    ],
+    "Meal Preparation": [
+      "during gathering items",
+      "during opening containers",
+      "during cutting/chopping",
+      "during stove use",
+      "during sequencing steps",
+      "for kitchen safety"
+    ],
+    "Home Management": [
+      "during laundry tasks",
+      "during bed making",
+      "during light housekeeping",
+      "during reaching/bending",
+      "for energy conservation"
+    ],
+    "Weight Bearing - UE": [
+      "during weight shift through UEs",
+      "during sustained weight bearing",
+      "during dynamic weight bearing",
+      "during position changes",
+      "during reaching from weight bearing position",
+      "during graded progression"
+    ],
+    "Postural Control - UE Tasks": [
+      "during reaching",
+      "during lifting",
+      "during carrying",
+      "during overhead tasks",
+      "during bilateral tasks",
+      "during weight shift",
+      "during trunk rotation"
+    ],
+    "Default": [
+      "during task initiation",
+      "during task execution",
+      "during task completion",
+      "during transition",
+      "during setup",
+      "during performance"
+    ]
+  },
+  "CUE_BODY_PARTS": [
+    "trunk",
+    "hips",
+    "glutes",
+    "pelvis",
+    "knees",
+    "ankles",
+    "feet",
+    "shoulders",
+    "elbows",
+    "wrists",
+    "hands",
+    "fingers",
+    "BLE",
+    "BUE",
+    "RLE",
+    "LLE",
+    "RUE",
+    "LUE",
+    "core",
+    "affected side",
+    "unaffected side",
+    "head/neck"
+  ]
+}

@@ -1,0 +1,683 @@
+{
+  "ASSIST_LEVELS": [
+    {
+      "id": "I",
+      "label": "I",
+      "full": "Independent"
+    },
+    {
+      "id": "ModI",
+      "label": "Mod I",
+      "full": "Modified Independent"
+    },
+    {
+      "id": "S",
+      "label": "S",
+      "full": "Supervision"
+    },
+    {
+      "id": "CGA",
+      "label": "CGA",
+      "full": "CGA"
+    },
+    {
+      "id": "MinA",
+      "label": "Min A",
+      "full": "Min physical assist"
+    },
+    {
+      "id": "ModA",
+      "label": "Mod A",
+      "full": "Mod physical assist"
+    },
+    {
+      "id": "MaxA",
+      "label": "Max A",
+      "full": "Max physical assist"
+    },
+    {
+      "id": "Total",
+      "label": "Total",
+      "full": "Total assist"
+    }
+  ],
+  "ASSIST_PURPOSES": [
+    "for stability",
+    "for balance",
+    "for safety",
+    "for controlled lowering",
+    "for controlled descent",
+    "to stand",
+    "to stand from W/C",
+    "to stand from toilet",
+    "to stand from bed",
+    "to stand from mat",
+    "to sit",
+    "to sit EOB",
+    "to sit on toilet",
+    "to sit in W/C",
+    "to lower to surface",
+    "for weight shift",
+    "for anterior weight shift",
+    "for lateral weight shift",
+    "for initial lift-off from surface",
+    "for hip extension",
+    "for knee extension",
+    "for postural control",
+    "for alignment",
+    "for transfer",
+    "for trunk control",
+    "during pivoting",
+    "to clear feet during pivot",
+    "to scoot to edge of surface",
+    "for proper foot placement",
+    "to block knee(s)",
+    "to guide/facilitate movement",
+    "for generating momentum",
+    "for supine-to-sit",
+    "for sit-to-supine",
+    "for rolling",
+    "for scooting",
+    "for bridging",
+    "for positioning",
+    "for trunk rotation",
+    "for LE management in bed",
+    "to scoot to EOB",
+    "to scoot up in bed",
+    "for head/trunk dissociation",
+    "for segmental rolling",
+    "to thread BUE into sleeve",
+    "to thread UUE into sleeve",
+    "for garment orientation",
+    "for gathering garment",
+    "to manage garment over head",
+    "to clear head/face",
+    "to position garment on shoulders",
+    "to pull garment down trunk",
+    "for final garment adjustments",
+    "to manage front closure",
+    "to reach behind for closure",
+    "for affected arm management",
+    "for overhead garment management",
+    "for front-opening garment management",
+    "for pain management during UE ROM",
+    "to don pants over feet/ankles",
+    "to don RLE",
+    "to don LLE",
+    "to pull pants to knees",
+    "to pull pants to thighs",
+    "to pull pants over hips",
+    "to manage waistband",
+    "for hip lift/bridging to clear clothing",
+    "for transition to stand to manage pants",
+    "for seated pants management",
+    "for positioning LE for dressing",
+    "to cross leg for foot access",
+    "to reach feet for socks",
+    "to don socks",
+    "to doff socks",
+    "to reach feet for shoes",
+    "to don shoes",
+    "to doff shoes",
+    "to manage shoe closures",
+    "for managing adaptive equipment",
+    "to manage sock aid",
+    "to manage reacher",
+    "to manage dressing stick",
+    "for forward trunk flexion",
+    "for functional reach to feet",
+    "for fastener management",
+    "to manage buttons",
+    "to manage zipper",
+    "to manage snaps",
+    "to manage hooks",
+    "to manage belt",
+    "for button grasp",
+    "for button manipulation",
+    "for zipper grasp",
+    "for zipper pull",
+    "for toilet transfer",
+    "to lower to toilet",
+    "to stand from toilet",
+    "to pivot to toilet",
+    "to manage clothing down standing",
+    "to manage clothing down seated",
+    "to manage clothing up standing",
+    "to manage clothing up seated",
+    "to reach clothing behind body",
+    "for perineal reach",
+    "for perineal hygiene",
+    "for toilet paper management",
+    "for wiping",
+    "for grab bar use",
+    "for one-handed stabilization",
+    "for managing incontinence products",
+    "for shower/tub transfer",
+    "for shower/tub entry",
+    "for tub exit",
+    "for seated bathing balance",
+    "for dynamic balance during reaching",
+    "to wash anterior trunk/UEs",
+    "to wash BLEs",
+    "to reach feet for washing",
+    "to wash posterior trunk",
+    "for hair washing",
+    "to reach overhead for hair",
+    "for sustained overhead reach",
+    "for managing water controls",
+    "for managing soap/shampoo",
+    "for drying",
+    "for managing towel",
+    "for standing at sink",
+    "for seated grooming",
+    "to reach mouth for oral care",
+    "for hand-to-mouth",
+    "to reach face",
+    "to reach hair",
+    "for seated feeding position",
+    "to manage utensil",
+    "to scoop food",
+    "to cut food",
+    "for grasp on utensil"
+  ],
+  "ASSIST_LOCATIONS_BY_ACTIVITY": {
+    "UE Dressing": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Overhead garment donning": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Overhead garment doffing": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Front-opening garment donning": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Sleeve threading": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Button management": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Zipper management": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "Bra management": [
+      "at trunk",
+      "at shoulders",
+      "at elbows",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "at affected side"
+    ],
+    "LE Dressing": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at ankles/feet",
+      "at BLE",
+      "at RLE",
+      "at LLE",
+      "at affected side"
+    ],
+    "LE threading": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at RLE",
+      "at LLE"
+    ],
+    "Pants pull-up to thighs": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at RLE",
+      "at LLE"
+    ],
+    "Standing to pull pants above hips": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance"
+    ],
+    "Seated pants donning": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at RLE",
+      "at LLE"
+    ],
+    "Standing pants donning": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance"
+    ],
+    "Sock donning": [
+      "at trunk",
+      "at knees",
+      "at ankles/feet",
+      "for balance"
+    ],
+    "Sock doffing": [
+      "at trunk",
+      "at knees",
+      "at ankles/feet",
+      "for balance"
+    ],
+    "Shoe donning": [
+      "at trunk",
+      "at knees",
+      "at ankles/feet",
+      "for balance"
+    ],
+    "Shoe doffing": [
+      "at trunk",
+      "at knees",
+      "at ankles/feet",
+      "for balance"
+    ],
+    "Sit-to-stand": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BUE",
+      "with transfer belt"
+    ],
+    "Stand-to-sit": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Stand-pivot transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Bed-to-chair transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Chair-to-bed transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "W/C-to-bed transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Toilet transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Tub/shower transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Car transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Transfers": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at shoulders",
+      "with transfer belt"
+    ],
+    "Stand-pivot": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Bed Mobility": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at BUE",
+      "at affected side"
+    ],
+    "Rolling to R": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at knees",
+      "at BUE"
+    ],
+    "Rolling to L": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at knees",
+      "at BUE"
+    ],
+    "Supine-to-sit": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at BUE"
+    ],
+    "Sit-to-supine": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at knees"
+    ],
+    "Scooting up in bed": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at BUE"
+    ],
+    "Scooting to EOB": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at BUE"
+    ],
+    "Bathing": [
+      "at trunk",
+      "at shoulders",
+      "at hips",
+      "at BUE",
+      "at BLE",
+      "for balance"
+    ],
+    "UB washing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance"
+    ],
+    "LB washing": [
+      "at trunk",
+      "at hips",
+      "at pelvis",
+      "for balance"
+    ],
+    "Hair washing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance"
+    ],
+    "Back washing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE"
+    ],
+    "Shower transfer": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Self-Feeding": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "Utensil use": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "Cup management": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "Hygiene/Grooming": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE",
+      "for balance"
+    ],
+    "Oral Care": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance"
+    ],
+    "Hair brushing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance"
+    ],
+    "Tooth brushing": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "for balance"
+    ],
+    "Balance - Sitting": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders",
+      "at hips"
+    ],
+    "Balance - Standing": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at shoulders",
+      "for balance"
+    ],
+    "Static sitting balance": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders"
+    ],
+    "Dynamic sitting balance": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders"
+    ],
+    "Static standing balance": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance"
+    ],
+    "Dynamic standing balance": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance"
+    ],
+    "Strengthening": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at hips",
+      "at knees",
+      "at BLE"
+    ],
+    "UE strengthening": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "LE strengthening": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at BLE",
+      "at RLE",
+      "at LLE"
+    ],
+    "Core strengthening": [
+      "at trunk",
+      "at pelvis",
+      "at shoulders"
+    ],
+    "Toileting": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance",
+      "with transfer belt"
+    ],
+    "Toilet approach": [
+      "at trunk",
+      "at hips",
+      "for balance"
+    ],
+    "Clothing management": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "for balance"
+    ],
+    "Perineal hygiene": [
+      "at trunk",
+      "for balance"
+    ],
+    "W/C": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "W/C propulsion": [
+      "at trunk",
+      "at shoulders",
+      "at BUE",
+      "at RUE",
+      "at LUE"
+    ],
+    "W/C transfers": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "with transfer belt"
+    ],
+    "Medication Management": [
+      "for safety",
+      "for setup"
+    ],
+    "Safety Awareness": [
+      "for safety",
+      "for setup"
+    ],
+    "Memory Strategies": [
+      "for setup"
+    ],
+    "Default": [
+      "at trunk",
+      "at pelvis",
+      "at hips",
+      "at knees",
+      "at shoulders",
+      "at BUE",
+      "at BLE",
+      "at RUE",
+      "at LUE",
+      "at RLE",
+      "at LLE",
+      "at affected side",
+      "for balance",
+      "with transfer belt"
+    ]
+  },
+  "MODI_MODIFIERS": [
+    "with use of adaptive equipment",
+    "with increased time for completion",
+    "with compensatory techniques",
+    "with setup assistance",
+    "with verbal cues only",
+    "with environmental modifications",
+    "with safety concerns",
+    "with assistive device",
+    "with one-handed techniques",
+    "with energy conservation methods"
+  ]
+}

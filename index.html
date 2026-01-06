@@ -225,19 +225,37 @@
     // DATA LOADING
     // ============================================
 
+    // Data files split by domain for better maintainability
+    const DATA_FILES = [
+      'data/cpt-activities.json',  // CPT_CODES, ACTIVITIES_BY_CPT
+      'data/goals.json',           // GOALS, GOALS_BY_ACTIVITY
+      'data/assist.json',          // ASSIST_LEVELS, ASSIST_PURPOSES, ASSIST_LOCATIONS_BY_ACTIVITY, MODI_MODIFIERS
+      'data/cues.json',            // CUE_LEVELS, CUE_TYPES, CUE_PURPOSES, CUE_CONTEXTS, CUE_BODY_PARTS
+      'data/clinical.json',        // DEFICITS, BODY_PARTS_BY_ACTIVITY, PERFORMANCE_QUALIFIERS_BY_ACTIVITY, EQUIPMENT_BY_ACTIVITY
+      'data/session.json',         // PROGRESS_OPTIONS, TOLERANCE_OPTIONS, PLAN_OPTIONS, PATIENT_SUBJECTIVE_OPTIONS, SESSION_CONTEXT_OPTIONS, CLINICAL_REASONING_OPTIONS
+      'data/vitals.json'           // PAIN_LOCATIONS, PAIN_RATINGS, HR_OPTIONS, O2SAT_OPTIONS, BP_OPTIONS
+    ];
+
     const useDataStore = () => {
       const [data, setData] = useState(null);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
 
       useEffect(() => {
-        fetch('./ot-note-data.json')
-          .then(res => {
-            if (!res.ok) throw new Error('Failed to load data');
-            return res.json();
-          })
-          .then(jsonData => {
-            setData(jsonData);
+        // Fetch all data files in parallel for optimal performance
+        Promise.all(
+          DATA_FILES.map(file =>
+            fetch(`./${file}`)
+              .then(res => {
+                if (!res.ok) throw new Error(`Failed to load ${file}`);
+                return res.json();
+              })
+          )
+        )
+          .then(results => {
+            // Merge all data objects into a single object
+            const mergedData = results.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+            setData(mergedData);
             setLoading(false);
           })
           .catch(err => {
@@ -2431,7 +2449,7 @@
               <div style={{ fontSize: '18px', marginBottom: '8px' }}>Error Loading Data</div>
               <div style={{ fontSize: '12px' }}>{error}</div>
               <div style={{ fontSize: '11px', marginTop: '12px', color: 'var(--text-muted)' }}>
-                Make sure ot-note-data.json is in the same folder
+                Make sure the data/ folder exists with all JSON files
               </div>
             </div>
           </div>
