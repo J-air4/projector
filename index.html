@@ -1860,7 +1860,17 @@
         }
       };
 
-      const handleNext = () => { if (currentStep < STEPS.length - 1) setCurrentStep(prev => prev + 1); };
+      const handleNext = () => {
+        // Handle activity sub-steps
+        if (STEPS[currentStep].id === 'activity') {
+          if (activityModalStep === 'child' && selectedActivities.length > 0) {
+            setActivityModalStep('params');
+            return;
+          }
+        }
+        // Move to next main step
+        if (currentStep < STEPS.length - 1) setCurrentStep(prev => prev + 1);
+      };
       const handleBack = () => {
         if (STEPS[currentStep].id === 'activity') {
           if (activityModalStep === 'params') {
@@ -2490,7 +2500,7 @@
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: 'var(--bg-secondary)', borderRadius: '8px', border: '1px solid var(--border-color)', flexShrink: 0 }}>
-                <button onClick={handleBack} disabled={currentStep === 0 && activityModalStep === 'parent'} style={{ padding: '6px 14px', background: (currentStep === 0 && activityModalStep === 'parent') ? 'var(--bg-tertiary)' : 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: (currentStep === 0 && activityModalStep === 'parent') ? 'not-allowed' : 'pointer', fontSize: '12px', fontWeight: 500, color: (currentStep === 0 && activityModalStep === 'parent') ? 'var(--text-muted)' : 'var(--text-primary)' }}>← Back</button>
+                <button onClick={handleBack} disabled={currentStep === 0} style={{ padding: '6px 14px', background: currentStep === 0 ? 'var(--bg-tertiary)' : 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: currentStep === 0 ? 'not-allowed' : 'pointer', fontSize: '12px', fontWeight: 500, color: currentStep === 0 ? 'var(--text-muted)' : 'var(--text-primary)' }}>← Back</button>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                   {STEPS.map((step, index) => (
