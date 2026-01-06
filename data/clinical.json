@@ -1,0 +1,913 @@
+{
+  "DEFICITS": {
+    "Transfers": [
+      "Decreased eccentric control during lowering phase, limiting safe controlled descent to surfaces",
+      "Retropulsion during standing phase, increasing fall risk during transfers",
+      "Decreased LE strength limiting ability to achieve standing without UE support",
+      "Decreased standing tolerance limiting time available for safe transfer completion",
+      "Impaired balance during positional transitions, requiring increased assistance for safety",
+      "Decreased safety awareness during transfers, requiring external cueing for safe technique",
+      "Decreased anterior weight shift limiting ability to achieve adequate forward lean for standing",
+      "Decreased hip extension limiting ability to achieve full upright standing posture",
+      "Decreased knee extension limiting ability to maintain stable standing position",
+      "Impaired motor planning affecting sequencing and timing of transfer components",
+      "Decreased trunk rotation limiting ability to pivot during stand-pivot transfers"
+    ],
+    "Balance - Sitting": [
+      "Decreased dynamic sitting balance limiting ability to reach outside base of support",
+      "Decreased static sitting balance requiring UE support for unsupported sitting",
+      "Decreased trunk control affecting ability to maintain upright posture during seated ADL",
+      "Decreased core strength limiting postural stability during seated functional tasks",
+      "Decreased lateral weight shift control limiting ability to reach to sides during seated tasks",
+      "Impaired righting reactions increasing fall risk during perturbations in sitting",
+      "Decreased postural awareness limiting ability to self-correct trunk position"
+    ],
+    "Balance - Standing": [
+      "Decreased dynamic standing balance limiting safe reaching during standing ADL",
+      "Decreased static standing balance requiring assistive device for safe standing",
+      "Decreased standing tolerance limiting duration of standing functional activities",
+      "Impaired reactive balance increasing fall risk during unexpected perturbations",
+      "Decreased lateral weight shift limiting ability to safely reach to sides in standing",
+      "Decreased LE strength limiting ability to maintain stable standing position",
+      "Decreased proprioceptive awareness affecting ability to sense body position in space"
+    ],
+    "Bed Mobility": [
+      "Decreased trunk strength limiting ability to transition from supine to sitting",
+      "Decreased LE strength limiting ability to assist with bed mobility tasks",
+      "Decreased UE strength limiting ability to push up from bed surface",
+      "Impaired motor sequencing affecting ability to complete bed mobility in correct order",
+      "Decreased activity tolerance limiting ability to complete full bed mobility routine",
+      "Decreased segmental rolling ability requiring log roll technique for positioning",
+      "Limited trunk rotation affecting ability to initiate rolling movements"
+    ],
+    "Dressing": [
+      "Decreased shoulder ROM limiting ability to reach overhead and behind back for dressing",
+      "Decreased UE strength limiting ability to manipulate clothing against gravity",
+      "Decreased fine motor coordination limiting ability to manage fasteners and fabric",
+      "Impaired sequencing affecting ability to complete dressing steps in correct order",
+      "Decreased sitting balance during dressing requiring UE support or supervision",
+      "Decreased activity tolerance limiting ability to complete full dressing routine",
+      "Decreased bilateral coordination limiting ability to manage garments requiring two hands"
+    ],
+    "Bathing": [
+      "Decreased standing tolerance limiting time available for shower/bathing tasks",
+      "Decreased dynamic standing balance limiting safe movement during shower tasks",
+      "Decreased UE ROM limiting ability to reach all body surfaces for washing",
+      "Decreased activity tolerance limiting ability to complete full bathing routine",
+      "Impaired sequencing affecting ability to complete bathing in safe, efficient order",
+      "Decreased safety awareness during bathing requiring supervision for safe task completion",
+      "Decreased functional reach limiting ability to access bathing supplies and body surfaces",
+      "Fear of falling limiting willingness to attempt bathing tasks independently"
+    ],
+    "Grooming": [
+      "Decreased shoulder ROM limiting ability to reach face and hair for grooming tasks",
+      "Decreased UE strength limiting ability to sustain grooming motions against gravity",
+      "Decreased fine motor coordination limiting ability to manipulate grooming tools",
+      "Decreased standing tolerance limiting time available for grooming at sink",
+      "Decreased activity tolerance limiting ability to complete full grooming routine",
+      "Impaired sequencing affecting ability to complete grooming in efficient order"
+    ],
+    "Self-Feeding": [
+      "Decreased shoulder ROM limiting ability to bring hand to mouth for feeding",
+      "Decreased UE strength limiting ability to lift utensils and sustain feeding motions",
+      "Decreased fine motor coordination limiting ability to manipulate utensils effectively",
+      "Decreased grasp strength limiting ability to maintain hold on utensils during feeding",
+      "Impaired hand-to-mouth control affecting accuracy of utensil placement",
+      "Decreased sitting balance limiting postural stability during feeding tasks",
+      "Intention tremors affecting accuracy of utensil control during self-feeding",
+      "Impaired in-hand manipulation limiting ability to adjust utensil position in hand"
+    ],
+    "Toileting": [
+      "Decreased transfer safety limiting ability to safely transfer on/off toilet",
+      "Decreased standing tolerance limiting time for clothing management at toilet",
+      "Decreased dynamic standing balance limiting safe clothing management in standing",
+      "Impaired clothing management limiting ability to manage garments for toileting",
+      "Decreased LE strength limiting ability to stand from toilet height surfaces",
+      "Impaired sequencing affecting ability to complete toileting routine in correct order"
+    ],
+    "Meal Preparation": [
+      "Decreased standing tolerance limiting time available for meal preparation tasks",
+      "Decreased activity tolerance limiting ability to complete full meal preparation",
+      "Impaired sequencing affecting ability to follow recipe steps in correct order",
+      "Decreased safety awareness limiting safe use of kitchen appliances and sharp objects",
+      "Decreased problem-solving limiting ability to adapt when issues arise during cooking",
+      "Decreased bilateral coordination limiting ability to stabilize and manipulate items",
+      "Decreased functional reach limiting access to cabinets and work surfaces"
+    ],
+    "Home Management": [
+      "Decreased activity tolerance limiting ability to complete household tasks",
+      "Decreased standing tolerance limiting duration of upright home management tasks",
+      "Impaired sequencing affecting ability to organize and complete multi-step tasks",
+      "Decreased functional mobility limiting ability to navigate home during tasks",
+      "Decreased bilateral coordination limiting ability to manage cleaning equipment",
+      "Decreased functional reach limiting ability to access storage areas"
+    ],
+    "Footwear": [
+      "Decreased fine motor coordination limiting ability to manage shoelaces and straps",
+      "Decreased functional reach limiting ability to access feet for footwear management",
+      "Decreased sitting balance limiting stability during forward lean for footwear",
+      "Limited hip flexion ROM limiting ability to bring foot toward body for shoe donning",
+      "Limited LE ROM limiting ability to position feet for footwear management",
+      "Decreased UE strength limiting ability to manipulate footwear components",
+      "Impaired sequencing affecting correct order of footwear donning steps"
+    ],
+    "Fasteners": [
+      "Decreased fine motor coordination limiting ability to manipulate buttons and zippers",
+      "Decreased pinch strength limiting ability to grasp small fastener components",
+      "Decreased grip strength limiting ability to maintain hold on fasteners",
+      "Impaired dexterity limiting speed and accuracy of fastener manipulation",
+      "Decreased bilateral coordination limiting ability to stabilize garment during fastening",
+      "Limited finger ROM limiting ability to position fingers for fastener manipulation",
+      "Impaired in-hand manipulation limiting ability to adjust fastener position in fingers"
+    ],
+    "Oral Care": [
+      "Decreased fine motor coordination limiting ability to manipulate toothbrush effectively",
+      "Decreased UE ROM limiting ability to reach all oral surfaces during brushing",
+      "Decreased UE strength limiting ability to sustain brushing motions",
+      "Impaired sequencing affecting thorough completion of oral hygiene routine",
+      "Decreased standing tolerance limiting time available for oral care at sink",
+      "Decreased bilateral coordination limiting ability to manage toothpaste and brush"
+    ],
+    "Hair Care": [
+      "Decreased shoulder ROM limiting ability to reach top and back of head",
+      "Decreased UE strength limiting ability to sustain overhead arm positions",
+      "Decreased activity tolerance limiting ability to complete full hair care routine",
+      "Decreased standing tolerance limiting time available for hair care at sink/mirror",
+      "Decreased bilateral coordination limiting ability to style and manage hair",
+      "Limited overhead reach limiting ability to access all areas of head for grooming"
+    ],
+    "Face/Skin": [
+      "Decreased fine motor coordination limiting ability to manipulate grooming tools",
+      "Decreased standing balance limiting stability during grooming at sink",
+      "Decreased UE strength limiting ability to sustain arm positions for face care",
+      "Impaired sequencing affecting thorough completion of skincare routine",
+      "Decreased bilateral coordination limiting ability to manage grooming products"
+    ],
+    "Nail Care": [
+      "Decreased fine motor coordination limiting ability to manipulate nail care tools",
+      "Decreased functional reach limiting ability to access feet for toenail care",
+      "Decreased sitting balance limiting stability during forward lean for nail care",
+      "Impaired visual acuity limiting ability to see nails clearly for safe trimming",
+      "Decreased pinch strength limiting ability to operate nail clippers effectively"
+    ],
+    "Meal Setup": [
+      "Decreased fine motor coordination limiting ability to open containers and packages",
+      "Decreased grip strength limiting ability to hold and pour from containers",
+      "Decreased UE strength limiting ability to lift and position meal items",
+      "Impaired sequencing affecting efficient organization of meal setup",
+      "Decreased bilateral coordination limiting ability to stabilize and manipulate items",
+      "Decreased problem-solving limiting ability to adapt meal setup strategies"
+    ],
+    "Kitchen": [
+      "Decreased standing tolerance limiting time available for kitchen tasks",
+      "Decreased activity tolerance limiting ability to complete meal preparation",
+      "Impaired sequencing affecting ability to follow multi-step recipes",
+      "Decreased safety awareness limiting safe use of appliances and sharp tools",
+      "Decreased problem-solving limiting ability to adapt when cooking issues arise",
+      "Decreased bilateral coordination limiting ability to manage multiple items",
+      "Decreased functional reach limiting access to cabinets and appliances"
+    ],
+    "Cleaning": [
+      "Decreased activity tolerance limiting ability to complete cleaning tasks",
+      "Decreased standing tolerance limiting duration of upright cleaning activities",
+      "Decreased LE strength limiting ability to bend and reach during cleaning",
+      "Decreased functional mobility limiting ability to move throughout home during cleaning",
+      "Decreased bilateral coordination limiting ability to manage cleaning equipment",
+      "Decreased functional reach limiting ability to access all cleaning surfaces"
+    ],
+    "Communication/Financial": [
+      "Decreased fine motor coordination limiting ability to write and use devices",
+      "Decreased visual acuity limiting ability to read documents and screens",
+      "Impaired sequencing affecting ability to complete multi-step financial tasks",
+      "Decreased attention limiting ability to focus on complex communication tasks",
+      "Impaired executive functioning limiting planning and organization of tasks",
+      "Decreased problem-solving limiting ability to manage unexpected situations"
+    ],
+    "Default": [
+      "Decreased activity tolerance limiting ability to complete functional tasks",
+      "Impaired sequencing affecting ability to complete multi-step activities",
+      "Decreased safety awareness requiring supervision during functional activities",
+      "Decreased strength limiting ability to perform activities against gravity",
+      "Decreased coordination affecting quality of movement during tasks",
+      "Impaired motor planning affecting initiation and execution of movements",
+      "Decreased balance limiting stability during functional activities",
+      "Decreased endurance limiting ability to sustain activity over time",
+      "Decreased LE strength limiting ability to maintain standing and walking",
+      "Limited LE ROM limiting ability to achieve full movement patterns",
+      "Decreased fine motor dexterity limiting ability to manipulate small objects",
+      "Impaired sensation affecting ability to safely interact with environment"
+    ]
+  },
+  "BODY_PARTS_BY_ACTIVITY": {
+    "UE Dressing": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "affected side"
+    ],
+    "Upper Body": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "affected side"
+    ],
+    "Overhead garment donning": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "affected side"
+    ],
+    "Sleeve threading": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "affected side"
+    ],
+    "Button management": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "hands",
+      "fingers"
+    ],
+    "Zipper management": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "hands",
+      "fingers"
+    ],
+    "Self-Feeding": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "core",
+      "hands",
+      "fingers",
+      "wrists"
+    ],
+    "Utensil use": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "hands",
+      "fingers",
+      "wrists"
+    ],
+    "Hygiene/Grooming": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "hands",
+      "fingers"
+    ],
+    "Oral care": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE"
+    ],
+    "Hair brushing": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE"
+    ],
+    "UB washing": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE"
+    ],
+    "Fine Motor": [
+      "BUE",
+      "RUE",
+      "LUE",
+      "shoulders",
+      "hands",
+      "fingers",
+      "wrists"
+    ],
+    "Strengthening - UE": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "core"
+    ],
+    "LE Dressing": [
+      "trunk",
+      "hips",
+      "pelvis",
+      "knees",
+      "BLE",
+      "RLE",
+      "LLE",
+      "affected side"
+    ],
+    "Lower Body": [
+      "trunk",
+      "hips",
+      "pelvis",
+      "knees",
+      "BLE",
+      "RLE",
+      "LLE",
+      "affected side"
+    ],
+    "Sock donning": [
+      "trunk",
+      "hips",
+      "knees",
+      "BLE",
+      "RLE",
+      "LLE",
+      "ankles",
+      "feet"
+    ],
+    "Pants donning": [
+      "trunk",
+      "hips",
+      "pelvis",
+      "knees",
+      "BLE",
+      "RLE",
+      "LLE"
+    ],
+    "Shoe donning": [
+      "trunk",
+      "hips",
+      "knees",
+      "BLE",
+      "RLE",
+      "LLE",
+      "ankles",
+      "feet"
+    ],
+    "LB washing": [
+      "trunk",
+      "hips",
+      "pelvis",
+      "knees",
+      "BLE",
+      "RLE",
+      "LLE"
+    ],
+    "Strengthening - LE": [
+      "trunk",
+      "hips",
+      "pelvis",
+      "knees",
+      "glutes",
+      "BLE",
+      "RLE",
+      "LLE",
+      "core"
+    ],
+    "Transfers": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "knees",
+      "core",
+      "affected side",
+      "glutes"
+    ],
+    "Sit-to-stand": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "knees",
+      "core",
+      "glutes"
+    ],
+    "Stand-to-sit": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "knees",
+      "core"
+    ],
+    "Stand-pivot": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "core"
+    ],
+    "Bed Mobility": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "shoulders",
+      "core",
+      "affected side"
+    ],
+    "Rolling": [
+      "trunk",
+      "shoulders",
+      "hips",
+      "core",
+      "head/neck"
+    ],
+    "Supine-to-sit": [
+      "trunk",
+      "core",
+      "shoulders",
+      "hips"
+    ],
+    "Balance - Sitting": [
+      "trunk",
+      "pelvis",
+      "core",
+      "shoulders"
+    ],
+    "Balance - Standing": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "knees",
+      "core",
+      "BLE"
+    ],
+    "Static standing balance": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "core"
+    ],
+    "Dynamic standing balance": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "knees",
+      "core",
+      "BLE"
+    ],
+    "Therapeutic Balance Training": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "knees",
+      "core",
+      "BLE"
+    ],
+    "Toileting": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "core"
+    ],
+    "Toilet transfer": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "knees",
+      "core"
+    ],
+    "Clothing management": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "BLE"
+    ],
+    "Bathing": [
+      "trunk",
+      "pelvis",
+      "shoulders",
+      "hips",
+      "BUE",
+      "BLE",
+      "core",
+      "affected side"
+    ],
+    "Hair washing": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "core"
+    ],
+    "Back washing": [
+      "trunk",
+      "shoulders",
+      "BUE"
+    ],
+    "W/C": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "core"
+    ],
+    "W/C propulsion": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "core"
+    ],
+    "Strengthening": [
+      "trunk",
+      "shoulders",
+      "hips",
+      "knees",
+      "BUE",
+      "BLE",
+      "core",
+      "glutes"
+    ],
+    "Core strengthening": [
+      "trunk",
+      "core",
+      "pelvis",
+      "shoulders"
+    ],
+    "Theraputty": [
+      "BUE",
+      "RUE",
+      "LUE",
+      "shoulders"
+    ],
+    "Medication Management": [
+      "trunk"
+    ],
+    "Safety Awareness": [
+      "trunk"
+    ],
+    "Memory Strategies": [
+      "trunk"
+    ],
+    "Attention Training": [
+      "trunk"
+    ],
+    "Functional Ambulation": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "knees",
+      "BLE",
+      "RLE",
+      "LLE",
+      "core"
+    ],
+    "Stair Training": [
+      "trunk",
+      "pelvis",
+      "hips",
+      "knees",
+      "BLE",
+      "RLE",
+      "LLE",
+      "core"
+    ],
+    "Meal Preparation": [
+      "trunk",
+      "shoulders",
+      "BUE",
+      "RUE",
+      "LUE",
+      "core"
+    ],
+    "Home Management": [
+      "trunk",
+      "hips",
+      "BUE",
+      "BLE",
+      "core"
+    ],
+    "Weight Bearing - UE": [
+      "trunk",
+      "shoulders",
+      "elbows",
+      "wrists",
+      "hands",
+      "BUE",
+      "RUE",
+      "LUE",
+      "core",
+      "affected side"
+    ],
+    "Postural Control - UE Tasks": [
+      "trunk",
+      "shoulders",
+      "core",
+      "BUE",
+      "RUE",
+      "LUE",
+      "affected side"
+    ],
+    "Default": [
+      "trunk",
+      "hips",
+      "pelvis",
+      "knees",
+      "ankles",
+      "feet",
+      "shoulders",
+      "elbows",
+      "wrists",
+      "hands",
+      "fingers",
+      "BLE",
+      "BUE",
+      "RLE",
+      "LLE",
+      "RUE",
+      "LUE",
+      "core",
+      "affected side",
+      "unaffected side",
+      "glutes",
+      "head/neck"
+    ]
+  },
+  "PERFORMANCE_QUALIFIERS_BY_ACTIVITY": {
+    "Transfers": [
+      "with loss of balance",
+      "requiring multiple attempts",
+      "with poor body mechanics",
+      "with decreased safety awareness",
+      "slowly and deliberately",
+      "with unsteady movements",
+      "requiring frequent rest breaks",
+      "with improved confidence",
+      "with decreased fear"
+    ],
+    "Sit-to-stand": [
+      "with loss of balance",
+      "requiring multiple attempts",
+      "with forward lean difficulty",
+      "with knee buckling",
+      "slowly and deliberately",
+      "with improved timing",
+      "requiring momentum generation"
+    ],
+    "UE Dressing": [
+      "with decreased attention to task",
+      "slowly and deliberately",
+      "with frustration noted",
+      "after setup assistance",
+      "with improved sequencing",
+      "requiring frequent redirection",
+      "with fatigue noted"
+    ],
+    "Upper Body": [
+      "with decreased attention to task",
+      "slowly and deliberately",
+      "with frustration noted",
+      "after setup assistance",
+      "with improved sequencing",
+      "requiring frequent redirection",
+      "with fatigue noted"
+    ],
+    "LE Dressing": [
+      "with loss of balance",
+      "slowly and deliberately",
+      "requiring seated position",
+      "with hip flexibility limitations",
+      "with improved technique",
+      "requiring frequent rest"
+    ],
+    "Lower Body": [
+      "with loss of balance",
+      "slowly and deliberately",
+      "requiring seated position",
+      "with hip flexibility limitations",
+      "with improved technique",
+      "requiring frequent rest"
+    ],
+    "Bathing": [
+      "with safety concerns noted",
+      "requiring frequent rest breaks",
+      "slowly and deliberately",
+      "with improved confidence",
+      "with decreased fear of falling"
+    ],
+    "Self-Feeding": [
+      "with improved accuracy",
+      "slowly and deliberately",
+      "with decreased spillage",
+      "requiring setup",
+      "with improved hand-to-mouth coordination"
+    ],
+    "Toileting": [
+      "with improved safety awareness",
+      "with decreased fear",
+      "slowly and deliberately",
+      "requiring frequent verbal cues",
+      "with improved independence"
+    ],
+    "Balance - Sitting": [
+      "with improved postural control",
+      "requiring back support",
+      "with decreased sway",
+      "slowly and deliberately"
+    ],
+    "Balance - Standing": [
+      "with loss of balance",
+      "requiring surface support",
+      "with narrow base of support",
+      "with improved confidence",
+      "requiring frequent weight shifts"
+    ],
+    "W/C": [
+      "with improved propulsion technique",
+      "slowly and deliberately",
+      "with decreased endurance",
+      "requiring frequent rest breaks"
+    ],
+    "Bed Mobility": [
+      "slowly and deliberately",
+      "requiring multiple attempts",
+      "with improved technique",
+      "with decreased effort noted"
+    ],
+    "Fine Motor": [
+      "with improved precision",
+      "slowly and deliberately",
+      "with decreased coordination noted",
+      "requiring visual guidance"
+    ],
+    "Strengthening": [
+      "with decreased endurance",
+      "requiring frequent rest",
+      "slowly and deliberately",
+      "with improved form",
+      "with fatigue noted"
+    ],
+    "Medication Management": [
+      "with improved attention to detail",
+      "requiring frequent prompting",
+      "slowly and deliberately",
+      "with decreased confusion"
+    ],
+    "Safety Awareness": [
+      "with improved recognition of hazards",
+      "requiring frequent redirection",
+      "with decreased impulsivity"
+    ],
+    "Default": [
+      "slowly and deliberately",
+      "with improved performance",
+      "requiring frequent cues",
+      "with fatigue noted",
+      "with decreased attention to task",
+      "with safety concerns noted"
+    ]
+  },
+  "EQUIPMENT_BY_ACTIVITY": {
+    "Sit-to-stand": [
+      "Grab bars",
+      "Toilet safety frame",
+      "Raised toilet seat",
+      "Transfer belt",
+      "FWW for support"
+    ],
+    "Transfers": [
+      "Transfer board",
+      "Transfer belt",
+      "Grab bars",
+      "Slide sheet",
+      "Sliding board"
+    ],
+    "UE Dressing": [
+      "Dressing stick",
+      "Button hook",
+      "Zipper pull",
+      "Reacher",
+      "Sock aid",
+      "Velcro fasteners"
+    ],
+    "LE Dressing": [
+      "Reacher",
+      "Sock aid",
+      "Long-handled shoehorn",
+      "Dressing stick",
+      "Leg lifter",
+      "Elastic shoelaces"
+    ],
+    "Bathing": [
+      "Shower chair",
+      "Tub transfer bench",
+      "Grab bars",
+      "Long-handled sponge",
+      "Handheld shower head",
+      "Non-slip mat"
+    ],
+    "Hygiene/Grooming": [
+      "Electric toothbrush",
+      "Built-up handle toothbrush",
+      "Long-handled comb",
+      "Suction mirror",
+      "Electric razor"
+    ],
+    "Self-Feeding": [
+      "Built-up utensils",
+      "Weighted utensils",
+      "Plate guard",
+      "Scoop dish",
+      "Non-slip mat",
+      "Rocker knife",
+      "Adaptive cup"
+    ],
+    "Toileting": [
+      "Raised toilet seat",
+      "Toilet safety frame",
+      "Grab bars",
+      "Bedside commode",
+      "Long-handled wiper"
+    ],
+    "W/C": [
+      "Wheelchair",
+      "Wheelchair cushion",
+      "Lap tray",
+      "Cup holder",
+      "Brake extensions"
+    ],
+    "Balance - Standing": [
+      "Parallel bars",
+      "Balance beam",
+      "Foam pads",
+      "Grab bars"
+    ],
+    "Strengthening": [
+      "Theraband",
+      "Hand weights",
+      "Ankle weights",
+      "Weighted balls",
+      "Theraputty",
+      "Resistance bands"
+    ],
+    "Bed Mobility": [
+      "Bed rail",
+      "Leg lifter",
+      "Trapeze bar",
+      "Bed stick",
+      "Electric bed",
+      "Hospital bed"
+    ],
+    "Meal Preparation": [
+      "Built-up utensils",
+      "Rocker knife",
+      "Dycem",
+      "Cutting board with spikes",
+      "One-handed cutting board",
+      "Jar opener",
+      "Reacher"
+    ],
+    "Home Management": [
+      "Reacher",
+      "Long-handled duster",
+      "Long-handled dustpan",
+      "Sock aid for compression stockings",
+      "Lightweight vacuum"
+    ],
+    "Kitchen": [
+      "Built-up utensils",
+      "Rocker knife",
+      "Dycem",
+      "Jar opener",
+      "Adapted cutting board",
+      "Long oven mitts"
+    ],
+    "Cleaning": [
+      "Long-handled duster",
+      "Long-handled dustpan",
+      "Reacher",
+      "Lightweight vacuum",
+      "Rolling cart"
+    ],
+    "Default": [
+      "RW",
+      "FWW",
+      "Grab bars",
+      "Transfer belt",
+      "Reacher",
+      "Built-up utensils",
+      "Non-slip mat"
+    ]
+  }
+}

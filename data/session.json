@@ -1,0 +1,152 @@
+{
+  "PROGRESS_OPTIONS": [
+    {
+      "id": "improved",
+      "label": "Improved",
+      "goalLed": "Improved compared to prior session",
+      "activityLed": "Improved performance noted"
+    },
+    {
+      "id": "same",
+      "label": "Same",
+      "goalLed": "Static compared to prior session",
+      "activityLed": "Static performance noted"
+    },
+    {
+      "id": "declined",
+      "label": "Declined",
+      "goalLed": "Declined compared to prior session",
+      "activityLed": "Declined performance noted"
+    }
+  ],
+  "TOLERANCE_OPTIONS": [
+    {
+      "id": "tolerated",
+      "label": "Tolerated",
+      "phrase": "Tolerated without fatigue"
+    },
+    {
+      "id": "rest_breaks",
+      "label": "Rest breaks",
+      "phrase": "Rest breaks required to complete activity"
+    },
+    {
+      "id": "fatigued",
+      "label": "Fatigued",
+      "phrase": "Fatigue noted limiting activity"
+    },
+    {
+      "id": "pain",
+      "label": "Pain",
+      "phrase": "Pain limited activity"
+    }
+  ],
+  "PLAN_OPTIONS": [
+    {
+      "id": "continue",
+      "label": "Continue current plan",
+      "phrase": "Will continue with current intervention plan"
+    },
+    {
+      "id": "upgrade",
+      "label": "Upgrade task complexity",
+      "phrase": "Will grade activity up to increase challenge"
+    },
+    {
+      "id": "downgrade",
+      "label": "Downgrade due to fatigue",
+      "phrase": "Will grade activity down due to fatigue noted"
+    },
+    {
+      "id": "downgrade_pain",
+      "label": "Downgrade due to pain",
+      "phrase": "Will grade activity down due to pain limiting performance"
+    },
+    {
+      "id": "new_equipment",
+      "label": "Introduce adaptive equipment",
+      "phrase": "Will introduce adaptive equipment to improve independence"
+    },
+    {
+      "id": "focus_safety",
+      "label": "Focus on safety training",
+      "phrase": "Will emphasize safety awareness and technique refinement"
+    },
+    {
+      "id": "add_strengthening",
+      "label": "Add strengthening component",
+      "phrase": "Will incorporate strengthening activities to improve performance"
+    },
+    {
+      "id": "energy_conservation",
+      "label": "Add energy conservation",
+      "phrase": "Will focus on energy conservation techniques"
+    },
+    {
+      "id": "cognitive_strategies",
+      "label": "Add cognitive strategies",
+      "phrase": "Will introduce memory aids and sequencing strategies"
+    },
+    {
+      "id": "family_training",
+      "label": "Family/caregiver training",
+      "phrase": "Will provide family/caregiver training for carry-over"
+    }
+  ],
+  "PATIENT_SUBJECTIVE_OPTIONS": [
+    "\"feeling better today\"",
+    "\"less wobbly\"",
+    "\"that was easier\"",
+    "\"harder than yesterday\"",
+    "\"my balance feels off\"",
+    "\"right shoulder hurts\"",
+    "\"left knee is stiff\"",
+    "\"I'm tired\"",
+    "\"getting stronger\"",
+    "\"want to go home\"",
+    "\"don't need help\"",
+    "\"feels the same\"",
+    "\"getting easier each time\"",
+    "\"more confident now\"",
+    "\"still feels scary\"",
+    "\"can't do it alone\"",
+    "\"that equipment helps\"",
+    "\"prefer the other way\"",
+    "\"makes me dizzy\"",
+    "\"hurts too much\""
+  ],
+  "SESSION_CONTEXT_OPTIONS": [
+    "Patient more alert today",
+    "Patient appeared fatigued after PT",
+    "Patient had pain medication 1 hour prior",
+    "First session post-medication adjustment",
+    "Family member present for training",
+    "Patient slept poorly last night",
+    "Patient complained of increased pain",
+    "Patient in better mood today",
+    "Nursing noted improved appetite",
+    "Patient expressed motivation to return home",
+    "New equipment trialed today",
+    "Environmental modifications made",
+    "Patient demonstrated carryover from previous session",
+    "Patient forgot techniques from last session",
+    "Therapy interrupted by medical procedure"
+  ],
+  "CLINICAL_REASONING_OPTIONS": [
+    "Graded task up to increase challenge",
+    "Graded task down due to fatigue",
+    "Modified approach due to pain complaints",
+    "Introduced compensatory strategy",
+    "Trialed new adaptive equipment",
+    "Emphasized safety awareness",
+    "Focused on technique refinement",
+    "Added cognitive strategies for carryover",
+    "Provided family education",
+    "Coordinated with nursing staff",
+    "Adjusted for environmental factors",
+    "Modified for patient preferences",
+    "Addressed safety concerns",
+    "Incorporated patient feedback",
+    "Will progress to next level next session"
+  ]
+}
