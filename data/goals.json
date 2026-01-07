@@ -446,6 +446,14 @@
       "energy_conservation",
       "sitting_balance"
     ],
+    "UE Dressing": [
+      "ub_dressing",
+      "ue_function",
+      "fine_motor",
+      "sequencing",
+      "energy_conservation",
+      "sitting_balance"
+    ],
     "Shirt donning": [
       "ub_dressing",
       "ue_function",
@@ -486,6 +494,19 @@
       "sequencing"
     ],
     "Lower Body": [
+      "lb_dressing",
+      "sitting_balance",
+      "standing_balance",
+      "sequencing",
+      "energy_conservation",
+      "fall_prevention",
+      "functional_mobility",
+      "le_function",
+      "functional_reach",
+      "ue_function",
+      "fine_motor"
+    ],
+    "LE Dressing": [
       "lb_dressing",
       "sitting_balance",
       "standing_balance",

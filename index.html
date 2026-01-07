@@ -538,6 +538,44 @@
       return CUE_CONTEXTS['Default'] || [];
     };
 
+    const getAssistPurposesForActivity = (parentActivity, childActivity, ASSIST_PURPOSES_BY_ACTIVITY, ASSIST_PURPOSES) => {
+      if (!ASSIST_PURPOSES_BY_ACTIVITY) return ASSIST_PURPOSES || [];
+      if (childActivity) {
+        for (const [key, purposes] of Object.entries(ASSIST_PURPOSES_BY_ACTIVITY)) {
+          if (childActivity.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(childActivity.toLowerCase())) {
+            return purposes;
+          }
+        }
+      }
+      if (parentActivity) {
+        for (const [key, purposes] of Object.entries(ASSIST_PURPOSES_BY_ACTIVITY)) {
+          if (parentActivity.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(parentActivity.toLowerCase())) {
+            return purposes;
+          }
+        }
+      }
+      return ASSIST_PURPOSES_BY_ACTIVITY['Default'] || ASSIST_PURPOSES || [];
+    };
+
+    const getCuePurposesForActivity = (parentActivity, childActivity, CUE_PURPOSES_BY_ACTIVITY, CUE_PURPOSES) => {
+      if (!CUE_PURPOSES_BY_ACTIVITY) return CUE_PURPOSES || [];
+      if (childActivity) {
+        for (const [key, purposes] of Object.entries(CUE_PURPOSES_BY_ACTIVITY)) {
+          if (childActivity.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(childActivity.toLowerCase())) {
+            return purposes;
+          }
+        }
+      }
+      if (parentActivity) {
+        for (const [key, purposes] of Object.entries(CUE_PURPOSES_BY_ACTIVITY)) {
+          if (parentActivity.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(parentActivity.toLowerCase())) {
+            return purposes;
+          }
+        }
+      }
+      return CUE_PURPOSES_BY_ACTIVITY['Default'] || CUE_PURPOSES || [];
+    };
+
     const formatTime = (seconds) => {
       const hrs = Math.floor(seconds / 3600);
       const mins = Math.floor((seconds % 3600) / 60);
@@ -1773,8 +1811,13 @@
 
       const assistPurposeOptions = useMemo(() => {
         if (!data) return [];
-        return data.ASSIST_PURPOSES || [];
-      }, [data]);
+        return getAssistPurposesForActivity(primaryParent, primaryActivity, data.ASSIST_PURPOSES_BY_ACTIVITY, data.ASSIST_PURPOSES);
+      }, [primaryParent, primaryActivity, data]);
+
+      const cuePurposeOptions = useMemo(() => {
+        if (!data) return [];
+        return getCuePurposesForActivity(primaryParent, primaryActivity, data.CUE_PURPOSES_BY_ACTIVITY, data.CUE_PURPOSES);
+      }, [primaryParent, primaryActivity, data]);
 
       const cueBodyPartOptions = useMemo(() => {
         if (!data) return [];
@@ -2452,7 +2495,7 @@
                       <label style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)', marginBottom: '3px' }}>For (purpose)</label>
                       <select value={newCue.purpose} onChange={(e) => setNewCue(prev => ({ ...prev, purpose: e.target.value }))} style={{ width: '100%', padding: '6px 8px', border: '1px solid var(--border-color)', borderRadius: '4px', fontSize: '11px', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }}>
                         <option value="">Optional</option>
-                        {data.CUE_PURPOSES.map(p => (<option key={p} value={p}>{p}</option>))}
+                        {cuePurposeOptions.map(p => (<option key={p} value={p}>{p}</option>))}
                       </select>
                     </div>
                     <div>
