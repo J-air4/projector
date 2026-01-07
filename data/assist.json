@@ -1578,19 +1578,7 @@
       { "level": "ModA", "location": "at BUE", "purpose": "to thread BUE into sleeve", "label": "Mod A sleeve threading" },
       { "level": "S", "location": "", "purpose": "for garment orientation", "label": "Supervision garment" }
     ],
-    "Upper Body": [
-      { "level": "MinA", "location": "at trunk", "purpose": "for postural control", "label": "Min A trunk posture" },
-      { "level": "MinA", "location": "at affected side", "purpose": "for affected arm management", "label": "Min A affected arm" },
-      { "level": "ModA", "location": "at BUE", "purpose": "to thread BUE into sleeve", "label": "Mod A sleeve threading" },
-      { "level": "S", "location": "", "purpose": "for garment orientation", "label": "Supervision garment" }
-    ],
     "LE Dressing": [
-      { "level": "MinA", "location": "at trunk", "purpose": "for forward trunk flexion", "label": "Min A trunk flexion" },
-      { "level": "MinA", "location": "at BLE", "purpose": "to don pants over feet/ankles", "label": "Min A pants over feet" },
-      { "level": "ModA", "location": "at pelvis", "purpose": "for hip lift/bridging to clear clothing", "label": "Mod A hip lift" },
-      { "level": "MinA", "location": "at trunk", "purpose": "for functional reach to feet", "label": "Min A reach to feet" }
-    ],
-    "Lower Body": [
       { "level": "MinA", "location": "at trunk", "purpose": "for forward trunk flexion", "label": "Min A trunk flexion" },
       { "level": "MinA", "location": "at BLE", "purpose": "to don pants over feet/ankles", "label": "Min A pants over feet" },
       { "level": "ModA", "location": "at pelvis", "purpose": "for hip lift/bridging to clear clothing", "label": "Mod A hip lift" },
