@@ -1137,14 +1137,6 @@
       "to pull pants over hips",
       "to manage waistband"
     ],
-    "Seated pants donning": [
-      "for stability",
-      "for balance support",
-      "for postural control",
-      "to don pants over feet/ankles",
-      "to pull pants to knees",
-      "for seated pants management"
-    ],
     "Standing pants donning": [
       "for stability",
       "for balance support",
@@ -1379,20 +1371,6 @@
       "for stability",
       "for one-handed stabilization"
     ],
-    "Clothing Management": [
-      "to manage clothing down standing",
-      "to manage clothing down seated",
-      "to manage clothing up standing",
-      "to manage clothing up seated",
-      "to manage waistband",
-      "to pull pants over hips",
-      "to reach clothing behind body",
-      "for hip lift/bridging to clear clothing",
-      "for fastener management",
-      "for balance",
-      "for stability",
-      "for one-handed stabilization"
-    ],
     "Hygiene Techniques": [
       "for perineal reach",
       "for perineal hygiene",
@@ -1561,20 +1539,6 @@
       "for sequencing oral care routine",
       "to manage mouthwash"
     ],
-    "Oral care": [
-      "to apply toothpaste",
-      "to manage toothbrush",
-      "for hand-to-mouth",
-      "for trunk control",
-      "for balance"
-    ],
-    "Hair brushing": [
-      "to reach hair",
-      "for hand-over-hand assist",
-      "to stabilize UE",
-      "for trunk control",
-      "for balance"
-    ],
     "Hair brushing/combing": [
       "to reach hair",
       "for hand-over-hand assist",
@@ -1681,13 +1645,6 @@
       "to manage utensil",
       "to scoop food",
       "for grasp on utensil"
-    ],
-    "Cup management": [
-      "for hand-over-hand guidance",
-      "to stabilize cup",
-      "for grasp on cup",
-      "to guide cup to mouth",
-      "for controlled tipping"
     ],
     "Cup/glass management": [
       "for hand-over-hand guidance",
