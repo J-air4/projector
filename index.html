@@ -109,12 +109,12 @@
       padding: 0 12px;
     }
     .tab-button {
-      padding: 10px 20px;
+      padding: 6px 14px;
       background: transparent;
       border: none;
       border-bottom: 2px solid transparent;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--text-muted);
       transition: all 0.15s ease;
@@ -131,10 +131,10 @@
     .intervention-grid-horizontal {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
-      max-height: 200px;
+      gap: 3px;
+      max-height: 140px;
       overflow-y: auto;
-      padding: 4px 0;
+      padding: 2px 0;
     }
 
     .timer-display {
@@ -182,22 +182,22 @@
     }
     .productivity-stat {
       background: var(--bg-tertiary);
-      border-radius: 8px;
-      padding: 16px;
+      border-radius: 6px;
+      padding: 10px;
       text-align: center;
     }
     .productivity-stat-value {
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 600;
       color: var(--accent-primary);
       font-family: 'IBM Plex Mono', monospace;
     }
     .productivity-stat-label {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-top: 4px;
+      margin-top: 2px;
     }
     .session-log {
       background: var(--bg-tertiary);
@@ -212,6 +212,167 @@
     .session-log-time {
       font-family: 'IBM Plex Mono', monospace;
       color: var(--accent-primary);
+    }
+
+    /* Main Layout Classes */
+    .main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4px 10px;
+      width: 100%;
+    }
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      flex-shrink: 0;
+    }
+    .page-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .btn-clear {
+      padding: 3px 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 10px;
+      color: var(--text-primary);
+    }
+    .output-card {
+      background: var(--bg-secondary);
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 4px;
+      flex-shrink: 0;
+    }
+    .output-preview {
+      padding: 6px 10px;
+      max-height: 70px;
+      overflow-y: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+    .output-preview.empty {
+      color: var(--text-muted);
+    }
+    .output-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 10px;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-tertiary);
+    }
+    .toggle-group {
+      display: flex;
+      background: var(--bg-secondary);
+      border-radius: 3px;
+      padding: 2px;
+    }
+    .toggle-btn {
+      padding: 2px 8px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 9px;
+      font-weight: 500;
+      background: transparent;
+      color: var(--text-muted);
+    }
+    .toggle-btn.active {
+      background: var(--accent-primary);
+      color: #fff;
+    }
+    .btn-copy {
+      padding: 3px 12px;
+      background: var(--accent-primary);
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 500;
+    }
+    .btn-copy.copied {
+      background: var(--success);
+    }
+    .content-card {
+      flex: 1;
+      background: var(--bg-secondary);
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      margin-bottom: 4px;
+      overflow-y: auto;
+      min-height: 0;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 10px;
+      background: var(--bg-secondary);
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    .btn-nav {
+      padding: 4px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 500;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+    .btn-nav:disabled {
+      background: var(--bg-tertiary);
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    .btn-nav.primary {
+      background: var(--accent-primary);
+      color: #fff;
+      border: none;
+    }
+    .btn-nav.primary:disabled {
+      background: var(--bg-tertiary);
+      color: var(--text-muted);
+    }
+    .step-indicators {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .step-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: none;
+      font-size: 9px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-tertiary);
+      color: var(--text-muted);
+    }
+    .step-dot.active {
+      background: var(--accent-primary);
+      color: #fff;
+    }
+    .step-dot.completed {
+      background: var(--success);
+      color: #fff;
     }
   </style>
 </head>
@@ -396,9 +557,9 @@
 
     const ChipButton = ({ selected, onClick, children, variant = 'default', size = 'md', style = {} }) => {
       const sizeStyles = {
-        sm: { padding: '4px 8px', fontSize: '11px', borderRadius: '4px' },
-        md: { padding: '5px 10px', fontSize: '12px', borderRadius: '5px' },
-        lg: { padding: '6px 12px', fontSize: '13px', borderRadius: '6px' }
+        sm: { padding: '3px 6px', fontSize: '10px', borderRadius: '3px' },
+        md: { padding: '4px 8px', fontSize: '11px', borderRadius: '4px' },
+        lg: { padding: '5px 10px', fontSize: '12px', borderRadius: '5px' }
       };
 
       const variantStyles = {
@@ -439,12 +600,12 @@
 
     const SectionHeader = ({ children }) => (
       <div style={{
-        fontSize: '10px',
+        fontSize: '9px',
         fontWeight: 600,
         textTransform: 'uppercase',
         letterSpacing: '0.5px',
         color: 'var(--text-muted)',
-        marginBottom: '8px'
+        marginBottom: '4px'
       }}>
         {children}
       </div>
@@ -1042,15 +1203,15 @@
           color: '#fff'
         },
         blocksList: {
-          marginTop: '10px',
-          maxHeight: '200px',
+          marginTop: '6px',
+          maxHeight: '140px',
           overflowY: 'auto'
         },
         blockItem: {
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
-          padding: '8px',
+          gap: '6px',
+          padding: '6px',
           background: 'var(--bg-tertiary)',
           borderRadius: '4px',
           marginBottom: '4px'
@@ -1980,8 +2141,8 @@
                             <div style={{
                               display: 'grid',
                               gridTemplateColumns: 'repeat(3, 1fr)',
-                              gap: '4px',
-                              maxHeight: '200px',
+                              gap: '3px',
+                              maxHeight: '130px',
                               overflowY: 'auto'
                             }}>
                               {short.map(child => (
@@ -2005,8 +2166,8 @@
                             <div style={{
                               display: 'grid',
                               gridTemplateColumns: 'repeat(2, 1fr)',
-                              gap: '4px',
-                              maxHeight: '200px',
+                              gap: '3px',
+                              maxHeight: '120px',
                               overflowY: 'auto'
                             }}>
                               {phrases.map(child => (
@@ -2123,8 +2284,8 @@
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(2, 1fr)',
-                  gap: '4px',
-                  maxHeight: '300px',
+                  gap: '3px',
+                  maxHeight: '200px',
                   overflowY: 'auto'
                 }}>
                   {filteredGoals.map(g => (
@@ -2499,41 +2660,50 @@
               <ProductivityTracker />
             </div>
           ) : (
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', maxWidth: '900px', margin: '0 auto', padding: '8px 12px', width: '100%' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexShrink: 0 }}>
-                <h1 style={{ fontSize: '16px', fontWeight: 600 }}>OT Daily Note Builder</h1>
-                <button onClick={handleClear} style={{ padding: '4px 12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer', fontSize: '11px', color: 'var(--text-primary)' }}>Clear</button>
+            <div className="main-container">
+              <div className="page-header">
+                <h1 className="page-title">OT Daily Note Builder</h1>
+                <button onClick={handleClear} className="btn-clear">Clear</button>
               </div>
 
-              <div style={{ background: 'var(--bg-secondary)', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '8px', flexShrink: 0 }}>
-                <div style={{ padding: '10px 12px', maxHeight: '100px', overflowY: 'auto', fontFamily: "'IBM Plex Mono', monospace", fontSize: '11px', lineHeight: 1.6, color: output ? 'var(--text-primary)' : 'var(--text-muted)' }}>
+              <div className="output-card">
+                <div className={`output-preview ${!output ? 'empty' : ''}`}>
                   {output || 'Start building your note...'}
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 12px', borderTop: '1px solid var(--border-color)', background: 'var(--bg-tertiary)' }}>
-                  <div style={{ display: 'flex', background: 'var(--bg-secondary)', borderRadius: '4px', padding: '2px' }}>
-                    <button onClick={() => setOutputStyle('goal')} style={{ padding: '3px 10px', background: outputStyle === 'goal' ? 'var(--accent-primary)' : 'transparent', color: outputStyle === 'goal' ? '#fff' : 'var(--text-muted)', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '10px', fontWeight: 500 }}>Goal-Led</button>
-                    <button onClick={() => setOutputStyle('activity')} style={{ padding: '3px 10px', background: outputStyle === 'activity' ? 'var(--accent-primary)' : 'transparent', color: outputStyle === 'activity' ? '#fff' : 'var(--text-muted)', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '10px', fontWeight: 500 }}>Activity-Led</button>
+                <div className="output-toolbar">
+                  <div className="toggle-group">
+                    <button onClick={() => setOutputStyle('goal')} className={`toggle-btn ${outputStyle === 'goal' ? 'active' : ''}`}>Goal-Led</button>
+                    <button onClick={() => setOutputStyle('activity')} className={`toggle-btn ${outputStyle === 'activity' ? 'active' : ''}`}>Activity-Led</button>
                   </div>
-                  <button onClick={handleCopy} style={{ padding: '4px 14px', background: copied ? 'var(--success)' : 'var(--accent-primary)', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '11px', fontWeight: 500 }}>{copied ? '✓ Copied' : 'Copy'}</button>
+                  <button onClick={handleCopy} className={`btn-copy ${copied ? 'copied' : ''}`}>{copied ? '✓ Copied' : 'Copy'}</button>
                 </div>
               </div>
 
-              <div style={{ flex: 1, background: 'var(--bg-secondary)', borderRadius: '8px', border: '1px solid var(--border-color)', padding: '12px', marginBottom: '8px', overflowY: 'auto', minHeight: 0 }}>
+              <div className="content-card">
                 {renderStageContent()}
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: 'var(--bg-secondary)', borderRadius: '8px', border: '1px solid var(--border-color)', flexShrink: 0 }}>
-                <button onClick={handleBack} disabled={currentStep === 0} style={{ padding: '6px 14px', background: currentStep === 0 ? 'var(--bg-tertiary)' : 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: currentStep === 0 ? 'not-allowed' : 'pointer', fontSize: '12px', fontWeight: 500, color: currentStep === 0 ? 'var(--text-muted)' : 'var(--text-primary)' }}>← Back</button>
+              <div className="nav-bar">
+                <button onClick={handleBack} disabled={currentStep === 0} className="btn-nav">← Back</button>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div className="step-indicators">
                   {STEPS.map((step, index) => (
-                    <button key={step.id} onClick={() => setCurrentStep(index)} style={{ width: '24px', height: '24px', borderRadius: '50%', border: 'none', background: index === currentStep ? 'var(--accent-primary)' : index < currentStep ? 'var(--success)' : 'var(--bg-tertiary)', color: index <= currentStep ? '#fff' : 'var(--text-muted)', fontSize: '10px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }} title={step.label}>
+                    <button
+                      key={step.id}
+                      onClick={() => setCurrentStep(index)}
+                      className={`step-dot ${index === currentStep ? 'active' : ''} ${index < currentStep ? 'completed' : ''}`}
+                      title={step.label}
+                    >
                       {index < currentStep ? '✓' : index + 1}
                     </button>
                   ))}
                 </div>
 
-                <button onClick={handleNext} disabled={currentStep === STEPS.length - 1 || (STEPS[currentStep].required && !canProceed())} style={{ padding: '6px 14px', background: currentStep === STEPS.length - 1 || (STEPS[currentStep].required && !canProceed()) ? 'var(--bg-tertiary)' : 'var(--accent-primary)', color: currentStep === STEPS.length - 1 || (STEPS[currentStep].required && !canProceed()) ? 'var(--text-muted)' : '#fff', border: 'none', borderRadius: '4px', cursor: currentStep === STEPS.length - 1 || (STEPS[currentStep].required && !canProceed()) ? 'not-allowed' : 'pointer', fontSize: '12px', fontWeight: 500 }}>
+                <button
+                  onClick={handleNext}
+                  disabled={currentStep === STEPS.length - 1 || (STEPS[currentStep].required && !canProceed())}
+                  className={`btn-nav ${!(currentStep === STEPS.length - 1 || (STEPS[currentStep].required && !canProceed())) ? 'primary' : ''}`}
+                >
                   {currentStep === STEPS.length - 1 ? 'Done' : 'Continue →'}
                 </button>
               </div>
