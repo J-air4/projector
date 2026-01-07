@@ -538,42 +538,46 @@
       return CUE_CONTEXTS['Default'] || [];
     };
 
+    const getItemsForActivity = (parentActivity, childActivity, itemsByActivity, defaultItems) => {
+      if (!itemsByActivity) return defaultItems || [];
+
+      const findMatch = (activity) => {
+        if (!activity) return null;
+        const activityLower = activity.toLowerCase();
+
+        // Prioritize exact match (case-insensitive)
+        const exactKey = Object.keys(itemsByActivity).find(key => key.toLowerCase() === activityLower);
+        if (exactKey) {
+          return itemsByActivity[exactKey];
+        }
+
+        // Fallback to finding the most specific (longest) matching key that is a substring of the activity.
+        // This prevents "UE Dressing" from incorrectly matching "Dressing".
+        let bestMatch = null;
+        let longestMatchLength = -1;
+
+        for (const key in itemsByActivity) {
+          const keyLower = key.toLowerCase();
+          if (activityLower.includes(keyLower)) {
+            if (keyLower.length > longestMatchLength) {
+              longestMatchLength = keyLower.length;
+              bestMatch = itemsByActivity[key];
+            }
+          }
+        }
+        return bestMatch;
+      };
+
+      const items = findMatch(childActivity) || findMatch(parentActivity);
+      return items || itemsByActivity['Default'] || defaultItems || [];
+    };
+
     const getAssistPurposesForActivity = (parentActivity, childActivity, ASSIST_PURPOSES_BY_ACTIVITY, ASSIST_PURPOSES) => {
-      if (!ASSIST_PURPOSES_BY_ACTIVITY) return ASSIST_PURPOSES || [];
-      if (childActivity) {
-        for (const [key, purposes] of Object.entries(ASSIST_PURPOSES_BY_ACTIVITY)) {
-          if (childActivity.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(childActivity.toLowerCase())) {
-            return purposes;
-          }
-        }
-      }
-      if (parentActivity) {
-        for (const [key, purposes] of Object.entries(ASSIST_PURPOSES_BY_ACTIVITY)) {
-          if (parentActivity.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(parentActivity.toLowerCase())) {
-            return purposes;
-          }
-        }
-      }
-      return ASSIST_PURPOSES_BY_ACTIVITY['Default'] || ASSIST_PURPOSES || [];
+      return getItemsForActivity(parentActivity, childActivity, ASSIST_PURPOSES_BY_ACTIVITY, ASSIST_PURPOSES);
     };
 
     const getCuePurposesForActivity = (parentActivity, childActivity, CUE_PURPOSES_BY_ACTIVITY, CUE_PURPOSES) => {
-      if (!CUE_PURPOSES_BY_ACTIVITY) return CUE_PURPOSES || [];
-      if (childActivity) {
-        for (const [key, purposes] of Object.entries(CUE_PURPOSES_BY_ACTIVITY)) {
-          if (childActivity.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(childActivity.toLowerCase())) {
-            return purposes;
-          }
-        }
-      }
-      if (parentActivity) {
-        for (const [key, purposes] of Object.entries(CUE_PURPOSES_BY_ACTIVITY)) {
-          if (parentActivity.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(parentActivity.toLowerCase())) {
-            return purposes;
-          }
-        }
-      }
-      return CUE_PURPOSES_BY_ACTIVITY['Default'] || CUE_PURPOSES || [];
+      return getItemsForActivity(parentActivity, childActivity, CUE_PURPOSES_BY_ACTIVITY, CUE_PURPOSES);
     };
 
     const formatTime = (seconds) => {
