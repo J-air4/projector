@@ -2550,9 +2550,9 @@
                     <label style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)', marginBottom: '3px' }}>Quick-add common cues{selectedActivities.length > 0 ? ` for ${selectedActivities[0]}` : ''}:</label>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                       {(() => {
-                        const activityKey = selectedActivities[0];
+                        const activityKey = selectedActivities[0] || selectedParent || '';
                         const quickCuesSource = data.QUICK_ADD_CUES_BY_ACTIVITY || {};
-                        const quickCues = quickCuesSource[activityKey] || quickCuesSource['Default'] || [];
+                        const quickCues = findBestMatch(activityKey, quickCuesSource) || quickCuesSource['Default'] || [];
                         return quickCues.map((cue) => (
                           <button key={cue.label} onClick={() => { if (editingCueIndex === null) { setCues(prev => [...prev, { level: cue.level, type: cue.type, bodyPart: cue.bodyPart, purpose: cue.purpose, context: cue.context, id: generateId() }]); }}} style={{ padding: '4px 8px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer', fontSize: '10px', color: 'var(--text-primary)' }}>
                             {cue.label}
