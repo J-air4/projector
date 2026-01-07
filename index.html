@@ -1894,8 +1894,16 @@
         const tolerancePhrase = tolerance ? data.TOLERANCE_OPTIONS.find(t => t.id === tolerance)?.phrase : '';
         const planPhrase = plan ? data.PLAN_OPTIONS.find(p => p.id === plan)?.phrase : '';
 
+        // Build main sentence with partial preview support
         if (outputStyle === 'goal') {
-          if (goalPhrase && activityStr) parts.push(`To ${goalPhrase}, patient instructed in ${activityStr}.`);
+          // Goal-led: "To [goal], patient instructed in [activity]."
+          if (goalPhrase && activityStr) {
+            parts.push(`To ${goalPhrase}, patient instructed in ${activityStr}.`);
+          } else if (goalPhrase && !activityStr) {
+            parts.push(`To ${goalPhrase}, patient instructed in [select activity]...`);
+          } else if (!goalPhrase && activityStr) {
+            parts.push(`To [select goal], patient instructed in ${activityStr}...`);
+          }
           if (deficitPhrase) parts.push(`${deficit} noted.`);
           if (assistPhrases.length || cuePhrases.length) {
             const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
@@ -1906,6 +1914,7 @@
           if (tolerancePhrase) parts.push(tolerancePhrase + '.');
           if (planPhrase) parts.push(planPhrase + '.');
         } else {
+          // Activity-led: "Patient performed [activity] with [support] to [goal]."
           if (activityStr && goalPhrase) {
             let sentence = `Patient performed ${activityStr}`;
             if (assistPhrases.length || cuePhrases.length) {
@@ -1915,6 +1924,17 @@
             }
             sentence += ` to ${goalPhrase}.`;
             parts.push(sentence);
+          } else if (activityStr && !goalPhrase) {
+            let sentence = `Patient performed ${activityStr}`;
+            if (assistPhrases.length || cuePhrases.length) {
+              const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
+              if (combined.length === 1) sentence += ` with ${combined[0]}`;
+              else if (combined.length > 1) { const last = combined.pop(); sentence += ` with ${combined.join(', ')}, and ${last}`; }
+            }
+            sentence += ` to [select goal]...`;
+            parts.push(sentence);
+          } else if (!activityStr && goalPhrase) {
+            parts.push(`Patient performed [select activity] to ${goalPhrase}...`);
           }
           if (progressData && deficitPhrase) parts.push(`${progressData.activityLed}. Assistance required 2/2 ${deficitPhrase}.`);
           else if (progressData) parts.push(progressData.activityLed + '.');
@@ -2385,8 +2405,50 @@
                   </div>
                 )}
 
+                {/* Quick-add assists - one click to add common combinations */}
+                <div style={{ marginBottom: '10px' }}>
+                  <label style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)', marginBottom: '4px' }}>Quick-add{selectedActivities.length > 0 ? ` for ${selectedActivities[0]}` : ''}:</label>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                    {(() => {
+                      const activityKey = selectedActivities[0] || selectedParent || '';
+                      const quickAssistsSource = data.QUICK_ADD_ASSISTS_BY_ACTIVITY || {};
+                      // Use findBestMatch to get activity-specific assists
+                      const quickAssists = findBestMatch(activityKey, quickAssistsSource) || quickAssistsSource['Default'] || [];
+                      return quickAssists.map((assist) => (
+                        <button
+                          key={assist.label}
+                          onClick={() => {
+                            if (editingAssistIndex === null) {
+                              setAssists(prev => [...prev, {
+                                level: assist.level,
+                                location: assist.location,
+                                purpose: assist.purpose,
+                                modifier: '',
+                                id: generateId()
+                              }]);
+                            }
+                          }}
+                          style={{
+                            padding: '4px 8px',
+                            background: 'var(--bg-secondary)',
+                            border: '1px solid var(--border-color)',
+                            borderRadius: '4px',
+                            cursor: editingAssistIndex === null ? 'pointer' : 'not-allowed',
+                            fontSize: '10px',
+                            color: 'var(--text-primary)',
+                            opacity: editingAssistIndex !== null ? 0.5 : 1
+                          }}
+                          disabled={editingAssistIndex !== null}
+                        >
+                          {assist.label}
+                        </button>
+                      ));
+                    })()}
+                  </div>
+                </div>
+
                 <div style={{ background: 'var(--bg-tertiary)', padding: '10px', borderRadius: '6px', marginBottom: '12px' }}>
-                  <div style={{ fontWeight: 600, fontSize: '11px', marginBottom: '8px' }}>{editingAssistIndex !== null ? 'Edit Assist' : 'Add Assist'}</div>
+                  <div style={{ fontWeight: 600, fontSize: '11px', marginBottom: '8px' }}>{editingAssistIndex !== null ? 'Edit Assist' : 'Custom Assist'}</div>
                   <div style={{ marginBottom: '8px' }}>
                     <label style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)', marginBottom: '3px' }}>Level *</label>
                     <OptionGrid columns={4}>

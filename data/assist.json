@@ -1536,5 +1536,95 @@
     "with assistive device",
     "with one-handed techniques",
     "with energy conservation methods"
-  ]
+  ],
+  "QUICK_ADD_ASSISTS_BY_ACTIVITY": {
+    "Transfers": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for stability", "label": "Min A trunk stability" },
+      { "level": "MinA", "location": "at pelvis", "purpose": "for balance support", "label": "Min A pelvis balance" },
+      { "level": "ModA", "location": "at trunk", "purpose": "for controlled lowering", "label": "Mod A controlled lowering" },
+      { "level": "CGA", "location": "", "purpose": "for safety", "label": "CGA for safety" },
+      { "level": "S", "location": "", "purpose": "for safety", "label": "Supervision for safety" }
+    ],
+    "Sit-to-stand": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for anterior weight shift", "label": "Min A weight shift" },
+      { "level": "MinA", "location": "at pelvis", "purpose": "for hip extension", "label": "Min A hip extension" },
+      { "level": "ModA", "location": "at trunk", "purpose": "for stability", "label": "Mod A trunk stability" },
+      { "level": "CGA", "location": "", "purpose": "for safety", "label": "CGA for safety" }
+    ],
+    "Stand-pivot": [
+      { "level": "MinA", "location": "at pelvis", "purpose": "for balance support", "label": "Min A pelvis balance" },
+      { "level": "MinA", "location": "at trunk", "purpose": "during pivoting", "label": "Min A during pivot" },
+      { "level": "CGA", "location": "", "purpose": "for safety", "label": "CGA for safety" }
+    ],
+    "Bed Mobility": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for rolling", "label": "Min A trunk rolling" },
+      { "level": "MinA", "location": "at pelvis", "purpose": "for bridging", "label": "Min A pelvis bridging" },
+      { "level": "ModA", "location": "at trunk", "purpose": "for supine-to-sit", "label": "Mod A supine-to-sit" },
+      { "level": "MinA", "location": "at BLE", "purpose": "for LE management in bed", "label": "Min A LE management" }
+    ],
+    "Balance - Sitting": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for postural control", "label": "Min A posture control" },
+      { "level": "CGA", "location": "", "purpose": "for safety", "label": "CGA for safety" },
+      { "level": "S", "location": "", "purpose": "for safety", "label": "Supervision for safety" }
+    ],
+    "Balance - Standing": [
+      { "level": "MinA", "location": "at pelvis", "purpose": "for balance support", "label": "Min A pelvis balance" },
+      { "level": "MinA", "location": "at trunk", "purpose": "for postural control", "label": "Min A posture control" },
+      { "level": "CGA", "location": "", "purpose": "for safety", "label": "CGA for safety" }
+    ],
+    "UE Dressing": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for postural control", "label": "Min A trunk posture" },
+      { "level": "MinA", "location": "at affected side", "purpose": "for affected arm management", "label": "Min A affected arm" },
+      { "level": "ModA", "location": "at BUE", "purpose": "to thread BUE into sleeve", "label": "Mod A sleeve threading" },
+      { "level": "S", "location": "", "purpose": "for garment orientation", "label": "Supervision garment" }
+    ],
+    "Upper Body": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for postural control", "label": "Min A trunk posture" },
+      { "level": "MinA", "location": "at affected side", "purpose": "for affected arm management", "label": "Min A affected arm" },
+      { "level": "ModA", "location": "at BUE", "purpose": "to thread BUE into sleeve", "label": "Mod A sleeve threading" },
+      { "level": "S", "location": "", "purpose": "for garment orientation", "label": "Supervision garment" }
+    ],
+    "LE Dressing": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for forward trunk flexion", "label": "Min A trunk flexion" },
+      { "level": "MinA", "location": "at BLE", "purpose": "to don pants over feet/ankles", "label": "Min A pants over feet" },
+      { "level": "ModA", "location": "at pelvis", "purpose": "for hip lift/bridging to clear clothing", "label": "Mod A hip lift" },
+      { "level": "MinA", "location": "at trunk", "purpose": "for functional reach to feet", "label": "Min A reach to feet" }
+    ],
+    "Lower Body": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for forward trunk flexion", "label": "Min A trunk flexion" },
+      { "level": "MinA", "location": "at BLE", "purpose": "to don pants over feet/ankles", "label": "Min A pants over feet" },
+      { "level": "ModA", "location": "at pelvis", "purpose": "for hip lift/bridging to clear clothing", "label": "Mod A hip lift" },
+      { "level": "MinA", "location": "at trunk", "purpose": "for functional reach to feet", "label": "Min A reach to feet" }
+    ],
+    "Bathing": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for seated bathing balance", "label": "Min A seated balance" },
+      { "level": "MinA", "location": "at BLE", "purpose": "to reach feet for washing", "label": "Min A reach feet" },
+      { "level": "CGA", "location": "", "purpose": "for shower/tub transfer", "label": "CGA shower transfer" },
+      { "level": "S", "location": "", "purpose": "for safety", "label": "Supervision for safety" }
+    ],
+    "Toileting": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for toilet transfer", "label": "Min A toilet transfer" },
+      { "level": "MinA", "location": "at pelvis", "purpose": "for controlled lowering", "label": "Min A lowering" },
+      { "level": "CGA", "location": "", "purpose": "for grab bar use", "label": "CGA grab bar use" },
+      { "level": "S", "location": "", "purpose": "for safety", "label": "Supervision for safety" }
+    ],
+    "Hygiene/Grooming": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for standing at sink", "label": "Min A standing sink" },
+      { "level": "CGA", "location": "", "purpose": "for balance support", "label": "CGA balance support" },
+      { "level": "S", "location": "", "purpose": "for safety", "label": "Supervision for safety" }
+    ],
+    "Self-Feeding": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for seated feeding position", "label": "Min A seated position" },
+      { "level": "MinA", "location": "at BUE", "purpose": "to manage utensil", "label": "Min A utensil" },
+      { "level": "S", "location": "", "purpose": "for postural control", "label": "Supervision posture" }
+    ],
+    "Default": [
+      { "level": "MinA", "location": "at trunk", "purpose": "for stability", "label": "Min A trunk stability" },
+      { "level": "MinA", "location": "at pelvis", "purpose": "for balance support", "label": "Min A pelvis balance" },
+      { "level": "ModA", "location": "at trunk", "purpose": "for postural control", "label": "Mod A posture" },
+      { "level": "CGA", "location": "", "purpose": "for safety", "label": "CGA for safety" },
+      { "level": "S", "location": "", "purpose": "for safety", "label": "Supervision for safety" },
+      { "level": "I", "location": "", "purpose": "", "label": "Independent" }
+    ]
+  }
 }
