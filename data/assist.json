@@ -959,43 +959,61 @@
       "for lateral weight shift"
     ],
     "UE Dressing": [
-      "for stability",
-      "for balance support",
-      "for postural control",
-      "for trunk control",
-      "to thread BUE into sleeve",
-      "to thread UUE into sleeve",
       "for garment orientation",
       "for gathering garment",
+      "to thread BUE into sleeve",
+      "to thread UUE into sleeve",
       "to manage garment over head",
       "to clear head/face",
       "to position garment on shoulders",
       "to pull garment down trunk",
       "for final garment adjustments",
       "to manage front closure",
-      "to reach behind for closure",
       "for affected arm management",
       "for overhead garment management",
-      "for front-opening garment management"
+      "for trunk control",
+      "for balance",
+      "for pain management during UE ROM"
     ],
     "Upper Body": [
-      "for stability",
-      "for balance support",
-      "for postural control",
-      "for trunk control",
-      "to thread BUE into sleeve",
-      "to thread UUE into sleeve",
       "for garment orientation",
       "for gathering garment",
+      "to thread BUE into sleeve",
+      "to thread UUE into sleeve",
       "to manage garment over head",
       "to clear head/face",
       "to position garment on shoulders",
       "to pull garment down trunk",
       "for final garment adjustments",
       "to manage front closure",
-      "to reach behind for closure",
       "for affected arm management",
       "for overhead garment management",
+      "for trunk control",
+      "for balance",
+      "for pain management during UE ROM"
+    ],
+    "One-handed methods": [
+      "for garment orientation",
+      "to thread BUE into sleeve",
+      "to manage garment over head",
+      "to position garment on shoulders",
+      "for affected arm management",
+      "for pain management during UE ROM"
+    ],
+    "Affected arm first": [
+      "to thread BUE into sleeve",
+      "to position garment on shoulders",
+      "for affected arm management",
+      "for pain management during UE ROM"
+    ],
+    "Front-opening garment": [
+      "for garment orientation",
+      "to thread BUE into sleeve",
+      "to thread UUE into sleeve",
+      "to manage front closure",
+      "for fastener management",
+      "to manage buttons",
+      "to manage zipper",
       "for front-opening garment management"
     ],
     "Overhead garment donning": [
@@ -1135,64 +1153,154 @@
       "to manage waistband",
       "for transition to stand to manage pants"
     ],
-    "Footwear": [
-      "for stability",
-      "for balance support",
-      "for postural control",
-      "to reach feet for socks",
-      "to don socks",
-      "to doff socks",
-      "to reach feet for shoes",
-      "to don shoes",
-      "to doff shoes",
-      "to manage shoe closures",
+    "Seated pants donning": [
+      "for garment orientation",
+      "to don pants over feet/ankles",
+      "to don RLE",
+      "to don LLE",
+      "to pull pants to knees",
+      "to pull pants to thighs",
+      "for hip lift/bridging to clear clothing",
+      "to manage waistband",
+      "for positioning LE for dressing",
+      "to cross leg for foot access",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance"
+    ],
+    "Sock aid use": [
       "for managing adaptive equipment",
       "to manage sock aid",
-      "to manage reacher",
-      "to manage dressing stick",
-      "for forward trunk flexion",
-      "for functional reach to feet",
-      "to cross leg for foot access"
-    ],
-    "Sock donning": [
-      "for stability",
-      "for balance support",
-      "for postural control",
       "to reach feet for socks",
       "to don socks",
-      "for forward trunk flexion",
-      "for functional reach to feet",
-      "to cross leg for foot access"
-    ],
-    "Sock doffing": [
-      "for stability",
-      "for balance support",
-      "for postural control",
       "to doff socks",
       "for forward trunk flexion",
-      "for functional reach to feet"
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance"
+    ],
+    "Long-handled shoehorn": [
+      "for managing adaptive equipment",
+      "to reach feet for shoes",
+      "to don shoes",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance"
+    ],
+    "Reacher use": [
+      "for managing adaptive equipment",
+      "to manage reacher",
+      "to reach feet for socks",
+      "to reach feet for shoes",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "for trunk control"
+    ],
+    "Supine techniques": [
+      "to don pants over feet/ankles",
+      "to pull pants to thighs",
+      "for bridging",
+      "for hip lift/bridging to clear clothing",
+      "for LE management in bed"
+    ],
+    "Footwear": [
+      "to reach feet",
+      "to don socks",
+      "to doff socks",
+      "to don shoes",
+      "to doff shoes",
+      "to manage shoe closures",
+      "to tie laces",
+      "for sock aid use",
+      "for long-handled shoehorn use",
+      "for reacher use",
+      "to cross leg for foot access",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance",
+      "for fine motor with closures"
+    ],
+    "Sock donning/doffing": [
+      "to reach feet for socks",
+      "to don socks",
+      "to doff socks",
+      "for sock aid use",
+      "to cross leg for foot access",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance"
+    ],
+    "Sock donning": [
+      "to reach feet for socks",
+      "to don socks",
+      "for sock aid use",
+      "to cross leg for foot access",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance"
+    ],
+    "Sock doffing": [
+      "to doff socks",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance"
+    ],
+    "Shoe donning/doffing": [
+      "to reach feet for shoes",
+      "to don shoes",
+      "to doff shoes",
+      "to manage shoe closures",
+      "to tie laces",
+      "for long-handled shoehorn use",
+      "for forward trunk flexion",
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance"
     ],
     "Shoe donning": [
-      "for stability",
-      "for balance support",
-      "for postural control",
       "to reach feet for shoes",
       "to don shoes",
       "to manage shoe closures",
+      "to tie laces",
+      "for long-handled shoehorn use",
       "for forward trunk flexion",
-      "for functional reach to feet"
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance"
     ],
     "Shoe doffing": [
-      "for stability",
-      "for balance support",
-      "for postural control",
       "to doff shoes",
       "for forward trunk flexion",
-      "for functional reach to feet"
+      "for functional reach to feet",
+      "for trunk control",
+      "for balance"
+    ],
+    "Compression stocking application": [
+      "to reach feet",
+      "to don compression stockings",
+      "to doff compression stockings",
+      "for proper positioning of stocking",
+      "for managing stocking donner",
+      "for trunk control",
+      "for balance",
+      "for grasp strength"
+    ],
+    "AFO/brace donning": [
+      "to reach feet",
+      "to position AFO/brace",
+      "to secure straps",
+      "for proper alignment",
+      "to don shoe over brace",
+      "for sequencing",
+      "for safety"
     ],
     "Fasteners": [
-      "for stability",
-      "for postural control",
       "for fastener management",
       "to manage buttons",
       "to manage zipper",
@@ -1201,6 +1309,19 @@
       "to manage belt",
       "for button grasp",
       "for button manipulation",
+      "for zipper grasp",
+      "for zipper pull",
+      "to reach behind for closure"
+    ],
+    "Button hook use": [
+      "for fastener management",
+      "to manage buttons",
+      "for button grasp",
+      "for button manipulation"
+    ],
+    "One-handed zipping": [
+      "for fastener management",
+      "to manage zipper",
       "for zipper grasp",
       "for zipper pull"
     ],
@@ -1233,23 +1354,61 @@
       "for postural control",
       "during pivoting"
     ],
-    "Clothing management": [
+    "Toilet Transfers": [
+      "for toilet transfer",
+      "to lower to toilet",
+      "to stand from toilet",
+      "to pivot to toilet",
+      "for controlled lowering",
+      "for grab bar use",
       "for stability",
-      "for balance support",
-      "for safety",
+      "for balance",
+      "to scoot to edge of surface"
+    ],
+    "Clothing management": [
       "to manage clothing down standing",
       "to manage clothing down seated",
       "to manage clothing up standing",
       "to manage clothing up seated",
-      "to reach clothing behind body"
-    ],
-    "Perineal hygiene": [
+      "to manage waistband",
+      "to pull pants over hips",
+      "to reach clothing behind body",
+      "for hip lift/bridging to clear clothing",
+      "for fastener management",
+      "for balance",
       "for stability",
-      "for balance support",
+      "for one-handed stabilization"
+    ],
+    "Clothing Management": [
+      "to manage clothing down standing",
+      "to manage clothing down seated",
+      "to manage clothing up standing",
+      "to manage clothing up seated",
+      "to manage waistband",
+      "to pull pants over hips",
+      "to reach clothing behind body",
+      "for hip lift/bridging to clear clothing",
+      "for fastener management",
+      "for balance",
+      "for stability",
+      "for one-handed stabilization"
+    ],
+    "Hygiene Techniques": [
       "for perineal reach",
       "for perineal hygiene",
       "for toilet paper management",
-      "for wiping"
+      "for wiping",
+      "for balance",
+      "for trunk rotation",
+      "for managing incontinence products"
+    ],
+    "Perineal hygiene": [
+      "for perineal reach",
+      "for perineal hygiene",
+      "for toilet paper management",
+      "for wiping",
+      "for balance",
+      "for trunk rotation"
     ],
     "Bathing": [
       "for stability",
@@ -1293,12 +1452,33 @@
       "for seated bathing balance"
     ],
     "Hair washing": [
-      "for stability",
-      "for balance support",
-      "for postural control",
       "for hair washing",
       "to reach overhead for hair",
-      "for sustained overhead reach"
+      "for sustained overhead reach",
+      "for seated bathing balance",
+      "for trunk control",
+      "for managing soap/shampoo"
+    ],
+    "Shower chair use": [
+      "for shower/tub transfer",
+      "for seated bathing balance",
+      "for stability",
+      "for balance"
+    ],
+    "Long-handled sponge": [
+      "for managing adaptive equipment",
+      "to wash BLEs",
+      "to reach feet for washing",
+      "to wash posterior trunk",
+      "for seated bathing balance"
+    ],
+    "Seated bathing": [
+      "for seated bathing balance",
+      "for dynamic balance during reaching",
+      "to wash anterior trunk/UEs",
+      "to wash BLEs",
+      "to reach feet for washing",
+      "for stability"
     ],
     "Back washing": [
       "for stability",
@@ -1331,86 +1511,204 @@
       "for grab bar use"
     ],
     "Hygiene/Grooming": [
-      "for stability",
-      "for balance support",
-      "for safety",
       "for standing at sink",
       "for seated grooming",
       "to reach mouth for oral care",
       "for hand-to-mouth",
       "to reach face",
       "to reach hair",
-      "for postural control",
-      "for hair washing",
-      "to reach overhead for hair",
-      "for sustained overhead reach"
+      "for stability",
+      "for balance",
+      "for trunk control",
+      "to apply toothpaste",
+      "to stabilize UE for shaving",
+      "to stabilize UE for makeup",
+      "to manage water controls",
+      "for hand-over-hand assist with brushing hair",
+      "to open containers",
+      "to manage grooming tools"
+    ],
+    "Grooming": [
+      "for standing at sink",
+      "for seated grooming",
+      "to reach mouth for oral care",
+      "for hand-to-mouth",
+      "to reach face",
+      "to reach hair",
+      "for stability",
+      "for balance",
+      "for trunk control",
+      "to apply toothpaste",
+      "to stabilize UE for shaving",
+      "to stabilize UE for makeup",
+      "to manage water controls",
+      "for hand-over-hand assist with brushing hair",
+      "to open containers",
+      "to manage grooming tools",
+      "for setup of items",
+      "for item location/retrieval"
     ],
     "Oral Care": [
-      "for stability",
-      "for balance support",
-      "for postural control",
-      "for standing at sink",
-      "for seated grooming",
-      "to reach mouth for oral care"
+      "to apply toothpaste",
+      "to manage toothbrush",
+      "for hand-to-mouth",
+      "for trunk control",
+      "for balance",
+      "for hand-over-hand assist with brushing",
+      "to manage floss",
+      "to open toothpaste tube",
+      "to position dentures",
+      "for sequencing oral care routine",
+      "to manage mouthwash"
+    ],
+    "Oral care": [
+      "to apply toothpaste",
+      "to manage toothbrush",
+      "for hand-to-mouth",
+      "for trunk control",
+      "for balance"
     ],
     "Hair brushing": [
-      "for stability",
-      "for balance support",
-      "for postural control",
-      "for standing at sink",
       "to reach hair",
-      "to reach overhead for hair",
-      "for sustained overhead reach"
+      "for hand-over-hand assist",
+      "to stabilize UE",
+      "for trunk control",
+      "for balance"
+    ],
+    "Hair brushing/combing": [
+      "to reach hair",
+      "for hand-over-hand assist",
+      "to stabilize UE",
+      "for trunk control",
+      "for balance",
+      "to reach back of head"
     ],
     "Hair Care": [
-      "for stability",
-      "for balance support",
-      "for postural control",
       "to reach hair",
-      "to reach overhead for hair",
+      "for hand-over-hand assist",
+      "to stabilize UE",
+      "for trunk control",
+      "for balance",
+      "to reach back of head",
       "for sustained overhead reach",
-      "for hair washing"
+      "to manage hairbrush/comb",
+      "to style hair",
+      "for hair washing assist",
+      "to manage shampoo/conditioner",
+      "to dry hair"
     ],
     "Tooth brushing": [
-      "for stability",
-      "for balance support",
-      "for postural control",
-      "for standing at sink",
-      "to reach mouth for oral care"
+      "to apply toothpaste",
+      "to manage toothbrush",
+      "for hand-to-mouth",
+      "for trunk control",
+      "for balance"
     ],
     "Face/Skin": [
-      "for stability",
-      "for balance support",
-      "for postural control",
-      "for standing at sink",
-      "for seated grooming",
-      "to reach face"
+      "to reach face",
+      "for stability at sink",
+      "for balance",
+      "to apply lotion/cream",
+      "to apply deodorant",
+      "for makeup application",
+      "to manage containers/tubes",
+      "for hand-to-face",
+      "for fine motor tasks",
+      "for visual alignment/mirror use"
+    ],
+    "Shaving": [
+      "to stabilize UE for shaving",
+      "for hand-to-mouth",
+      "for trunk control",
+      "for balance",
+      "for safety",
+      "to manage razor",
+      "to apply shaving cream",
+      "for visual alignment",
+      "for fine motor control",
+      "to rinse razor"
+    ],
+    "Nail Care": [
+      "for hand stabilization",
+      "for fine motor control",
+      "to reach feet for toenail care",
+      "for proper positioning",
+      "for safety with sharp tools",
+      "to manage nail clippers/file",
+      "for visual alignment",
+      "for trunk control during forward reach"
     ],
     "Self-Feeding": [
-      "for stability",
-      "for balance support",
       "for seated feeding position",
+      "for hand-to-mouth",
       "to manage utensil",
       "to scoop food",
       "to cut food",
       "for grasp on utensil",
-      "for hand-to-mouth",
+      "for trunk control",
       "for postural control",
-      "for trunk control"
+      "for balance",
+      "for hand-over-hand guidance",
+      "to guide utensil to mouth",
+      "to stabilize plate/bowl",
+      "to scoop food onto utensil",
+      "for opening containers",
+      "for pacing"
     ],
-    "Utensil use": [
-      "for stability",
-      "for postural control",
+    "Feeding": [
+      "for seated feeding position",
+      "for hand-to-mouth",
       "to manage utensil",
       "to scoop food",
+      "to cut food",
       "for grasp on utensil",
-      "for hand-to-mouth"
+      "for trunk control",
+      "for postural control",
+      "for balance",
+      "for hand-over-hand guidance",
+      "to guide utensil to mouth",
+      "to stabilize plate/bowl",
+      "to scoop food onto utensil",
+      "for opening containers",
+      "for pacing",
+      "for managing adaptive equipment",
+      "for setup of meal",
+      "for proper positioning"
+    ],
+    "Utensil use": [
+      "for hand-over-hand guidance",
+      "to guide utensil to mouth",
+      "to manage utensil",
+      "to scoop food",
+      "for grasp on utensil"
     ],
     "Cup management": [
-      "for stability",
-      "for postural control",
-      "for hand-to-mouth",
-      "for grasp on utensil"
+      "for hand-over-hand guidance",
+      "to stabilize cup",
+      "for grasp on cup",
+      "to guide cup to mouth",
+      "for controlled tipping"
+    ],
+    "Cup/glass management": [
+      "for hand-over-hand guidance",
+      "to stabilize cup",
+      "for grasp on cup",
+      "to guide cup to mouth",
+      "for controlled tipping",
+      "for two-handed cup management",
+      "to prevent spills"
+    ],
+    "Meal Setup": [
+      "for opening containers",
+      "for opening packages",
+      "to cut food",
+      "for positioning plate/utensils",
+      "to manage condiments",
+      "for reaching items",
+      "to stabilize items",
+      "for carrying items",
+      "for tray management",
+      "for problem-solving setup"
     ],
     "W/C": [
       "for stability",
@@ -1472,20 +1770,26 @@
     ],
     "Weight Bearing - UE": [
       "for stability",
-      "for balance support",
-      "for postural control",
-      "for weight shift",
-      "for anterior weight shift",
-      "for lateral weight shift",
-      "for trunk control"
+      "for balance",
+      "for trunk control",
+      "for shoulder stability",
+      "for elbow extension",
+      "for wrist stability",
+      "for weight shift through UEs",
+      "for graded weight bearing",
+      "for affected UE weight bearing",
+      "for bilateral UE weight bearing"
     ],
     "Postural Control - UE Tasks": [
-      "for stability",
-      "for balance support",
-      "for postural control",
       "for trunk control",
-      "for weight shift",
-      "for alignment"
+      "for postural stability",
+      "for reaching stability",
+      "for weight shift during reaching",
+      "for trunk rotation control",
+      "for balance during UE tasks",
+      "for midline orientation",
+      "for anterior weight shift",
+      "for lateral weight shift"
     ],
     "Fine Motor": [
       "for stability",
@@ -1493,25 +1797,104 @@
       "to guide/facilitate movement"
     ],
     "Medication Management": [
-      "for safety",
-      "for postural control"
+      "for opening pill bottles",
+      "for sorting pills",
+      "for filling pill organizer",
+      "for sequencing",
+      "for reading labels",
+      "for fine motor with small pills",
+      "for memory/recall of schedule"
     ],
     "Safety Awareness": [
-      "for safety",
-      "for postural control"
+      "for sequencing emergency procedures",
+      "for problem-solving safety hazards",
+      "for verbal cues for safety awareness",
+      "for environmental navigation"
     ],
     "Meal Preparation": [
-      "for stability",
-      "for balance support",
-      "for safety",
-      "for postural control",
-      "for standing at sink"
+      "for standing tolerance at counter",
+      "for reaching into cabinets",
+      "for transporting items",
+      "for stabilizing items",
+      "for bimanual coordination",
+      "for cutting/chopping",
+      "for managing utensils/cookware",
+      "for sequencing multi-step tasks",
+      "for safe use of stove/microwave",
+      "for problem-solving"
+    ],
+    "Kitchen": [
+      "for standing tolerance at counter",
+      "for reaching into cabinets",
+      "for reaching into refrigerator",
+      "for transporting items",
+      "for stabilizing items",
+      "for bimanual coordination",
+      "for managing utensils/cookware",
+      "for sequencing multi-step tasks",
+      "for energy conservation",
+      "for safe use of appliances",
+      "for managing sink/faucet controls",
+      "for problem-solving",
+      "for opening containers/jars"
     ],
     "Home Management": [
-      "for stability",
-      "for balance support",
-      "for safety",
-      "for postural control"
+      "for standing tolerance at counter",
+      "for reaching into cabinets",
+      "for reaching into refrigerator",
+      "for transporting items",
+      "for stabilizing items",
+      "for bimanual coordination",
+      "for managing utensils/cookware",
+      "for sequencing multi-step tasks",
+      "for energy conservation",
+      "for safe use of appliances",
+      "for managing sink/faucet controls",
+      "for wiping surfaces",
+      "for problem-solving",
+      "for bending to reach low items",
+      "for lifting/carrying objects"
+    ],
+    "Cleaning": [
+      "for standing tolerance",
+      "for bending to reach low areas",
+      "for reaching high surfaces",
+      "for managing cleaning supplies",
+      "for wiping surfaces",
+      "for vacuuming/sweeping",
+      "for laundry management",
+      "for energy conservation",
+      "for proper body mechanics",
+      "for transporting items"
+    ],
+    "Light housekeeping": [
+      "for standing tolerance",
+      "for bending to reach",
+      "for reaching overhead",
+      "for managing supplies",
+      "for wiping surfaces",
+      "for energy conservation",
+      "for proper body mechanics"
+    ],
+    "Laundry management": [
+      "for standing tolerance",
+      "for bending to washer/dryer",
+      "for transporting laundry basket",
+      "for sorting clothes",
+      "for folding clothes",
+      "for reaching into machines",
+      "for managing detergent",
+      "for sequencing"
+    ],
+    "Communication/Financial": [
+      "for phone handling",
+      "for dialing/touchscreen use",
+      "for writing",
+      "for managing checkbook",
+      "for opening mail",
+      "for sorting mail",
+      "for fine motor with pen",
+      "for problem-solving"
     ],
     "Default": [
       "for stability",
