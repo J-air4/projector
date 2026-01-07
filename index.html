@@ -1820,7 +1820,9 @@
       }, []);
 
       const primaryActivity = selectedActivities.length > 0 ? selectedActivities[0] : null;
-      const primaryParent = selectedParent;
+      // Use subcategory as primary parent for lookups (e.g., "Upper Body" instead of "Dressing")
+      // Fall back to selectedParent if no subcategory
+      const primaryParent = selectedSubCategory || selectedParent;
 
       const getActivitiesForCPT = useCallback(() => {
         if (!cptCode || !data) return {};
@@ -1836,8 +1838,8 @@
 
       const deficitOptions = useMemo(() => {
         if (!data) return [];
-        return getDeficitsForActivity(primaryParent, data.DEFICITS);
-      }, [primaryParent, data]);
+        return getDeficitsForActivity(selectedParent, data.DEFICITS);
+      }, [selectedParent, data]);
 
       const assistPurposeOptions = useMemo(() => {
         if (!data) return [];
@@ -1862,10 +1864,10 @@
       // Memoized quick-add assists based on selected activity
       const quickAssistsForActivity = useMemo(() => {
         if (!data) return [];
-        const activityKey = selectedActivities[0] || selectedParent || '';
+        const activityKey = selectedActivities[0] || selectedSubCategory || selectedParent || '';
         const quickAssistsSource = data.QUICK_ADD_ASSISTS_BY_ACTIVITY || {};
         return findBestMatch(activityKey, quickAssistsSource) || quickAssistsSource['Default'] || [];
-      }, [selectedActivities, selectedParent, data]);
+      }, [selectedActivities, selectedSubCategory, selectedParent, data]);
 
       const buildClinicianAnalysis = useCallback(() => {
         const parts = [];
@@ -2361,7 +2363,7 @@
                           style={{ width: '100%', padding: '6px 8px', border: '1px solid var(--border-color)', borderRadius: '4px', fontSize: '12px', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }}
                         >
                           <option value="">None</option>
-                          {getEquipmentForActivity(selectedParent, data.EQUIPMENT_BY_ACTIVITY).map(eq => (
+                          {getEquipmentForActivity(primaryParent, data.EQUIPMENT_BY_ACTIVITY).map(eq => (
                             <option key={eq} value={eq}>{eq}</option>
                           ))}
                         </select>
@@ -2505,7 +2507,7 @@
                           <label style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)', marginBottom: '3px' }}>Location</label>
                           <select value={newAssist.location} onChange={(e) => setNewAssist(prev => ({ ...prev, location: e.target.value }))} style={{ width: '100%', padding: '6px 8px', border: '1px solid var(--border-color)', borderRadius: '4px', fontSize: '11px', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }}>
                             <option value="">Optional...</option>
-                            {getAssistLocationsForActivity(selectedParent, primaryActivity, data.ASSIST_LOCATIONS_BY_ACTIVITY).map(loc => (
+                            {getAssistLocationsForActivity(primaryParent, primaryActivity, data.ASSIST_LOCATIONS_BY_ACTIVITY).map(loc => (
                               <option key={loc} value={loc}>{loc}</option>
                             ))}
                           </select>
@@ -2550,7 +2552,7 @@
                     <label style={{ display: 'block', fontSize: '10px', color: 'var(--text-muted)', marginBottom: '3px' }}>Quick-add common cues{selectedActivities.length > 0 ? ` for ${selectedActivities[0]}` : ''}:</label>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                       {(() => {
-                        const activityKey = selectedActivities[0] || selectedParent || '';
+                        const activityKey = selectedActivities[0] || selectedSubCategory || selectedParent || '';
                         const quickCuesSource = data.QUICK_ADD_CUES_BY_ACTIVITY || {};
                         const quickCues = findBestMatch(activityKey, quickCuesSource) || quickCuesSource['Default'] || [];
                         return quickCues.map((cue) => (
@@ -2703,7 +2705,7 @@
                 <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '12px' }}>
                   <SectionHeader>Performance Observations</SectionHeader>
                   <OptionGrid columns={2}>
-                    {getPerformanceQualifiers(selectedParent, primaryActivity, data.PERFORMANCE_QUALIFIERS_BY_ACTIVITY).map(qual => (
+                    {getPerformanceQualifiers(primaryParent, primaryActivity, data.PERFORMANCE_QUALIFIERS_BY_ACTIVITY).map(qual => (
                       <ChipButton key={qual} selected={selectedPerformance.includes(qual)} onClick={() => { if (selectedPerformance.includes(qual)) setSelectedPerformance(prev => prev.filter(p => p !== qual)); else setSelectedPerformance(prev => [...prev, qual]); }} size="sm">{qual}</ChipButton>
                     ))}
                   </OptionGrid>
