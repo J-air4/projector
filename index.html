@@ -290,6 +290,21 @@
       background: var(--accent-primary);
       color: #fff;
     }
+    .toggle-btn.docky-btn {
+      margin-left: 8px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      padding: 2px 10px;
+    }
+    .toggle-btn.docky-btn.active {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-color: transparent;
+      color: #fff;
+    }
+    .toggle-btn.docky-btn:hover:not(.active) {
+      background: var(--bg-secondary);
+      border-color: var(--accent-primary);
+    }
     .btn-copy {
       padding: 3px 12px;
       background: var(--accent-primary);
@@ -1806,11 +1821,19 @@
         const saved = localStorage.getItem('otNoteDarkMode');
         return saved === 'true';
       });
+      const [useDocky, setUseDocky] = useState(() => {
+        const saved = localStorage.getItem('otNoteUseDocky');
+        return saved === 'true';
+      });
 
       useEffect(() => {
         document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
         localStorage.setItem('otNoteDarkMode', darkMode);
       }, [darkMode]);
+
+      useEffect(() => {
+        localStorage.setItem('otNoteUseDocky', useDocky);
+      }, [useDocky]);
 
       useEffect(() => {
         try {
@@ -1868,6 +1891,137 @@
         const quickAssistsSource = data.QUICK_ADD_ASSISTS_BY_ACTIVITY || {};
         return findBestMatch(activityKey, quickAssistsSource) || quickAssistsSource['Default'] || [];
       }, [selectedActivities, selectedSubCategory, selectedParent, data]);
+
+      // ============================================
+      // DOCKY - AI-like Note Generation Engine
+      // ============================================
+      const DOCKY = {
+        // Sentence starters for variety
+        starters: {
+          goal: [
+            'To address',
+            'In order to',
+            'To facilitate',
+            'To promote',
+            'Working toward',
+            'Targeting',
+            'To support',
+            'Aiming to'
+          ],
+          activity: [
+            'Patient engaged in',
+            'Patient participated in',
+            'Patient performed',
+            'Patient completed',
+            'Pt worked on',
+            'Treatment focused on',
+            'Session involved',
+            'Patient practiced'
+          ]
+        },
+        // Instruction verbs
+        instruction: [
+          'instructed in',
+          'trained in',
+          'educated on',
+          'guided through',
+          'facilitated with',
+          'engaged in'
+        ],
+        // Deficit intros
+        deficitIntro: [
+          'noted secondary to',
+          '2/2',
+          'due to',
+          'related to',
+          'attributed to',
+          'as a result of'
+        ],
+        // Assistance phrasing
+        assistRequired: [
+          'required',
+          'was necessary',
+          'needed',
+          'utilized',
+          'provided'
+        ],
+        // Progress descriptors
+        progressIntro: {
+          improved: [
+            'Demonstrated improvement compared to prior session',
+            'Progress noted from baseline',
+            'Performance improved since last session',
+            'Patient showing gains',
+            'Advancement observed from previous treatment'
+          ],
+          same: [
+            'Performance remained consistent with prior session',
+            'No significant change noted from baseline',
+            'Static performance compared to last session',
+            'Maintained current level of function',
+            'Plateau observed at current level'
+          ],
+          declined: [
+            'Regression noted from prior session',
+            'Performance declined compared to baseline',
+            'Decreased function observed since last session',
+            'Patient demonstrated regression',
+            'Step back noted from previous treatment'
+          ]
+        },
+        // Tolerance phrasing
+        toleranceIntro: [
+          'Patient',
+          'Pt',
+          'Individual'
+        ],
+        // Plan transitions
+        planTransition: [
+          'Plan:',
+          'Moving forward,',
+          'Next session,',
+          'For progression,',
+          'Recommendation:'
+        ],
+        // Connectors
+        connectors: [
+          'Additionally,',
+          'Furthermore,',
+          'Also noted,',
+          'Of note,',
+          ''
+        ],
+        // Clinical reasoning phrases
+        reasoningFrames: [
+          'Clinical reasoning supports',
+          'Based on assessment,',
+          'Given presentation,',
+          'Per clinical judgment,',
+          ''
+        ],
+        // Random picker helper
+        pick: function(arr) {
+          return arr[Math.floor(Math.random() * arr.length)];
+        },
+        // Weighted random - prefers earlier items
+        pickWeighted: function(arr) {
+          const weights = arr.map((_, i) => arr.length - i);
+          const total = weights.reduce((a, b) => a + b, 0);
+          let r = Math.random() * total;
+          for (let i = 0; i < arr.length; i++) {
+            r -= weights[i];
+            if (r <= 0) return arr[i];
+          }
+          return arr[0];
+        },
+        // Format list naturally
+        formatList: function(items) {
+          if (!items || items.length === 0) return '';
+          if (items.length === 1) return items[0];
+          if (items.length === 2) return `${items[0]} and ${items[1]}`;
+          return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+        }
+      };
 
       const buildClinicianAnalysis = useCallback(() => {
         const parts = [];
@@ -1996,7 +2150,200 @@
         return parts.join(' ');
       }, [data, selectedActivities, activityParams, goal, assists, cues, deficit, progress, tolerance, plan, selectedPerformance, selectedContext, selectedReasoning, patientSubjective, painLocation, painRating, vitals, outputStyle, buildClinicianAnalysis]);
 
-      const output = useMemo(() => buildOutput(), [buildOutput]);
+      // ============================================
+      // DOCKY OUTPUT BUILDER
+      // Generates natural, varied clinical notes
+      // ============================================
+      const buildDockyOutput = useCallback(() => {
+        if (!data) return '';
+        const parts = [];
+
+        // Build activity string with parameters
+        let activityStr = '';
+        if (selectedActivities.length > 0) {
+          activityStr = DOCKY.formatList(selectedActivities);
+          const params = [];
+          if (activityParams.sets && activityParams.reps) params.push(`${activityParams.sets}x${activityParams.reps}`);
+          else if (activityParams.sets) params.push(`${activityParams.sets} sets`);
+          else if (activityParams.reps) params.push(`${activityParams.reps} reps`);
+          if (activityParams.equipment) params.push(activityParams.equipment.toLowerCase());
+          if (params.length) activityStr += ` (${params.join(', ')})`;
+        }
+
+        // Get goal phrase
+        const goalPhrase = goal ? data.GOALS.find(g => g.id === goal)?.phrase : '';
+
+        // Build assist phrases with natural variation
+        const assistPhrases = assists.map(a => {
+          const level = data.ASSIST_LEVELS.find(l => l.id === a.level);
+          if (!level) return '';
+          if (a.level === 'I') return 'independently';
+          if (a.level === 'ModI') return 'modified independent' + (a.modifier ? ` ${a.modifier}` : '');
+          if (a.level === 'S') return 'supervision' + (a.purpose ? ` ${a.purpose}` : '');
+          if (a.level === 'CGA') return 'CGA' + (a.purpose ? ` ${a.purpose}` : '');
+          let phrase = level.full.toLowerCase();
+          if (a.location) phrase += ` ${a.location}`;
+          if (a.purpose) phrase += ` ${a.purpose}`;
+          return phrase;
+        }).filter(Boolean);
+
+        // Build cue phrases
+        const cuePhrases = cues.map(c => {
+          let phrase = `${c.level} ${c.type} cues`;
+          if (c.bodyPart) phrase += ` to ${c.bodyPart}`;
+          if (c.purpose) phrase += ` for ${c.purpose}`;
+          if (c.context) phrase += ` during ${c.context}`;
+          return phrase.toLowerCase();
+        });
+
+        const deficitPhrase = deficit ? deficit.charAt(0).toLowerCase() + deficit.slice(1) : '';
+
+        // Main sentence construction with Docky variations
+        if (outputStyle === 'goal') {
+          // Goal-led format with variety
+          if (goalPhrase && activityStr) {
+            const starter = DOCKY.pickWeighted(DOCKY.starters.goal);
+            const instruction = DOCKY.pick(DOCKY.instruction);
+            parts.push(`${starter} ${goalPhrase}, patient ${instruction} ${activityStr}.`);
+          } else if (goalPhrase && !activityStr) {
+            parts.push(`${DOCKY.pickWeighted(DOCKY.starters.goal)} ${goalPhrase}, patient [select activity]...`);
+          } else if (!goalPhrase && activityStr) {
+            parts.push(`${DOCKY.pick(DOCKY.starters.activity)} ${activityStr} to [select goal]...`);
+          }
+
+          // Assistance/cues with natural phrasing
+          if (assistPhrases.length || cuePhrases.length) {
+            const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
+            if (combined.length > 0) {
+              const assistVerb = DOCKY.pick(DOCKY.assistRequired);
+              if (deficitPhrase) {
+                const deficitIntro = DOCKY.pick(DOCKY.deficitIntro);
+                parts.push(`${DOCKY.formatList(combined.map(c => c.charAt(0).toUpperCase() + c.slice(1)))} ${assistVerb} ${deficitIntro} ${deficitPhrase}.`);
+              } else {
+                parts.push(`${DOCKY.formatList(combined.map(c => c.charAt(0).toUpperCase() + c.slice(1)))} ${assistVerb}.`);
+              }
+            }
+          } else if (deficitPhrase) {
+            parts.push(`Limitations ${DOCKY.pick(DOCKY.deficitIntro)} ${deficitPhrase}.`);
+          }
+
+          // Progress with Docky variation
+          if (progress && DOCKY.progressIntro[progress]) {
+            parts.push(DOCKY.pick(DOCKY.progressIntro[progress]) + '.');
+          }
+
+          // Tolerance
+          if (tolerance) {
+            const toleranceData = data.TOLERANCE_OPTIONS.find(t => t.id === tolerance);
+            if (toleranceData) {
+              const intro = DOCKY.pick(DOCKY.toleranceIntro);
+              parts.push(`${intro} ${toleranceData.phrase.toLowerCase()}.`);
+            }
+          }
+
+          // Plan with transition
+          if (plan) {
+            const planData = data.PLAN_OPTIONS.find(p => p.id === plan);
+            if (planData) {
+              const transition = DOCKY.pick(DOCKY.planTransition);
+              const planText = planData.phrase.charAt(0).toLowerCase() + planData.phrase.slice(1);
+              parts.push(`${transition} ${planText}.`);
+            }
+          }
+        } else {
+          // Activity-led format with variety
+          if (activityStr && goalPhrase) {
+            const starter = DOCKY.pickWeighted(DOCKY.starters.activity);
+            let sentence = `${starter} ${activityStr}`;
+            if (assistPhrases.length || cuePhrases.length) {
+              const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
+              sentence += ` with ${DOCKY.formatList(combined)}`;
+            }
+            sentence += ` to ${goalPhrase}.`;
+            parts.push(sentence);
+          } else if (activityStr && !goalPhrase) {
+            const starter = DOCKY.pick(DOCKY.starters.activity);
+            let sentence = `${starter} ${activityStr}`;
+            if (assistPhrases.length || cuePhrases.length) {
+              const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
+              sentence += ` with ${DOCKY.formatList(combined)}`;
+            }
+            sentence += ` to [select goal]...`;
+            parts.push(sentence);
+          } else if (!activityStr && goalPhrase) {
+            parts.push(`Patient performed [select activity] to ${goalPhrase}...`);
+          }
+
+          // Progress and deficit combination
+          if (progress && DOCKY.progressIntro[progress]) {
+            let progressSentence = DOCKY.pick(DOCKY.progressIntro[progress]);
+            if (deficitPhrase) {
+              progressSentence += `. Support ${DOCKY.pick(DOCKY.deficitIntro)} ${deficitPhrase}`;
+            }
+            parts.push(progressSentence + '.');
+          } else if (deficitPhrase) {
+            parts.push(`Assistance ${DOCKY.pick(DOCKY.deficitIntro)} ${deficitPhrase}.`);
+          }
+
+          // Tolerance
+          if (tolerance) {
+            const toleranceData = data.TOLERANCE_OPTIONS.find(t => t.id === tolerance);
+            if (toleranceData) {
+              parts.push(`${DOCKY.pick(DOCKY.toleranceIntro)} ${toleranceData.phrase.toLowerCase()}.`);
+            }
+          }
+
+          // Plan
+          if (plan) {
+            const planData = data.PLAN_OPTIONS.find(p => p.id === plan);
+            if (planData) {
+              const transition = DOCKY.pick(DOCKY.planTransition);
+              const planText = planData.phrase.charAt(0).toLowerCase() + planData.phrase.slice(1);
+              parts.push(`${transition} ${planText}.`);
+            }
+          }
+        }
+
+        // Clinical analysis with Docky variation
+        if (selectedPerformance.length > 0 || selectedContext.length > 0 || selectedReasoning.length > 0) {
+          const analysisParts = [];
+          if (selectedPerformance.length > 0) {
+            analysisParts.push(`Patient demonstrated ${DOCKY.formatList(selectedPerformance)} performance`);
+          }
+          if (selectedContext.length > 0) {
+            const connector = analysisParts.length > 0 ? DOCKY.pick(DOCKY.connectors) : '';
+            analysisParts.push(`${connector} ${selectedContext[0]}`.trim());
+          }
+          if (selectedReasoning.length > 0) {
+            const frame = DOCKY.pick(DOCKY.reasoningFrames);
+            analysisParts.push(`${frame} ${selectedReasoning[0].toLowerCase()}`.trim());
+          }
+          if (analysisParts.length > 0) {
+            parts.push(analysisParts.join('. ').replace(/\.\s*\./g, '.').trim() + '.');
+          }
+        }
+
+        // Patient subjective, pain, vitals
+        const responseItems = [];
+        if (patientSubjective.trim()) {
+          responseItems.push(`Patient reports: "${patientSubjective.trim()}"`);
+        }
+        if (painLocation.trim() && painRating.trim()) {
+          responseItems.push(`Pain ${painRating}/10 at ${painLocation.trim()}`);
+        } else if (painRating.trim()) {
+          responseItems.push(`Pain ${painRating}/10`);
+        }
+        const vitalsList = [];
+        if (vitals.hr) vitalsList.push(`HR ${vitals.hr}`);
+        if (vitals.o2sat) vitalsList.push(`O2 Sat ${vitals.o2sat}%`);
+        if (vitals.bp) vitalsList.push(`BP ${vitals.bp}`);
+        if (vitalsList.length > 0) responseItems.push(`Vitals: ${vitalsList.join(', ')}`);
+        if (responseItems.length > 0) parts.push(responseItems.join('. ') + '.');
+
+        return parts.join(' ').replace(/\s+/g, ' ').replace(/\.\s*\./g, '.').trim();
+      }, [data, selectedActivities, activityParams, goal, assists, cues, deficit, progress, tolerance, plan, selectedPerformance, selectedContext, selectedReasoning, patientSubjective, painLocation, painRating, vitals, outputStyle]);
+
+      const output = useMemo(() => useDocky ? buildDockyOutput() : buildOutput(), [useDocky, buildDockyOutput, buildOutput]);
 
       const handleCopy = async () => {
         try {
@@ -2814,6 +3161,13 @@
                     <button onClick={() => setOutputStyle('goal')} className={`toggle-btn ${outputStyle === 'goal' ? 'active' : ''}`}>Goal-Led</button>
                     <button onClick={() => setOutputStyle('activity')} className={`toggle-btn ${outputStyle === 'activity' ? 'active' : ''}`}>Activity-Led</button>
                   </div>
+                  <button
+                    onClick={() => setUseDocky(!useDocky)}
+                    className={`toggle-btn docky-btn ${useDocky ? 'active' : ''}`}
+                    title="Docky generates varied, natural-sounding clinical notes"
+                  >
+                    {useDocky ? '🤖 Docky' : '📝 Template'}
+                  </button>
                   <button onClick={handleCopy} className={`btn-copy ${copied ? 'copied' : ''}`}>{copied ? '✓ Copied' : 'Copy'}</button>
                 </div>
               </div>
