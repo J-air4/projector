@@ -245,7 +245,7 @@ const DockyGenerator = {
 
     // Deficit as separate clear sentence
     if (deficitPhrase) {
-      parts.push(`Session targeted ${deficitPhrase}.`);
+      parts.push(`Treatment addressed ${deficitPhrase}.`);
     }
 
     // Progress
