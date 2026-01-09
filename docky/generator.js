@@ -228,8 +228,8 @@ const DockyGenerator = {
         const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
         sentence += ` with ${this.utils.formatList(combined)}`;
       }
-      if (deficitPhrase) {
-        sentence += ` secondary to ${deficitPhrase}`;
+      if (this.utils.sanitize(deficitPhrase)) {
+        sentence += ` secondary to ${this.utils.sanitize(deficitPhrase)}`;
       }
       sentence += ` to ${goalPhrase}.`;
       parts.push(sentence);
