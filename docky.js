@@ -2,25 +2,47 @@
  * DOCKY - AI-like Note Generation Engine
  *
  * Main entry point that combines all modules.
- * Load order: phrases.js -> utils.js -> generator.js -> docky.js
+ * Load order: phrases.js -> utils.js -> generator.js -> assistant.js -> docky.js
  *
- * @version 2.0.0
+ * @version 2.1.0
  */
 
 const DOCKY = (function() {
-  // Initialize generator with dependencies
+  // Initialize modules with dependencies
   DockyGenerator.init(DockyPhrases, DockyUtils);
+  DockyAssistant.init(DockyPhrases, DockyUtils);
 
   return {
-    // Expose phrases for direct access if needed
+    // Expose modules for direct access
     phrases: DockyPhrases,
-
-    // Expose utils for direct access if needed
     utils: DockyUtils,
+    generator: DockyGenerator,
+    assistant: DockyAssistant,
 
-    // Main generate function
+    // Main generate function (from generator)
     generate: function(params) {
       return DockyGenerator.generate(params);
+    },
+
+    // Assistant functions
+    getQuestions: function() {
+      return DockyAssistant.questions;
+    },
+
+    getVisibleQuestions: function(answers) {
+      return DockyAssistant.getVisibleQuestions(answers);
+    },
+
+    generateNarrative: function(answers) {
+      return DockyAssistant.generateNarrative(answers);
+    },
+
+    parseFreeForm: function(text) {
+      return DockyAssistant.parseFreeForm(text);
+    },
+
+    generateFromFreeForm: function(text) {
+      return DockyAssistant.generateFromFreeForm(text);
     },
 
     // Convenience methods from utils

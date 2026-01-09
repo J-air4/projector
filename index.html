@@ -305,6 +305,199 @@
       background: var(--bg-secondary);
       border-color: var(--accent-primary);
     }
+    /* Docky Assistant Modal */
+    .docky-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .docky-modal {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+    }
+    .docky-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 12px 12px 0 0;
+    }
+    .docky-modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .docky-modal-close {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .docky-modal-close:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .docky-tabs {
+      display: flex;
+      padding: 8px 16px;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .docky-tab {
+      padding: 6px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .docky-tab.active {
+      background: var(--accent-primary);
+      color: #fff;
+      border-color: var(--accent-primary);
+    }
+    .docky-modal-body {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .docky-question {
+      margin-bottom: 16px;
+    }
+    .docky-question-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .docky-question-input,
+    .docky-question-select,
+    .docky-question-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 13px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    .docky-question-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .docky-question-input:focus,
+    .docky-question-select:focus,
+    .docky-question-textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px var(--accent-light);
+    }
+    .docky-freeform-input {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 13px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      resize: vertical;
+      font-family: inherit;
+    }
+    .docky-freeform-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+    .docky-output-section {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+    .docky-output-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .docky-output-preview {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      min-height: 80px;
+    }
+    .docky-output-preview.empty {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    .docky-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-color);
+    }
+    .docky-btn-secondary {
+      padding: 8px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .docky-btn-primary {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .docky-btn-primary:hover {
+      opacity: 0.9;
+    }
+    .docky-btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
     .btn-copy {
       padding: 3px 12px;
       background: var(--accent-primary);
@@ -398,6 +591,7 @@
   <script src="docky/phrases.js"></script>
   <script src="docky/utils.js"></script>
   <script src="docky/generator.js"></script>
+  <script src="docky/assistant.js"></script>
   <script src="docky.js"></script>
   <script type="text/babel">
     const { useState, useEffect, useCallback, useRef, useMemo } = React;
@@ -1831,6 +2025,13 @@
         return saved === 'true';
       });
 
+      // Docky Assistant state
+      const [showDockyAssistant, setShowDockyAssistant] = useState(false);
+      const [dockyMode, setDockyMode] = useState('guided'); // 'guided' or 'freeform'
+      const [dockyAnswers, setDockyAnswers] = useState({});
+      const [dockyFreeformText, setDockyFreeformText] = useState('');
+      const [dockyGeneratedNote, setDockyGeneratedNote] = useState('');
+
       useEffect(() => {
         document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
         localStorage.setItem('otNoteDarkMode', darkMode);
@@ -2084,6 +2285,36 @@
           setSavedNotes(updatedNotes);
           try { localStorage.setItem('otNoteHistory', JSON.stringify(updatedNotes)); } catch (e) { console.error('Storage full:', e); }
         } catch (e) { console.error('Failed to copy:', e); }
+      };
+
+      // Docky Assistant handlers
+      const handleDockyAnswerChange = (questionId, value) => {
+        setDockyAnswers(prev => ({ ...prev, [questionId]: value }));
+      };
+
+      const handleDockyGenerate = () => {
+        if (dockyMode === 'guided') {
+          const narrative = DOCKY.generateNarrative(dockyAnswers);
+          setDockyGeneratedNote(narrative);
+        } else {
+          const narrative = DOCKY.generateFromFreeForm(dockyFreeformText);
+          setDockyGeneratedNote(narrative);
+        }
+      };
+
+      const handleDockyUseNote = () => {
+        if (dockyGeneratedNote) {
+          setPatientSubjective(dockyGeneratedNote);
+          setShowDockyAssistant(false);
+          // Reset Docky state
+          setDockyAnswers({});
+          setDockyFreeformText('');
+          setDockyGeneratedNote('');
+        }
+      };
+
+      const handleDockyClose = () => {
+        setShowDockyAssistant(false);
       };
 
       const handleClear = () => {
@@ -2873,9 +3104,16 @@
                     className={`toggle-btn docky-btn ${useDocky ? 'active' : ''}`}
                     title="Docky generates varied, natural-sounding clinical notes"
                   >
-                    {useDocky ? '🤖 Docky' : '📝 Template'}
+                    {useDocky ? '🤖 Docky' : '📝 Standard'}
                   </button>
                   <button onClick={handleCopy} className={`btn-copy ${copied ? 'copied' : ''}`}>{copied ? '✓ Copied' : 'Copy'}</button>
+                  <button
+                    onClick={() => setShowDockyAssistant(true)}
+                    className="toggle-btn docky-btn"
+                    title="Open Docky Assistant for guided note generation"
+                  >
+                    🤖 Assistant
+                  </button>
                 </div>
               </div>
 
@@ -2906,6 +3144,110 @@
                 >
                   {currentStep === STEPS.length - 1 ? 'Done' : 'Continue →'}
                 </button>
+              </div>
+            </div>
+          )}
+
+          {/* Docky Assistant Modal */}
+          {showDockyAssistant && (
+            <div className="docky-modal-overlay" onClick={handleDockyClose}>
+              <div className="docky-modal" onClick={e => e.stopPropagation()}>
+                <div className="docky-modal-header">
+                  <div className="docky-modal-title">
+                    <span>🤖</span>
+                    <span>Docky Assistant</span>
+                  </div>
+                  <button className="docky-modal-close" onClick={handleDockyClose}>×</button>
+                </div>
+
+                <div className="docky-tabs">
+                  <button
+                    className={`docky-tab ${dockyMode === 'guided' ? 'active' : ''}`}
+                    onClick={() => setDockyMode('guided')}
+                  >
+                    Guided
+                  </button>
+                  <button
+                    className={`docky-tab ${dockyMode === 'freeform' ? 'active' : ''}`}
+                    onClick={() => setDockyMode('freeform')}
+                  >
+                    Free-form
+                  </button>
+                </div>
+
+                <div className="docky-modal-body">
+                  {dockyMode === 'guided' ? (
+                    <>
+                      {DOCKY.getVisibleQuestions(dockyAnswers).map(q => (
+                        <div key={q.id} className="docky-question">
+                          <label className="docky-question-label">
+                            {q.prompt}
+                            {q.required && <span style={{ color: 'var(--danger)', marginLeft: '4px' }}>*</span>}
+                          </label>
+                          {q.type === 'select' ? (
+                            <select
+                              className="docky-question-select"
+                              value={dockyAnswers[q.id] || ''}
+                              onChange={e => handleDockyAnswerChange(q.id, e.target.value)}
+                            >
+                              <option value="">Select...</option>
+                              {q.options.map(opt => (
+                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                              ))}
+                            </select>
+                          ) : q.type === 'textarea' ? (
+                            <textarea
+                              className="docky-question-textarea"
+                              placeholder={q.placeholder}
+                              value={dockyAnswers[q.id] || ''}
+                              onChange={e => handleDockyAnswerChange(q.id, e.target.value)}
+                            />
+                          ) : (
+                            <input
+                              type="text"
+                              className="docky-question-input"
+                              placeholder={q.placeholder}
+                              value={dockyAnswers[q.id] || ''}
+                              onChange={e => handleDockyAnswerChange(q.id, e.target.value)}
+                            />
+                          )}
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      <textarea
+                        className="docky-freeform-input"
+                        placeholder="Type your clinical shorthand here...&#10;&#10;Example: transfer training, min A at trunk for safety, pt tolerating well, improved from mod A, continue current plan"
+                        value={dockyFreeformText}
+                        onChange={e => setDockyFreeformText(e.target.value)}
+                      />
+                      <div className="docky-freeform-hint">
+                        Docky understands: assist levels (min A, mod A, CGA), tolerance (tolerated well, fatigue),
+                        progress (improved, static), activities (transfers, dressing), and more.
+                      </div>
+                    </>
+                  )}
+
+                  {dockyGeneratedNote && (
+                    <div className="docky-output-section">
+                      <div className="docky-output-label">Generated Narrative</div>
+                      <div className="docky-output-preview">{dockyGeneratedNote}</div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="docky-modal-footer">
+                  <button className="docky-btn-secondary" onClick={handleDockyClose}>Cancel</button>
+                  <button className="docky-btn-primary" onClick={handleDockyGenerate}>
+                    Generate
+                  </button>
+                  {dockyGeneratedNote && (
+                    <button className="docky-btn-primary" onClick={handleDockyUseNote}>
+                      Use Note
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           )}
