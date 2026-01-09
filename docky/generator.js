@@ -62,7 +62,7 @@ const DockyGenerator = {
     // Build assist and cue phrases
     const assistPhrases = this._buildAssistPhrases(assists, data);
     const cuePhrases = this._buildCuePhrases(cues);
-    const deficitPhrase = deficit ? this.utils.lowercaseFirst(deficit) : '';
+    const deficitPhrase = deficit ? this.utils.lowercaseFirst(this.utils.sanitize(deficit)) : '';
 
     // Build main sentence based on output style
     const sentenceParams = {
@@ -179,15 +179,13 @@ const DockyGenerator = {
       if (combined.length > 0) {
         const assistVerb = this.utils.pick(this.phrases.assistRequired);
         const capitalizedCombined = combined.map(c => this.utils.capitalize(c));
-        if (deficitPhrase) {
-          const deficitIntro = this.utils.pick(this.phrases.deficitIntro);
-          parts.push(`${this.utils.formatList(capitalizedCombined)} ${assistVerb} ${deficitIntro} ${deficitPhrase}.`);
-        } else {
-          parts.push(`${this.utils.formatList(capitalizedCombined)} ${assistVerb}.`);
-        }
+        parts.push(`${this.utils.formatList(capitalizedCombined)} ${assistVerb}.`);
       }
-    } else if (deficitPhrase) {
-      parts.push(`Limitations ${this.utils.pick(this.phrases.deficitIntro)} ${deficitPhrase}.`);
+    }
+
+    // Deficit as separate sentence for clarity
+    if (deficitPhrase) {
+      parts.push(`Intervention addressed ${deficitPhrase}.`);
     }
 
     // Progress
@@ -225,13 +223,16 @@ const DockyGenerator = {
     const { goalPhrase, activityStr, assistPhrases, cuePhrases, deficitPhrase, progress, tolerance, plan, data } = params;
     const parts = [];
 
-    // Main opening sentence
+    // Main opening sentence - activity-led with deficit integrated as "secondary to"
     if (activityStr && goalPhrase) {
       const starter = this.utils.pickWeighted(this.phrases.starters.activity);
       let sentence = `${starter} ${activityStr}`;
       if (assistPhrases.length || cuePhrases.length) {
         const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
         sentence += ` with ${this.utils.formatList(combined)}`;
+      }
+      if (this.utils.sanitize(deficitPhrase)) {
+        sentence += ` secondary to ${this.utils.sanitize(deficitPhrase)}`;
       }
       sentence += ` to ${goalPhrase}.`;
       parts.push(sentence);
@@ -242,20 +243,18 @@ const DockyGenerator = {
         const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
         sentence += ` with ${this.utils.formatList(combined)}`;
       }
+      if (deficitPhrase) {
+        sentence += ` secondary to ${deficitPhrase}`;
+      }
       sentence += ` to [select goal]...`;
       parts.push(sentence);
     } else if (!activityStr && goalPhrase) {
       parts.push(`Patient performed [select activity] to ${goalPhrase}...`);
     }
 
-    // Progress and deficit
+    // Progress
     if (progress && this.phrases.progressIntro[progress]) {
       parts.push(this.utils.pick(this.phrases.progressIntro[progress]) + '.');
-      if (deficitPhrase) {
-        parts.push(`Support ${this.utils.pick(this.phrases.deficitIntro)} ${deficitPhrase}.`);
-      }
-    } else if (deficitPhrase) {
-      parts.push(`Assistance ${this.utils.pick(this.phrases.deficitIntro)} ${deficitPhrase}.`);
     }
 
     // Tolerance
