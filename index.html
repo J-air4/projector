@@ -290,6 +290,21 @@
       background: var(--accent-primary);
       color: #fff;
     }
+    .toggle-btn.docky-btn {
+      margin-left: 8px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      padding: 2px 10px;
+    }
+    .toggle-btn.docky-btn.active {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-color: transparent;
+      color: #fff;
+    }
+    .toggle-btn.docky-btn:hover:not(.active) {
+      background: var(--bg-secondary);
+      border-color: var(--accent-primary);
+    }
     .btn-copy {
       padding: 3px 12px;
       background: var(--accent-primary);
@@ -379,6 +394,7 @@
 <body>
   <div id="root"></div>
 
+  <script src="docky.js"></script>
   <script type="text/babel">
     const { useState, useEffect, useCallback, useRef, useMemo } = React;
 
@@ -1806,11 +1822,19 @@
         const saved = localStorage.getItem('otNoteDarkMode');
         return saved === 'true';
       });
+      const [useDocky, setUseDocky] = useState(() => {
+        const saved = localStorage.getItem('otNoteUseDocky');
+        return saved === 'true';
+      });
 
       useEffect(() => {
         document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
         localStorage.setItem('otNoteDarkMode', darkMode);
       }, [darkMode]);
+
+      useEffect(() => {
+        localStorage.setItem('otNoteUseDocky', useDocky);
+      }, [useDocky]);
 
       useEffect(() => {
         try {
@@ -1868,6 +1892,8 @@
         const quickAssistsSource = data.QUICK_ADD_ASSISTS_BY_ACTIVITY || {};
         return findBestMatch(activityKey, quickAssistsSource) || quickAssistsSource['Default'] || [];
       }, [selectedActivities, selectedSubCategory, selectedParent, data]);
+
+      // DOCKY is loaded from external docky.js file
 
       const buildClinicianAnalysis = useCallback(() => {
         const parts = [];
@@ -1996,7 +2022,31 @@
         return parts.join(' ');
       }, [data, selectedActivities, activityParams, goal, assists, cues, deficit, progress, tolerance, plan, selectedPerformance, selectedContext, selectedReasoning, patientSubjective, painLocation, painRating, vitals, outputStyle, buildClinicianAnalysis]);
 
-      const output = useMemo(() => buildOutput(), [buildOutput]);
+      // Uses external DOCKY engine from docky.js
+      const buildDockyOutput = useCallback(() => {
+        return DOCKY.generate({
+          data,
+          selectedActivities,
+          activityParams,
+          goal,
+          assists,
+          cues,
+          deficit,
+          progress,
+          tolerance,
+          plan,
+          selectedPerformance,
+          selectedContext,
+          selectedReasoning,
+          patientSubjective,
+          painLocation,
+          painRating,
+          vitals,
+          outputStyle
+        });
+      }, [data, selectedActivities, activityParams, goal, assists, cues, deficit, progress, tolerance, plan, selectedPerformance, selectedContext, selectedReasoning, patientSubjective, painLocation, painRating, vitals, outputStyle]);
+
+      const output = useMemo(() => useDocky ? buildDockyOutput() : buildOutput(), [useDocky, buildDockyOutput, buildOutput]);
 
       const handleCopy = async () => {
         try {
@@ -2814,6 +2864,13 @@
                     <button onClick={() => setOutputStyle('goal')} className={`toggle-btn ${outputStyle === 'goal' ? 'active' : ''}`}>Goal-Led</button>
                     <button onClick={() => setOutputStyle('activity')} className={`toggle-btn ${outputStyle === 'activity' ? 'active' : ''}`}>Activity-Led</button>
                   </div>
+                  <button
+                    onClick={() => setUseDocky(!useDocky)}
+                    className={`toggle-btn docky-btn ${useDocky ? 'active' : ''}`}
+                    title="Docky generates varied, natural-sounding clinical notes"
+                  >
+                    {useDocky ? '🤖 Docky' : '📝 Template'}
+                  </button>
                   <button onClick={handleCopy} className={`btn-copy ${copied ? 'copied' : ''}`}>{copied ? '✓ Copied' : 'Copy'}</button>
                 </div>
               </div>
