@@ -268,8 +268,8 @@ const DOCKY = {
     const assistPhrases = assists.map(a => {
       const level = data.ASSIST_LEVELS.find(l => l.id === a.level);
       if (!level) return '';
-      if (a.level === 'I') return 'independently';
-      if (a.level === 'ModI') return 'modified independent' + (a.modifier ? ` ${a.modifier}` : '');
+      if (a.level === 'I') return 'independence';
+      if (a.level === 'ModI') return 'modified independence' + (a.modifier ? ` ${a.modifier}` : '');
       if (a.level === 'S') return 'supervision' + (a.purpose ? ` ${a.purpose}` : '');
       if (a.level === 'CGA') return 'CGA' + (a.purpose ? ` ${a.purpose}` : '');
       let phrase = level.full.toLowerCase();
