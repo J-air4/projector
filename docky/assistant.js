@@ -189,74 +189,213 @@ const DockyAssistant = {
   clinicalTerms: {
     // Activities - informal to clinical
     activities: [
-      { patterns: [/pick(ing)?\s*(up|stuff|things?|items?|objects?)?\s*(from|off)?\s*(the\s*)?(floor|ground)/i, /bending?\s*(down)?\s*(to|and)?\s*(pick|grab|get|reach)/i, /reach(ing)?\s*(to|down)?\s*(the\s*)?(floor|ground)/i], clinical: 'functional floor-level object retrieval' },
-      { patterns: [/get(ting)?\s*(out\s*of|up\s*from)\s*(the\s*)?bed/i, /out\s*of\s*bed/i], clinical: 'bed-to-upright transfer' },
-      { patterns: [/get(ting)?\s*in(to)?\s*(the\s*)?bed/i, /ly(ing|e)\s*down/i], clinical: 'upright-to-supine positioning' },
-      { patterns: [/put(ting)?\s*on\s*(a\s*)?(shirt|top|blouse|sweater|jacket)/i, /dress(ing)?\s*(upper|top|torso)/i], clinical: 'upper body dressing' },
-      { patterns: [/put(ting)?\s*on\s*(pants|shorts|underwear|bottoms|skirt)/i, /dress(ing)?\s*(lower|bottom|legs?)/i], clinical: 'lower body dressing' },
-      { patterns: [/put(ting)?\s*on\s*(shoes?|socks?|footwear|slippers?)/i, /shoe/i, /sock/i], clinical: 'donning/doffing footwear' },
+      // Functional reaching/bending
+      { patterns: [/pick(ing)?\s*(up|stuff|things?|items?|objects?)?\s*(from|off)?\s*(the\s*)?(floor|ground)/i, /bending?\s*(down)?\s*(to|and)?\s*(pick|grab|get|reach)/i, /reach(ing)?\s*(to|down)?\s*(the\s*)?(floor|ground)/i], clinical: 'functional reaching and retrieval' },
+      { patterns: [/reach(ing)?\s*(up|over|across|high|shelf|cabinet)/i], clinical: 'overhead reaching tasks' },
+
+      // Bed mobility - use standard terms
+      { patterns: [/get(ting)?\s*(out\s*of|up\s*from)\s*(the\s*)?bed/i, /out\s*of\s*bed/i], clinical: 'supine-to-sit edge of bed' },
+      { patterns: [/get(ting)?\s*in(to)?\s*(the\s*)?bed/i, /ly(ing|e)\s*down/i], clinical: 'sit-to-supine' },
+      { patterns: [/roll(ing)?\s*(in\s*)?bed|turn(ing)?\s*(over)?\s*(in\s*)?bed/i], clinical: 'rolling in bed' },
+      { patterns: [/scoot(ing)?|reposit(ion|ing)/i], clinical: 'bed repositioning' },
+
+      // Transfers - standard terminology
       { patterns: [/sit(ting)?\s*(down|to|and)\s*stand|stand(ing)?\s*(up|and)\s*sit|sit\s*to\s*stand/i], clinical: 'sit-to-stand transfers' },
       { patterns: [/stand(ing)?\s*and\s*(turn|pivot)|pivot\s*transfer/i], clinical: 'stand-pivot transfers' },
-      { patterns: [/get(ting)?\s*(on|in)(to)?\s*(the\s*)?(toilet|commode)/i, /toilet\s*transfer/i], clinical: 'toilet transfers' },
-      { patterns: [/get(ting)?\s*(in|out)\s*(of)?\s*(the\s*)?(tub|shower|bath)/i, /tub\s*transfer|shower\s*transfer/i], clinical: 'tub/shower transfers' },
-      { patterns: [/get(ting)?\s*(in|out)\s*(of)?\s*(the\s*)?car/i, /car\s*transfer/i], clinical: 'car transfers' },
-      { patterns: [/brush(ing)?\s*(my|the|their)?\s*teeth/i, /oral\s*(care|hygiene)/i], clinical: 'oral hygiene' },
-      { patterns: [/wash(ing)?\s*(my|the|their)?\s*hair|shampoo/i, /comb(ing)?|brush(ing)?\s*hair/i], clinical: 'hair care' },
+      { patterns: [/slide\s*board|sliding\s*board|lateral\s*transfer/i], clinical: 'lateral sliding board transfer' },
+      { patterns: [/squat\s*pivot/i], clinical: 'squat-pivot transfer' },
+      { patterns: [/get(ting)?\s*(on|in)(to)?\s*(the\s*)?(toilet|commode)/i, /toilet\s*transfer/i], clinical: 'toilet transfer' },
+      { patterns: [/get(ting)?\s*(in|out)\s*(of)?\s*(the\s*)?(tub|shower|bath)/i, /tub\s*transfer|shower\s*transfer/i], clinical: 'tub/shower transfer' },
+      { patterns: [/get(ting)?\s*(in|out)\s*(of)?\s*(the\s*)?car/i, /car\s*transfer/i], clinical: 'car transfer' },
+      { patterns: [/wheelchair.*bed|bed.*wheelchair/i], clinical: 'wheelchair-to-bed transfer' },
+
+      // Dressing - standard ADL terms
+      { patterns: [/put(ting)?\s*on\s*(a\s*)?(shirt|top|blouse|sweater|jacket|bra)/i, /dress(ing)?\s*(upper|top|torso)/i, /upper\s*(body|extremity)\s*dress/i], clinical: 'upper body dressing' },
+      { patterns: [/put(ting)?\s*on\s*(pants|shorts|underwear|bottoms|skirt)/i, /dress(ing)?\s*(lower|bottom|legs?)/i, /lower\s*(body|extremity)\s*dress/i], clinical: 'lower body dressing' },
+      { patterns: [/put(ting)?\s*on\s*(shoes?|socks?|footwear|slippers?)/i, /shoe|sock/i], clinical: 'footwear management' },
+      { patterns: [/button|zipper|snap|fastener|velcro|tie/i], clinical: 'fastener management' },
+
+      // Grooming/Hygiene - standard terms
+      { patterns: [/brush(ing)?\s*(my|the|their)?\s*teeth|floss/i, /oral\s*(care|hygiene)/i, /denture/i], clinical: 'oral hygiene' },
+      { patterns: [/wash(ing)?\s*(my|the|their)?\s*(face|hands?)/i, /hand\s*wash/i], clinical: 'hand/face washing' },
+      { patterns: [/wash(ing)?\s*(my|the|their)?\s*hair|shampoo/i], clinical: 'hair washing' },
+      { patterns: [/comb(ing)?|brush(ing)?\s*hair|style?\s*hair/i], clinical: 'hair grooming' },
       { patterns: [/shav(e|ing)/i], clinical: 'shaving' },
-      { patterns: [/tak(e|ing)\s*(a\s*)?shower|shower(ing)?/i], clinical: 'shower routine' },
-      { patterns: [/tak(e|ing)\s*(a\s*)?bath|bath(ing)?/i, /wash(ing)?\s*(up|body|myself|self)/i], clinical: 'bathing routine' },
-      { patterns: [/us(e|ing)\s*(the\s*)?(toilet|bathroom|restroom)/i, /go(ing)?\s*to\s*(the\s*)?(bathroom|toilet)/i], clinical: 'toileting routine' },
-      { patterns: [/eat(ing)?|feed(ing)?\s*(myself|self)/i], clinical: 'self-feeding' },
+      { patterns: [/makeup|cosmetic/i], clinical: 'cosmetic application' },
+      { patterns: [/nail\s*(care|trim|clip)/i], clinical: 'nail care' },
+
+      // Bathing - specific terms
+      { patterns: [/tak(e|ing)\s*(a\s*)?shower|shower(ing)?/i], clinical: 'showering' },
+      { patterns: [/tak(e|ing)\s*(a\s*)?bath|bath(ing)?/i], clinical: 'bathing' },
+      { patterns: [/wash(ing)?\s*(up|body|myself|self|lower|upper)/i], clinical: 'bathing' },
+      { patterns: [/sponge\s*bath/i], clinical: 'sponge bathing' },
+
+      // Toileting
+      { patterns: [/us(e|ing)\s*(the\s*)?(toilet|bathroom|restroom)/i, /go(ing)?\s*to\s*(the\s*)?(bathroom|toilet)/i, /toilet(ing)?/i], clinical: 'toileting' },
+      { patterns: [/wip(e|ing)|clean(ing)?\s*(after|self)/i], clinical: 'perineal hygiene' },
+      { patterns: [/manag(e|ing)\s*(clothing|clothes).*toilet/i, /toilet.*cloth/i], clinical: 'clothing management for toileting' },
+
+      // Feeding/Eating
+      { patterns: [/eat(ing)?(?!\s*out)|feed(ing)?\s*(myself|self)/i], clinical: 'self-feeding' },
+      { patterns: [/cut(ting)?\s*(food|meat)/i], clinical: 'food cutting' },
+      { patterns: [/drink(ing)?|cup|straw/i], clinical: 'drinking/cup management' },
+      { patterns: [/utensil|fork|spoon|knife/i], clinical: 'utensil use' },
+
+      // IADLs
       { patterns: [/cook(ing)?|mak(e|ing)\s*(food|meals?|breakfast|lunch|dinner)/i, /prepar(e|ing)\s*(food|meals?)/i], clinical: 'meal preparation' },
-      { patterns: [/clean(ing)?|housekeep|tidy(ing)?|sweep|vacuum|mop/i], clinical: 'light housekeeping' },
-      { patterns: [/laundry|wash(ing)?\s*(clothes|laundry)/i], clinical: 'laundry tasks' },
-      { patterns: [/walk(ing)?|ambula/i, /get(ting)?\s*around/i], clinical: 'functional ambulation' },
-      { patterns: [/wheel\s*chair|push(ing)?\s*chair/i], clinical: 'wheelchair mobility' },
-      { patterns: [/stair|step/i], clinical: 'stair navigation' },
-      { patterns: [/arm\s*(exercise|strength)|strengthen(ing)?\s*(arm|upper)/i, /UE\s*strength/i], clinical: 'UE strengthening' },
-      { patterns: [/core\s*(exercise|strength)|ab(s|dominal)?\s*(exercise|strength)/i], clinical: 'core strengthening' },
-      { patterns: [/roll(ing)?\s*(in\s*)?bed|turn(ing)?\s*(over)?\s*(in\s*)?bed/i], clinical: 'rolling in bed' },
-      { patterns: [/sitting\s*(up|balance)|balance.*sit/i], clinical: 'sitting balance activities' },
-      { patterns: [/standing\s*balance|balance.*stand/i], clinical: 'standing balance activities' },
-      { patterns: [/button|zipper|snap|fastener/i], clinical: 'fastener management' },
-      { patterns: [/stretch(ing)?|ROM|range\s*of\s*motion/i], clinical: 'AROM/PROM exercises' },
-      { patterns: [/fine\s*motor|small\s*muscle|finger\s*control|hand\s*coordination/i], clinical: 'fine motor coordination' }
+      { patterns: [/clean(ing)?\s*(house)?|housekeep|tidy(ing)?/i], clinical: 'light housekeeping' },
+      { patterns: [/sweep|vacuum|mop|dust/i], clinical: 'floor/surface cleaning' },
+      { patterns: [/laundry|wash(ing)?\s*(clothes|laundry)/i, /fold(ing)?\s*clothes/i], clinical: 'laundry management' },
+      { patterns: [/shop(ping)?|grocer/i], clinical: 'shopping' },
+      { patterns: [/money|pay(ing)?|budget/i], clinical: 'financial management' },
+      { patterns: [/med(ication|icine)?\s*(manage|box|organiz)/i, /pill\s*box/i], clinical: 'medication management' },
+
+      // Functional mobility
+      { patterns: [/walk(ing)?(?!\s*the\s*dog)|ambula/i], clinical: 'ambulation' },
+      { patterns: [/get(ting)?\s*around|mov(e|ing)\s*around/i], clinical: 'functional mobility' },
+      { patterns: [/wheel\s*chair\s*(mobil|propel|maneuver)/i, /push(ing)?\s*(wheel)?chair/i], clinical: 'wheelchair mobility' },
+      { patterns: [/stair|step(s)?(?!\s*stool)/i], clinical: 'stair negotiation' },
+      { patterns: [/curb/i], clinical: 'curb negotiation' },
+      { patterns: [/ramp/i], clinical: 'ramp negotiation' },
+
+      // Therapeutic exercise
+      { patterns: [/arm\s*(exercise|strength)|strengthen(ing)?\s*(arm|upper)/i, /UE\s*strength/i, /upper\s*extremity\s*strength/i], clinical: 'UE strengthening exercises' },
+      { patterns: [/leg\s*(exercise|strength)|strengthen(ing)?\s*(leg|lower)/i, /LE\s*strength/i, /lower\s*extremity\s*strength/i], clinical: 'LE strengthening exercises' },
+      { patterns: [/core\s*(exercise|strength|stabil)|ab(s|dominal)?\s*(exercise|strength)/i, /trunk\s*strength/i], clinical: 'core stabilization exercises' },
+      { patterns: [/stretch(ing)?|flexib/i], clinical: 'stretching/flexibility exercises' },
+      { patterns: [/ROM|range\s*of\s*motion/i], clinical: 'ROM exercises' },
+      { patterns: [/AROM/i], clinical: 'AROM exercises' },
+      { patterns: [/PROM/i], clinical: 'PROM exercises' },
+
+      // Balance
+      { patterns: [/sitting\s*(up|balance)|balance.*sit|seated\s*balance/i], clinical: 'sitting balance training' },
+      { patterns: [/standing\s*balance|balance.*stand/i], clinical: 'standing balance training' },
+      { patterns: [/dynamic\s*balance/i], clinical: 'dynamic balance training' },
+      { patterns: [/static\s*balance/i], clinical: 'static balance training' },
+      { patterns: [/weight\s*shift/i], clinical: 'weight shifting activities' },
+
+      // Fine motor/coordination
+      { patterns: [/fine\s*motor|small\s*muscle|finger\s*(control|dexterity)|hand\s*(coordination|dexterity)|pinch|grasp/i], clinical: 'fine motor activities' },
+      { patterns: [/gross\s*motor|large\s*muscle/i], clinical: 'gross motor activities' },
+      { patterns: [/coordinat/i], clinical: 'coordination training' },
+
+      // Cognitive/Safety
+      { patterns: [/sequenc(e|ing)/i], clinical: 'sequencing training' },
+      { patterns: [/safety\s*(train|aware|educat)/i], clinical: 'safety training' },
+      { patterns: [/memory|recall/i], clinical: 'memory strategies training' },
+      { patterns: [/attention|focus|concentrat/i], clinical: 'attention training' },
+      { patterns: [/problem\s*solv/i], clinical: 'problem-solving training' },
+
+      // Energy conservation/Work simplification
+      { patterns: [/energy\s*(conserv|sav)|pac(e|ing)/i], clinical: 'energy conservation training' },
+      { patterns: [/work\s*simplif/i], clinical: 'work simplification training' },
+      { patterns: [/joint\s*protect/i], clinical: 'joint protection training' },
+      { patterns: [/body\s*mechanic/i], clinical: 'body mechanics training' },
+
+      // Equipment
+      { patterns: [/adaptive\s*(equip|device)|assist(ive)?\s*(device|tech)/i], clinical: 'adaptive equipment training' },
+      { patterns: [/splint/i], clinical: 'splint wear/care training' },
+      { patterns: [/ortho(tic|sis)/i], clinical: 'orthotic training' }
     ],
 
     // Deficits - informal to clinical
     deficits: [
-      { patterns: [/weak(ness)?.*arm|arm.*weak/i, /can(')?t\s*lift\s*(arm|arms)/i], clinical: 'decreased UE strength' },
-      { patterns: [/weak(ness)?.*leg|leg.*weak/i, /can(')?t\s*stand\s*long/i], clinical: 'decreased LE strength' },
-      { patterns: [/weak(ness)?.*core|core.*weak|trunk.*weak/i], clinical: 'decreased core strength' },
+      // Strength deficits
+      { patterns: [/weak(ness)?.*arm|arm.*weak/i, /can(')?t\s*lift\s*(arm|arms)/i, /UE\s*weak/i], clinical: 'decreased UE strength' },
+      { patterns: [/weak(ness)?.*leg|leg.*weak/i, /LE\s*weak/i], clinical: 'decreased LE strength' },
+      { patterns: [/weak(ness)?.*core|core.*weak|trunk.*weak/i], clinical: 'decreased trunk/core strength' },
       { patterns: [/weak(ness)?.*grip|grip.*weak|can(')?t\s*hold|drop(ping)?\s*things/i], clinical: 'decreased grip strength' },
-      { patterns: [/balance.*bad|bad.*balance|unsteady|wobbly|tip(py|ping)/i, /fall(ing)?\s*(a\s*lot|often|frequently)/i], clinical: 'decreased dynamic standing balance' },
-      { patterns: [/can(')?t\s*sit\s*(up|straight)|sitting.*balance/i], clinical: 'decreased sitting balance' },
-      { patterns: [/can(')?t\s*(move|lift).*shoulder|shoulder.*stiff|frozen\s*shoulder/i], clinical: 'limited shoulder ROM' },
-      { patterns: [/can(')?t\s*bend.*hip|hip.*stiff/i], clinical: 'limited hip ROM' },
-      { patterns: [/can(')?t\s*bend.*knee|knee.*stiff/i], clinical: 'limited knee ROM' },
-      { patterns: [/clumsy|coordination.*bad|bad.*coordination|incoordinat/i], clinical: 'decreased gross motor coordination' },
-      { patterns: [/fumbl(e|ing)|finger.*coordination|can(')?t\s*(button|zip|write)/i], clinical: 'decreased fine motor coordination' },
-      { patterns: [/get(s)?\s*tired\s*(easily|fast|quickly)|low\s*energy|fatigue|endurance/i], clinical: 'decreased activity tolerance' },
+      { patterns: [/weak(ness)?.*pinch/i], clinical: 'decreased pinch strength' },
+      { patterns: [/general(ized)?\s*weak/i], clinical: 'generalized weakness' },
+
+      // Balance deficits
+      { patterns: [/balance.*stand|stand.*balance|unsteady.*stand/i], clinical: 'impaired standing balance' },
+      { patterns: [/balance.*sit|sit.*balance|unsteady.*sit/i], clinical: 'impaired sitting balance' },
+      { patterns: [/dynamic\s*balance/i], clinical: 'impaired dynamic balance' },
+      { patterns: [/static\s*balance/i], clinical: 'impaired static balance' },
+      { patterns: [/balance.*bad|bad.*balance|unsteady|wobbly|tip(py|ping)/i, /fall(ing)?\s*(a\s*lot|often|frequently)/i, /lose?\s*balance/i], clinical: 'impaired balance' },
+
+      // ROM deficits
+      { patterns: [/can(')?t\s*(move|lift|raise).*shoulder|shoulder.*(stiff|limited|restricted)/i, /frozen\s*shoulder/i], clinical: 'limited shoulder ROM' },
+      { patterns: [/can(')?t\s*(move|bend).*elbow|elbow.*(stiff|limited)/i], clinical: 'limited elbow ROM' },
+      { patterns: [/can(')?t\s*(move|bend).*wrist|wrist.*(stiff|limited)/i], clinical: 'limited wrist ROM' },
+      { patterns: [/can(')?t\s*bend.*hip|hip.*(stiff|limited|restricted)/i], clinical: 'limited hip ROM' },
+      { patterns: [/can(')?t\s*bend.*knee|knee.*(stiff|limited)/i], clinical: 'limited knee ROM' },
+      { patterns: [/stiff|tight|restricted\s*motion/i], clinical: 'limited ROM' },
+
+      // Coordination deficits
+      { patterns: [/clumsy|incoordinat/i], clinical: 'impaired coordination' },
+      { patterns: [/fumbl(e|ing)|finger.*coordination|can(')?t\s*(button|zip|write)/i, /fine\s*motor.*(impair|deficit|problem)/i], clinical: 'impaired fine motor coordination' },
+      { patterns: [/gross\s*motor.*(impair|deficit|problem)/i], clinical: 'impaired gross motor coordination' },
+      { patterns: [/tremor|shak(e|y|ing)/i], clinical: 'tremor' },
+      { patterns: [/ataxia|ataxic/i], clinical: 'ataxia' },
+
+      // Endurance/tolerance
+      { patterns: [/get(s)?\s*tired\s*(easily|fast|quickly)|low\s*energy|fatigue|no\s*endurance/i], clinical: 'decreased activity tolerance' },
       { patterns: [/can(')?t\s*stand\s*(long|very\s*long)|standing.*tolerance/i], clinical: 'decreased standing tolerance' },
-      { patterns: [/forget(s|ting)?.*order|order.*wrong|sequence|step.*order/i], clinical: 'impaired sequencing' },
-      { patterns: [/not\s*safe|safety.*aware|aware.*danger|danger.*aware|risk(y)?\s*behavior/i], clinical: 'decreased safety awareness' },
+      { patterns: [/can(')?t\s*sit\s*(long|very\s*long)|sitting.*tolerance/i], clinical: 'decreased sitting tolerance' },
+      { patterns: [/short(ness)?\s*(of)?\s*breath|SOB|dyspnea/i], clinical: 'dyspnea with activity' },
+
+      // Cognitive deficits
+      { patterns: [/forget(s|ting)?.*order|order.*wrong|sequence|step.*order|can(')?t\s*follow\s*step/i], clinical: 'impaired sequencing' },
+      { patterns: [/not\s*safe|safety.*aware|aware.*danger|danger.*aware|risk(y)?\s*behavior|impuls/i], clinical: 'decreased safety awareness' },
       { patterns: [/can(')?t\s*plan|planning.*difficult|motor\s*planning/i], clinical: 'impaired motor planning' },
-      { patterns: [/can(')?t\s*(focus|concentrate|pay\s*attention)|distract|attention/i], clinical: 'decreased attention to task' },
+      { patterns: [/can(')?t\s*(focus|concentrate|pay\s*attention)|distract|attention/i], clinical: 'decreased attention' },
+      { patterns: [/memory|forget(ful)?|can(')?t\s*remember/i], clinical: 'impaired memory' },
+      { patterns: [/confus(ed|ion)/i], clinical: 'confusion' },
+      { patterns: [/problem\s*solv/i], clinical: 'impaired problem-solving' },
+
+      // Sensory deficits
+      { patterns: [/numb|can(')?t\s*feel|no\s*sensation|tingl/i], clinical: 'impaired sensation' },
+      { patterns: [/vision|can(')?t\s*see|sight/i], clinical: 'impaired vision' },
+      { patterns: [/neglect/i], clinical: 'unilateral neglect' },
+
+      // Other
       { patterns: [/pain(ful)?.*move|move.*pain|hurt(s)?\s*to/i], clinical: 'pain limiting function' },
-      { patterns: [/posture|slump|lean(ing)?|trunk\s*control/i], clinical: 'decreased postural control' }
+      { patterns: [/posture|slump|lean(ing)?/i], clinical: 'impaired posture' },
+      { patterns: [/trunk\s*control/i], clinical: 'decreased trunk control' },
+      { patterns: [/edema|swell(ing)?/i], clinical: 'edema' },
+      { patterns: [/spastic/i], clinical: 'spasticity' },
+      { patterns: [/flaccid/i], clinical: 'flaccidity' }
     ],
 
     // Goals - informal to clinical
     goals: [
-      { patterns: [/safe(r|ty)?|not\s*fall|prevent.*fall|fall\s*risk/i], clinical: 'improve safety during functional activities' },
+      // Safety goals
+      { patterns: [/safe(r|ty)?|not\s*fall|prevent.*fall|fall\s*(risk|prevent)/i], clinical: 'improve safety with functional mobility' },
+      { patterns: [/safe.*transfer/i], clinical: 'improve safety with transfers' },
+
+      // Independence goals
       { patterns: [/do\s*(it|things?).*myself|independent|on\s*(my|their)\s*own|without\s*help/i], clinical: 'increase independence with ADLs' },
-      { patterns: [/dress.*better|better.*dress|put\s*on\s*clothes/i], clinical: 'increase independence with dressing' },
-      { patterns: [/bath(e|ing)?.*better|wash.*better|shower.*better/i], clinical: 'increase independence with bathing' },
-      { patterns: [/transfer.*better|get\s*(up|out).*easier/i], clinical: 'increase independence with transfers' },
+      { patterns: [/dress.*better|better.*dress|put\s*on\s*clothes|independent.*dress/i], clinical: 'increase independence with dressing' },
+      { patterns: [/bath(e|ing)?.*better|wash.*better|shower.*better|independent.*(bath|shower)/i], clinical: 'increase independence with bathing' },
+      { patterns: [/groom.*better|independent.*groom/i], clinical: 'increase independence with grooming' },
+      { patterns: [/toilet.*better|independent.*toilet/i], clinical: 'increase independence with toileting' },
+      { patterns: [/eat.*better|feed.*better|independent.*(eat|feed)/i], clinical: 'increase independence with self-feeding' },
+      { patterns: [/transfer.*better|get\s*(up|out).*easier|independent.*transfer/i], clinical: 'increase independence with transfers' },
+
+      // Function goals
       { patterns: [/walk.*better|mobil(e|ity)|get\s*around/i], clinical: 'improve functional mobility' },
-      { patterns: [/balance.*better|better.*balance|more\s*stable/i], clinical: 'improve standing balance' },
-      { patterns: [/strong(er)?|strength/i], clinical: 'improve UE function' },
-      { patterns: [/last\s*longer|more\s*endurance|not.*tired/i], clinical: 'improve activity tolerance' }
+      { patterns: [/balance.*better|better.*balance|more\s*stable/i], clinical: 'improve balance' },
+      { patterns: [/stand.*better|stand.*longer/i], clinical: 'improve standing tolerance' },
+      { patterns: [/strong(er)?.*arm|arm.*strong|UE.*strength/i], clinical: 'increase UE strength' },
+      { patterns: [/strong(er)?.*leg|leg.*strong|LE.*strength/i], clinical: 'increase LE strength' },
+      { patterns: [/strong(er)?.*grip|grip.*strong/i], clinical: 'increase grip strength' },
+      { patterns: [/strong(er)?|strength/i], clinical: 'increase strength' },
+      { patterns: [/ROM|range\s*of\s*motion|flex(ible|ibility)/i], clinical: 'increase ROM' },
+      { patterns: [/last\s*longer|more\s*endurance|not.*tired|stamina/i], clinical: 'improve activity tolerance' },
+      { patterns: [/coordinat.*better|better.*coordinat/i], clinical: 'improve coordination' },
+      { patterns: [/fine\s*motor/i], clinical: 'improve fine motor skills' },
+
+      // Cognitive goals
+      { patterns: [/remember|memory/i], clinical: 'improve memory strategies' },
+      { patterns: [/safe.*aware|aware.*safe/i], clinical: 'improve safety awareness' },
+      { patterns: [/attention|focus|concentrat/i], clinical: 'improve attention to task' },
+      { patterns: [/sequenc/i], clinical: 'improve task sequencing' },
+
+      // Pain/edema
+      { patterns: [/less\s*pain|pain.*less|reduce.*pain|pain.*reduce/i], clinical: 'decrease pain' },
+      { patterns: [/swell.*less|reduce.*swell|edema/i], clinical: 'reduce edema' }
     ]
   },
 
