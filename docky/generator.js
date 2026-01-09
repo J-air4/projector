@@ -220,13 +220,16 @@ const DockyGenerator = {
     const { goalPhrase, activityStr, assistPhrases, cuePhrases, deficitPhrase, progress, tolerance, plan, data } = params;
     const parts = [];
 
-    // Main opening sentence
+    // Main opening sentence - activity-led with deficit integrated as "secondary to"
     if (activityStr && goalPhrase) {
       const starter = this.utils.pickWeighted(this.phrases.starters.activity);
       let sentence = `${starter} ${activityStr}`;
       if (assistPhrases.length || cuePhrases.length) {
         const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
         sentence += ` with ${this.utils.formatList(combined)}`;
+      }
+      if (deficitPhrase) {
+        sentence += ` secondary to ${deficitPhrase}`;
       }
       sentence += ` to ${goalPhrase}.`;
       parts.push(sentence);
@@ -237,19 +240,13 @@ const DockyGenerator = {
         const combined = [...assistPhrases, ...cuePhrases].filter(Boolean);
         sentence += ` with ${this.utils.formatList(combined)}`;
       }
+      if (deficitPhrase) {
+        sentence += ` secondary to ${deficitPhrase}`;
+      }
       sentence += ` to [select goal]...`;
       parts.push(sentence);
     } else if (!activityStr && goalPhrase) {
       parts.push(`Patient performed [select activity] to ${goalPhrase}...`);
-    }
-
-    // Deficit as separate clear sentence - activity-led so reference the activity
-    if (deficitPhrase) {
-      if (activityStr) {
-        parts.push(`${this.utils.capitalize(activityStr)} addressed ${deficitPhrase}.`);
-      } else {
-        parts.push(`Activity addressed ${deficitPhrase}.`);
-      }
     }
 
     // Progress
