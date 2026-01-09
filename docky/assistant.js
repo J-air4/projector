@@ -190,7 +190,7 @@ const DockyAssistant = {
     // Activities - informal to clinical
     activities: [
       // Functional reaching/bending
-      { patterns: [/pick(ing)?\s*(up|stuff|things?|items?|objects?)?\s*(from|off)?\s*(the\s*)?(floor|ground)/i, /bending?\s*(down)?\s*(to|and)?\s*(pick|grab|get|reach)/i, /reach(ing)?\s*(to|down)?\s*(the\s*)?(floor|ground)/i], clinical: 'functional reaching and retrieval' },
+      { patterns: [/pick(ing)?(\s+(up|stuff|things?|items?|objects?))?(\s+(from|off))?(\s+the)?(\s+(floor|ground))/i, /bending?\s*(down)?\s*(to|and)?\s*(pick|grab|get|reach)/i, /reach(ing)?\s*(to|down)?\s*(the\s*)?(floor|ground)/i], clinical: 'functional reaching and retrieval' },
       { patterns: [/reach(ing)?\s*(up|over|across|high|shelf|cabinet)/i], clinical: 'overhead reaching tasks' },
 
       // Bed mobility - use standard terms
