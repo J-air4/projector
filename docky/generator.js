@@ -59,7 +59,7 @@ const DockyGenerator = {
     // Build assist and cue phrases
     const assistPhrases = this._buildAssistPhrases(assists, data);
     const cuePhrases = this._buildCuePhrases(cues);
-    const deficitPhrase = deficit ? this.utils.lowercaseFirst(deficit) : '';
+    const deficitPhrase = deficit ? this.utils.lowercaseFirst(this.utils.sanitize(deficit)) : '';
 
     // Build main sentence based on output style
     const sentenceParams = {
