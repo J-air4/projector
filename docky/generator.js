@@ -26,6 +26,9 @@ const DockyGenerator = {
    * @returns {string} Generated clinical note
    */
   generate: function(params) {
+    if (!this.phrases || !this.utils) {
+      throw new Error('DockyGenerator has not been initialized. Call init() before using generate().');
+    }
     const {
       data,
       selectedActivities = [],
