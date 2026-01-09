@@ -394,6 +394,10 @@
 <body>
   <div id="root"></div>
 
+  <!-- DOCKY modules - load in order -->
+  <script src="docky/phrases.js"></script>
+  <script src="docky/utils.js"></script>
+  <script src="docky/generator.js"></script>
   <script src="docky.js"></script>
   <script type="text/babel">
     const { useState, useEffect, useCallback, useRef, useMemo } = React;
