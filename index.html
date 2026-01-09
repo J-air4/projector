@@ -3190,7 +3190,22 @@
                             {q.prompt}
                             {q.required && <span style={{ color: 'var(--danger)', marginLeft: '4px' }}>*</span>}
                           </label>
-                          {q.type === 'select' ? (
+                          {q.type === 'groupedSelect' ? (
+                            <select
+                              className="docky-question-select"
+                              value={dockyAnswers[q.id] || ''}
+                              onChange={e => handleDockyAnswerChange(q.id, e.target.value)}
+                            >
+                              <option value="">Select...</option>
+                              {q.options.map(group => (
+                                <optgroup key={group.group} label={group.group}>
+                                  {group.items.map(opt => (
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                  ))}
+                                </optgroup>
+                              ))}
+                            </select>
+                          ) : q.type === 'select' ? (
                             <select
                               className="docky-question-select"
                               value={dockyAnswers[q.id] || ''}

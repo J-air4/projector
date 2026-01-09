@@ -26,99 +26,167 @@ const DockyAssistant = {
     {
       id: 'activity',
       prompt: 'What activity did the patient work on?',
-      type: 'select',
+      type: 'groupedSelect',
       options: [
-        // Transfers
-        { value: 'sit-to-stand transfers', label: 'Sit-to-stand transfers' },
-        { value: 'stand-pivot transfers', label: 'Stand-pivot transfers' },
-        { value: 'bed-to-wheelchair transfers', label: 'Bed-to-wheelchair transfers' },
-        { value: 'toilet transfers', label: 'Toilet transfers' },
-        { value: 'tub/shower transfers', label: 'Tub/shower transfers' },
-        { value: 'car transfers', label: 'Car transfers' },
-        // Bed Mobility
-        { value: 'supine-to-sit', label: 'Supine-to-sit' },
-        { value: 'rolling', label: 'Rolling in bed' },
-        { value: 'scooting in bed', label: 'Scooting in bed' },
-        { value: 'bed mobility training', label: 'Bed mobility training' },
-        // ADLs - Dressing
-        { value: 'upper body dressing', label: 'Upper body dressing' },
-        { value: 'lower body dressing', label: 'Lower body dressing' },
-        { value: 'donning/doffing footwear', label: 'Donning/doffing footwear' },
-        { value: 'fastener management', label: 'Fastener management' },
-        // ADLs - Bathing
-        { value: 'upper body bathing', label: 'Upper body bathing' },
-        { value: 'lower body bathing', label: 'Lower body bathing' },
-        { value: 'shower routine', label: 'Shower routine' },
-        // ADLs - Grooming
-        { value: 'oral hygiene', label: 'Oral hygiene' },
-        { value: 'hair care', label: 'Hair care' },
-        { value: 'shaving', label: 'Shaving' },
-        { value: 'grooming at sink', label: 'Grooming at sink' },
-        // ADLs - Toileting
-        { value: 'toileting routine', label: 'Toileting routine' },
-        { value: 'clothing management for toileting', label: 'Clothing management for toileting' },
-        // ADLs - Feeding
-        { value: 'self-feeding', label: 'Self-feeding' },
-        { value: 'meal setup', label: 'Meal setup' },
-        // Balance
-        { value: 'sitting balance activities', label: 'Sitting balance activities' },
-        { value: 'standing balance activities', label: 'Standing balance activities' },
-        { value: 'dynamic balance training', label: 'Dynamic balance training' },
-        // Functional Mobility
-        { value: 'functional ambulation', label: 'Functional ambulation' },
-        { value: 'wheelchair mobility', label: 'Wheelchair mobility' },
-        { value: 'stair navigation', label: 'Stair navigation' },
-        // Therapeutic
-        { value: 'UE strengthening', label: 'UE strengthening' },
-        { value: 'core strengthening', label: 'Core strengthening' },
-        { value: 'fine motor coordination', label: 'Fine motor coordination' },
-        { value: 'gross motor coordination', label: 'Gross motor coordination' },
-        { value: 'AROM/PROM exercises', label: 'AROM/PROM exercises' },
-        // Cognitive
-        { value: 'sequencing training', label: 'Sequencing training' },
-        { value: 'safety awareness training', label: 'Safety awareness training' },
-        { value: 'medication management', label: 'Medication management' },
-        // Home Management
-        { value: 'meal preparation', label: 'Meal preparation' },
-        { value: 'light housekeeping', label: 'Light housekeeping' },
-        { value: 'laundry tasks', label: 'Laundry tasks' }
+        {
+          group: 'Transfers',
+          items: [
+            { value: 'sit-to-stand transfers', label: 'Sit-to-stand transfers' },
+            { value: 'stand-pivot transfers', label: 'Stand-pivot transfers' },
+            { value: 'bed-to-wheelchair transfers', label: 'Bed-to-wheelchair transfers' },
+            { value: 'toilet transfers', label: 'Toilet transfers' },
+            { value: 'tub/shower transfers', label: 'Tub/shower transfers' },
+            { value: 'car transfers', label: 'Car transfers' }
+          ]
+        },
+        {
+          group: 'Bed Mobility',
+          items: [
+            { value: 'supine-to-sit', label: 'Supine-to-sit' },
+            { value: 'rolling', label: 'Rolling in bed' },
+            { value: 'scooting in bed', label: 'Scooting in bed' },
+            { value: 'bed mobility training', label: 'Bed mobility training' }
+          ]
+        },
+        {
+          group: 'Dressing',
+          items: [
+            { value: 'upper body dressing', label: 'Upper body dressing' },
+            { value: 'lower body dressing', label: 'Lower body dressing' },
+            { value: 'donning/doffing footwear', label: 'Donning/doffing footwear' },
+            { value: 'fastener management', label: 'Fastener management' }
+          ]
+        },
+        {
+          group: 'Bathing',
+          items: [
+            { value: 'upper body bathing', label: 'Upper body bathing' },
+            { value: 'lower body bathing', label: 'Lower body bathing' },
+            { value: 'shower routine', label: 'Shower routine' }
+          ]
+        },
+        {
+          group: 'Grooming',
+          items: [
+            { value: 'oral hygiene', label: 'Oral hygiene' },
+            { value: 'hair care', label: 'Hair care' },
+            { value: 'shaving', label: 'Shaving' },
+            { value: 'grooming at sink', label: 'Grooming at sink' }
+          ]
+        },
+        {
+          group: 'Toileting',
+          items: [
+            { value: 'toileting routine', label: 'Toileting routine' },
+            { value: 'clothing management for toileting', label: 'Clothing management for toileting' }
+          ]
+        },
+        {
+          group: 'Feeding',
+          items: [
+            { value: 'self-feeding', label: 'Self-feeding' },
+            { value: 'meal setup', label: 'Meal setup' }
+          ]
+        },
+        {
+          group: 'Balance',
+          items: [
+            { value: 'sitting balance activities', label: 'Sitting balance activities' },
+            { value: 'standing balance activities', label: 'Standing balance activities' },
+            { value: 'dynamic balance training', label: 'Dynamic balance training' }
+          ]
+        },
+        {
+          group: 'Functional Mobility',
+          items: [
+            { value: 'functional ambulation', label: 'Functional ambulation' },
+            { value: 'wheelchair mobility', label: 'Wheelchair mobility' },
+            { value: 'stair navigation', label: 'Stair navigation' }
+          ]
+        },
+        {
+          group: 'Therapeutic',
+          items: [
+            { value: 'UE strengthening', label: 'UE strengthening' },
+            { value: 'core strengthening', label: 'Core strengthening' },
+            { value: 'fine motor coordination', label: 'Fine motor coordination' },
+            { value: 'gross motor coordination', label: 'Gross motor coordination' },
+            { value: 'AROM/PROM exercises', label: 'AROM/PROM exercises' }
+          ]
+        },
+        {
+          group: 'Cognitive',
+          items: [
+            { value: 'sequencing training', label: 'Sequencing training' },
+            { value: 'safety awareness training', label: 'Safety awareness training' },
+            { value: 'medication management', label: 'Medication management' }
+          ]
+        },
+        {
+          group: 'Home Management',
+          items: [
+            { value: 'meal preparation', label: 'Meal preparation' },
+            { value: 'light housekeeping', label: 'Light housekeeping' },
+            { value: 'laundry tasks', label: 'Laundry tasks' }
+          ]
+        }
       ],
       required: true
     },
     {
       id: 'goal',
       prompt: 'What was the therapeutic goal?',
-      type: 'select',
+      type: 'groupedSelect',
       options: [
-        // Safety goals
-        { value: 'improve safety during functional activities', label: 'Improve safety during functional activities' },
-        { value: 'decrease fall risk', label: 'Decrease fall risk' },
-        { value: 'improve transfer safety', label: 'Improve transfer safety' },
-        // Independence goals
-        { value: 'increase independence with ADLs', label: 'Increase independence with ADLs' },
-        { value: 'increase independence with dressing', label: 'Increase independence with dressing' },
-        { value: 'increase independence with bathing', label: 'Increase independence with bathing' },
-        { value: 'increase independence with grooming', label: 'Increase independence with grooming' },
-        { value: 'increase independence with toileting', label: 'Increase independence with toileting' },
-        { value: 'increase independence with self-feeding', label: 'Increase independence with self-feeding' },
-        { value: 'increase independence with transfers', label: 'Increase independence with transfers' },
-        // Function goals
-        { value: 'improve functional mobility', label: 'Improve functional mobility' },
-        { value: 'improve standing balance', label: 'Improve standing balance' },
-        { value: 'improve sitting balance', label: 'Improve sitting balance' },
-        { value: 'improve bed mobility', label: 'Improve bed mobility' },
-        { value: 'improve UE function', label: 'Improve UE function' },
-        { value: 'improve fine motor coordination', label: 'Improve fine motor coordination' },
-        { value: 'improve activity tolerance', label: 'Improve activity tolerance' },
-        { value: 'improve standing tolerance', label: 'Improve standing tolerance' },
-        // Cognitive goals
-        { value: 'improve sequencing for ADL completion', label: 'Improve sequencing for ADL completion' },
-        { value: 'improve safety awareness', label: 'Improve safety awareness' },
-        { value: 'improve problem-solving skills', label: 'Improve problem-solving skills' },
-        // Other
-        { value: 'improve energy conservation', label: 'Improve energy conservation' },
-        { value: 'improve use of adaptive equipment', label: 'Improve use of adaptive equipment' },
-        { value: 'decrease pain during ADLs', label: 'Decrease pain during ADLs' }
+        {
+          group: 'Safety',
+          items: [
+            { value: 'improve safety during functional activities', label: 'Improve safety during functional activities' },
+            { value: 'decrease fall risk', label: 'Decrease fall risk' },
+            { value: 'improve transfer safety', label: 'Improve transfer safety' }
+          ]
+        },
+        {
+          group: 'Independence',
+          items: [
+            { value: 'increase independence with ADLs', label: 'Increase independence with ADLs' },
+            { value: 'increase independence with dressing', label: 'Increase independence with dressing' },
+            { value: 'increase independence with bathing', label: 'Increase independence with bathing' },
+            { value: 'increase independence with grooming', label: 'Increase independence with grooming' },
+            { value: 'increase independence with toileting', label: 'Increase independence with toileting' },
+            { value: 'increase independence with self-feeding', label: 'Increase independence with self-feeding' },
+            { value: 'increase independence with transfers', label: 'Increase independence with transfers' }
+          ]
+        },
+        {
+          group: 'Function',
+          items: [
+            { value: 'improve functional mobility', label: 'Improve functional mobility' },
+            { value: 'improve standing balance', label: 'Improve standing balance' },
+            { value: 'improve sitting balance', label: 'Improve sitting balance' },
+            { value: 'improve bed mobility', label: 'Improve bed mobility' },
+            { value: 'improve UE function', label: 'Improve UE function' },
+            { value: 'improve fine motor coordination', label: 'Improve fine motor coordination' },
+            { value: 'improve activity tolerance', label: 'Improve activity tolerance' },
+            { value: 'improve standing tolerance', label: 'Improve standing tolerance' }
+          ]
+        },
+        {
+          group: 'Cognitive',
+          items: [
+            { value: 'improve sequencing for ADL completion', label: 'Improve sequencing for ADL completion' },
+            { value: 'improve safety awareness', label: 'Improve safety awareness' },
+            { value: 'improve problem-solving skills', label: 'Improve problem-solving skills' }
+          ]
+        },
+        {
+          group: 'Other',
+          items: [
+            { value: 'improve energy conservation', label: 'Improve energy conservation' },
+            { value: 'improve use of adaptive equipment', label: 'Improve use of adaptive equipment' },
+            { value: 'decrease pain during ADLs', label: 'Decrease pain during ADLs' }
+          ]
+        }
       ],
       required: true
     },
@@ -236,40 +304,68 @@ const DockyAssistant = {
     {
       id: 'deficit',
       prompt: 'What deficit or limitation was addressed?',
-      type: 'select',
+      type: 'groupedSelect',
       options: [
-        // Balance deficits
-        { value: 'decreased dynamic standing balance', label: 'Decreased dynamic standing balance' },
-        { value: 'decreased static standing balance', label: 'Decreased static standing balance' },
-        { value: 'decreased sitting balance', label: 'Decreased sitting balance' },
-        { value: 'impaired reactive balance', label: 'Impaired reactive balance' },
-        // Strength deficits
-        { value: 'decreased UE strength', label: 'Decreased UE strength' },
-        { value: 'decreased LE strength', label: 'Decreased LE strength' },
-        { value: 'decreased core strength', label: 'Decreased core strength' },
-        { value: 'decreased grip strength', label: 'Decreased grip strength' },
-        // ROM deficits
-        { value: 'limited shoulder ROM', label: 'Limited shoulder ROM' },
-        { value: 'limited hip ROM', label: 'Limited hip ROM' },
-        { value: 'limited knee ROM', label: 'Limited knee ROM' },
-        // Coordination deficits
-        { value: 'decreased fine motor coordination', label: 'Decreased fine motor coordination' },
-        { value: 'decreased gross motor coordination', label: 'Decreased gross motor coordination' },
-        { value: 'impaired bilateral coordination', label: 'Impaired bilateral coordination' },
-        // Functional deficits
-        { value: 'decreased activity tolerance', label: 'Decreased activity tolerance' },
-        { value: 'decreased standing tolerance', label: 'Decreased standing tolerance' },
-        { value: 'decreased functional reach', label: 'Decreased functional reach' },
-        { value: 'decreased functional mobility', label: 'Decreased functional mobility' },
-        // Cognitive deficits
-        { value: 'impaired sequencing', label: 'Impaired sequencing' },
-        { value: 'decreased safety awareness', label: 'Decreased safety awareness' },
-        { value: 'impaired motor planning', label: 'Impaired motor planning' },
-        { value: 'decreased attention to task', label: 'Decreased attention to task' },
-        // Other
-        { value: 'decreased postural control', label: 'Decreased postural control' },
-        { value: 'decreased trunk control', label: 'Decreased trunk control' },
-        { value: 'pain limiting function', label: 'Pain limiting function' }
+        {
+          group: 'Balance',
+          items: [
+            { value: 'decreased dynamic standing balance', label: 'Decreased dynamic standing balance' },
+            { value: 'decreased static standing balance', label: 'Decreased static standing balance' },
+            { value: 'decreased sitting balance', label: 'Decreased sitting balance' },
+            { value: 'impaired reactive balance', label: 'Impaired reactive balance' }
+          ]
+        },
+        {
+          group: 'Strength',
+          items: [
+            { value: 'decreased UE strength', label: 'Decreased UE strength' },
+            { value: 'decreased LE strength', label: 'Decreased LE strength' },
+            { value: 'decreased core strength', label: 'Decreased core strength' },
+            { value: 'decreased grip strength', label: 'Decreased grip strength' }
+          ]
+        },
+        {
+          group: 'ROM',
+          items: [
+            { value: 'limited shoulder ROM', label: 'Limited shoulder ROM' },
+            { value: 'limited hip ROM', label: 'Limited hip ROM' },
+            { value: 'limited knee ROM', label: 'Limited knee ROM' }
+          ]
+        },
+        {
+          group: 'Coordination',
+          items: [
+            { value: 'decreased fine motor coordination', label: 'Decreased fine motor coordination' },
+            { value: 'decreased gross motor coordination', label: 'Decreased gross motor coordination' },
+            { value: 'impaired bilateral coordination', label: 'Impaired bilateral coordination' }
+          ]
+        },
+        {
+          group: 'Functional',
+          items: [
+            { value: 'decreased activity tolerance', label: 'Decreased activity tolerance' },
+            { value: 'decreased standing tolerance', label: 'Decreased standing tolerance' },
+            { value: 'decreased functional reach', label: 'Decreased functional reach' },
+            { value: 'decreased functional mobility', label: 'Decreased functional mobility' }
+          ]
+        },
+        {
+          group: 'Cognitive',
+          items: [
+            { value: 'impaired sequencing', label: 'Impaired sequencing' },
+            { value: 'decreased safety awareness', label: 'Decreased safety awareness' },
+            { value: 'impaired motor planning', label: 'Impaired motor planning' },
+            { value: 'decreased attention to task', label: 'Decreased attention to task' }
+          ]
+        },
+        {
+          group: 'Other',
+          items: [
+            { value: 'decreased postural control', label: 'Decreased postural control' },
+            { value: 'decreased trunk control', label: 'Decreased trunk control' },
+            { value: 'pain limiting function', label: 'Pain limiting function' }
+          ]
+        }
       ]
     },
     {
