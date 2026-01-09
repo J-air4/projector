@@ -1059,13 +1059,13 @@
       "safety_awareness",
       "fall_prevention"
     ],
-    "Stair Training": [
-      "functional_mobility",
-      "standing_balance",
-      "activity_tolerance",
-      "le_function",
-      "safety_awareness",
-      "fall_prevention"
+    "Fine Motor Coordination": [
+      "ue_function",
+      "fine_motor",
+      "hand_function",
+      "grip_strength",
+      "dexterity",
+      "functional_independence"
     ],
     "ROM - UE": [
       "ue_function",

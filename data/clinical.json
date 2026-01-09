@@ -573,15 +573,15 @@
       "LLE",
       "core"
     ],
-    "Stair Training": [
-      "trunk",
-      "pelvis",
-      "hips",
-      "knees",
-      "BLE",
-      "RLE",
-      "LLE",
-      "core"
+    "Fine Motor Coordination": [
+      "fingers",
+      "thumb",
+      "hand",
+      "wrist",
+      "forearm",
+      "RUE",
+      "LUE",
+      "BUE"
     ],
     "Meal Preparation": [
       "trunk",
