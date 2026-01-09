@@ -64,6 +64,34 @@ const DockyUtils = {
   lowercaseFirst: function(str) {
     if (!str) return '';
     return str.charAt(0).toLowerCase() + str.slice(1);
+  },
+
+  /**
+   * Escape HTML special characters to prevent XSS
+   * @param {string} str - String to escape
+   * @returns {string} HTML-safe string
+   */
+  escapeHtml: function(str) {
+    if (!str) return '';
+    const htmlEntities = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    };
+    return String(str).replace(/[&<>"']/g, char => htmlEntities[char]);
+  },
+
+  /**
+   * Sanitize user input for safe use in narratives
+   * @param {string} str - User input to sanitize
+   * @returns {string} Sanitized string
+   */
+  sanitize: function(str) {
+    if (!str) return '';
+    // Escape HTML and trim whitespace
+    return this.escapeHtml(String(str).trim());
   }
 };
 
