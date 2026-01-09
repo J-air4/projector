@@ -194,7 +194,8 @@ const DockyAssistant = {
     ];
     for (const act of activities) {
       if (lowerText.includes(act)) {
-        parsed.activity = text.match(new RegExp(`\\b${act}[\\w\\s]*`, 'i'))?.[0]?.trim() || act;
+        // Use [^,.] to stop at delimiters instead of greedy [\w\s]*
+        parsed.activity = text.match(new RegExp(`\b${act}[^,.;!?]*`, 'i'))?.[0]?.trim() || act;
         break;
       }
     }
@@ -205,13 +206,13 @@ const DockyAssistant = {
       parsed.cues = cueMatch[0].trim();
     }
 
-    // Parse deficits
+    // Parse deficits - use [^,.] to stop at delimiters
     const deficitPatterns = [
-      /decreased\s+[\w\s]+/i,
-      /impaired\s+[\w\s]+/i,
-      /limited\s+[\w\s]+/i,
-      /poor\s+[\w\s]+/i,
-      /reduced\s+[\w\s]+/i
+      /decreased\s+[^,.;!?]+/i,
+      /impaired\s+[^,.;!?]+/i,
+      /limited\s+[^,.;!?]+/i,
+      /poor\s+[^,.;!?]+/i,
+      /reduced\s+[^,.;!?]+/i
     ];
     for (const pattern of deficitPatterns) {
       const match = text.match(pattern);
@@ -267,9 +268,11 @@ const DockyAssistant = {
 
   /**
    * Generate a cohesive narrative from structured answers
+   * All user inputs are sanitized to prevent XSS
    */
   generateNarrative: function(answers) {
     const sentences = [];
+    const sanitize = this.utils.sanitize.bind(this.utils);
 
     // Opening sentence: Activity + Goal + Assist
     let opening = '';
@@ -281,22 +284,22 @@ const DockyAssistant = {
         'Patient completed'
       ]);
 
-      opening = `${starter} ${answers.activity}`;
+      opening = `${starter} ${sanitize(answers.activity)}`;
 
       // Add assist level
       if (answers.assistLevel && this.assistLevelText[answers.assistLevel]) {
         opening += ` ${this.assistLevelText[answers.assistLevel]}`;
         if (answers.assistLocation) {
-          opening += ` at ${answers.assistLocation}`;
+          opening += ` at ${sanitize(answers.assistLocation)}`;
         }
         if (answers.assistReason) {
-          opening += ` ${answers.assistReason}`;
+          opening += ` ${sanitize(answers.assistReason)}`;
         }
       }
 
       // Add goal
       if (answers.goal) {
-        opening += ` to ${answers.goal}`;
+        opening += ` to ${sanitize(answers.goal)}`;
       }
 
       opening += '.';
@@ -310,7 +313,7 @@ const DockyAssistant = {
         'Patient required',
         'Therapist provided'
       ]);
-      sentences.push(`${cueStarter} ${answers.cues}.`);
+      sentences.push(`${cueStarter} ${sanitize(answers.cues)}.`);
     }
 
     // Deficit sentence
@@ -320,7 +323,7 @@ const DockyAssistant = {
         'Session targeted',
         'Treatment focused on'
       ]);
-      sentences.push(`${deficitStarter} ${answers.deficit}.`);
+      sentences.push(`${deficitStarter} ${sanitize(answers.deficit)}.`);
     }
 
     // Tolerance sentence
@@ -340,7 +343,7 @@ const DockyAssistant = {
 
     // Additional info
     if (answers.additional && answers.additional.trim()) {
-      sentences.push(answers.additional.trim());
+      sentences.push(sanitize(answers.additional));
     }
 
     return sentences.join(' ');

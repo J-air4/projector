@@ -2302,9 +2302,15 @@
         }
       };
 
-      const handleDockyUseNote = () => {
+      const handleDockyUseNote = async () => {
         if (dockyGeneratedNote) {
-          setPatientSubjective(dockyGeneratedNote);
+          try {
+            await navigator.clipboard.writeText(dockyGeneratedNote);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          } catch (e) {
+            console.error('Failed to copy:', e);
+          }
           setShowDockyAssistant(false);
           // Reset Docky state
           setDockyAnswers({});
