@@ -478,22 +478,22 @@
         "Ambulation to bathroom",
         "Ambulation to kitchen",
         "Ambulation with walker and item",
-        "Stair negotiation - IADL context",
+        "Obstacle navigation",
         "Threshold navigation",
         "Outdoor ambulation simulation",
         "Ambulation on uneven surfaces",
         "Distance ambulation training"
       ],
-      "Stair Training": [
-        "Step-up training",
-        "Step-down training",
-        "Stair negotiation with rail",
-        "Stair negotiation without rail",
-        "Curb negotiation",
-        "Step-over-step pattern",
-        "Step-to pattern",
-        "Multiple step training",
-        "Stair safety training"
+      "Fine Motor Coordination": [
+        "Pegboard activities",
+        "Bead stringing",
+        "Button/zipper manipulation",
+        "Coin sorting",
+        "Key manipulation",
+        "Writing/drawing tasks",
+        "Scissor use",
+        "Tweezers/tongs activities",
+        "Pinch and grip exercises"
       ]
     },
     "97533": {
