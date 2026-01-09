@@ -176,15 +176,13 @@ const DockyGenerator = {
       if (combined.length > 0) {
         const assistVerb = this.utils.pick(this.phrases.assistRequired);
         const capitalizedCombined = combined.map(c => this.utils.capitalize(c));
-        if (deficitPhrase) {
-          const deficitIntro = this.utils.pick(this.phrases.deficitIntro);
-          parts.push(`${this.utils.formatList(capitalizedCombined)} ${assistVerb} ${deficitIntro} ${deficitPhrase}.`);
-        } else {
-          parts.push(`${this.utils.formatList(capitalizedCombined)} ${assistVerb}.`);
-        }
+        parts.push(`${this.utils.formatList(capitalizedCombined)} ${assistVerb}.`);
       }
-    } else if (deficitPhrase) {
-      parts.push(`Limitations ${this.utils.pick(this.phrases.deficitIntro)} ${deficitPhrase}.`);
+    }
+
+    // Deficit as separate sentence for clarity
+    if (deficitPhrase) {
+      parts.push(`Intervention addressed ${deficitPhrase}.`);
     }
 
     // Progress
@@ -245,14 +243,14 @@ const DockyGenerator = {
       parts.push(`Patient performed [select activity] to ${goalPhrase}...`);
     }
 
-    // Progress and deficit
+    // Deficit as separate clear sentence
+    if (deficitPhrase) {
+      parts.push(`Session targeted ${deficitPhrase}.`);
+    }
+
+    // Progress
     if (progress && this.phrases.progressIntro[progress]) {
       parts.push(this.utils.pick(this.phrases.progressIntro[progress]) + '.');
-      if (deficitPhrase) {
-        parts.push(`Support ${this.utils.pick(this.phrases.deficitIntro)} ${deficitPhrase}.`);
-      }
-    } else if (deficitPhrase) {
-      parts.push(`Assistance ${this.utils.pick(this.phrases.deficitIntro)} ${deficitPhrase}.`);
     }
 
     // Tolerance
