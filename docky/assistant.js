@@ -208,11 +208,11 @@ const DockyAssistant = {
 
     // Parse deficits - use [^,.] to stop at delimiters
     const deficitPatterns = [
-      /decreased\s+[^,.]+/i,
-      /impaired\s+[^,.]+/i,
-      /limited\s+[^,.]+/i,
-      /poor\s+[^,.]+/i,
-      /reduced\s+[^,.]+/i
+      /decreased\s+[^,.;!?]+/i,
+      /impaired\s+[^,.;!?]+/i,
+      /limited\s+[^,.;!?]+/i,
+      /poor\s+[^,.;!?]+/i,
+      /reduced\s+[^,.;!?]+/i
     ];
     for (const pattern of deficitPatterns) {
       const match = text.match(pattern);
