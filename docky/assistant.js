@@ -195,7 +195,7 @@ const DockyAssistant = {
     for (const act of activities) {
       if (lowerText.includes(act)) {
         // Use [^,.] to stop at delimiters instead of greedy [\w\s]*
-        parsed.activity = text.match(new RegExp(`\\b${act}[^,.]*`, 'i'))?.[0]?.trim() || act;
+        parsed.activity = text.match(new RegExp(`\b${act}[^,.;!?]*`, 'i'))?.[0]?.trim() || act;
         break;
       }
     }
