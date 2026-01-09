@@ -243,9 +243,13 @@ const DockyGenerator = {
       parts.push(`Patient performed [select activity] to ${goalPhrase}...`);
     }
 
-    // Deficit as separate clear sentence
+    // Deficit as separate clear sentence - activity-led so reference the activity
     if (deficitPhrase) {
-      parts.push(`Treatment addressed ${deficitPhrase}.`);
+      if (activityStr) {
+        parts.push(`${this.utils.capitalize(activityStr)} addressed ${deficitPhrase}.`);
+      } else {
+        parts.push(`Activity addressed ${deficitPhrase}.`);
+      }
     }
 
     // Progress
