@@ -454,11 +454,10 @@ const DOCKY = {
 
     // Progress and deficit combination
     if (progress && this.progressIntro[progress]) {
-      let progressSentence = this.pick(this.progressIntro[progress]);
+      parts.push(this.pick(this.progressIntro[progress]) + '.');
       if (deficitPhrase) {
-        progressSentence += `. Support ${this.pick(this.deficitIntro)} ${deficitPhrase}`;
+        parts.push(`Support ${this.pick(this.deficitIntro)} ${deficitPhrase}.`);
       }
-      parts.push(progressSentence + '.');
     } else if (deficitPhrase) {
       parts.push(`Assistance ${this.pick(this.deficitIntro)} ${deficitPhrase}.`);
     }
