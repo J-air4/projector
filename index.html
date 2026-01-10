@@ -3433,7 +3433,7 @@
               <div className="activity-picker-popup" onClick={e => e.stopPropagation()}>
                 <div className="activity-picker-header">
                   <h3>Select Activity</h3>
-                  <button className="activity-picker-close" onClick={() => setShowActivityPicker(false)}>×</button>
+                  <button className="activity-picker-close" onClick={() => setShowActivityPicker(false)}>&times;</button>
                 </div>
                 <div className="activity-picker-content">
                   {DockyAssistant.questions.find(q => q.id === 'activity')?.options.map(group => (
