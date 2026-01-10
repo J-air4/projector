@@ -498,6 +498,145 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
+
+    /* Activity Picker Button */
+    .docky-activity-picker-btn {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+    }
+    .docky-activity-picker-btn:hover {
+      border-color: var(--accent-primary);
+    }
+    .docky-activity-selected {
+      color: var(--text-primary);
+    }
+    .docky-activity-placeholder {
+      color: var(--text-muted);
+    }
+    .docky-activity-picker-icon {
+      color: var(--text-muted);
+      font-size: 10px;
+    }
+
+    /* Activity Picker Popup */
+    .activity-picker-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .activity-picker-popup {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 400px;
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .activity-picker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .activity-picker-header h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .activity-picker-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+    }
+    .activity-picker-close:hover {
+      color: var(--text-primary);
+    }
+    .activity-picker-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
+    .activity-picker-group {
+      margin-bottom: 4px;
+    }
+    .activity-picker-group-header {
+      width: 100%;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+    }
+    .activity-picker-group-header:hover {
+      background: var(--bg-tertiary);
+    }
+    .activity-picker-group-header.expanded {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+    }
+    .activity-picker-arrow {
+      font-size: 10px;
+    }
+    .activity-picker-items {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 8px 8px 8px 16px;
+    }
+    .activity-picker-item {
+      padding: 10px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 13px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .activity-picker-item:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-primary);
+    }
+    .activity-picker-item.selected {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      border-color: transparent;
+    }
+
     .btn-copy {
       padding: 3px 12px;
       background: var(--accent-primary);
@@ -2031,6 +2170,8 @@
       const [dockyAnswers, setDockyAnswers] = useState({});
       const [dockyFreeformText, setDockyFreeformText] = useState('');
       const [dockyGeneratedNote, setDockyGeneratedNote] = useState('');
+      const [showActivityPicker, setShowActivityPicker] = useState(false);
+      const [activityPickerExpandedGroup, setActivityPickerExpandedGroup] = useState(null);
 
       useEffect(() => {
         document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
@@ -3190,7 +3331,20 @@
                             {q.prompt}
                             {q.required && <span style={{ color: 'var(--danger)', marginLeft: '4px' }}>*</span>}
                           </label>
-                          {q.type === 'groupedSelect' ? (
+                          {q.type === 'groupedSelect' && q.id === 'activity' ? (
+                            <button
+                              type="button"
+                              className="docky-activity-picker-btn"
+                              onClick={() => setShowActivityPicker(true)}
+                            >
+                              {dockyAnswers.activity ? (
+                                <span className="docky-activity-selected">{dockyAnswers.activity}</span>
+                              ) : (
+                                <span className="docky-activity-placeholder">Select activity...</span>
+                              )}
+                              <span className="docky-activity-picker-icon">▼</span>
+                            </button>
+                          ) : q.type === 'groupedSelect' ? (
                             <select
                               className="docky-question-select"
                               value={dockyAnswers[q.id] || ''}
@@ -3268,6 +3422,50 @@
                       Use Note
                     </button>
                   )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Activity Picker Popup */}
+          {showActivityPicker && (
+            <div className="activity-picker-overlay" onClick={() => setShowActivityPicker(false)}>
+              <div className="activity-picker-popup" onClick={e => e.stopPropagation()}>
+                <div className="activity-picker-header">
+                  <h3>Select Activity</h3>
+                  <button className="activity-picker-close" onClick={() => setShowActivityPicker(false)}>×</button>
+                </div>
+                <div className="activity-picker-content">
+                  {DockyAssistant.questions.find(q => q.id === 'activity')?.options.map(group => (
+                    <div key={group.group} className="activity-picker-group">
+                      <button
+                        className={`activity-picker-group-header ${activityPickerExpandedGroup === group.group ? 'expanded' : ''}`}
+                        onClick={() => setActivityPickerExpandedGroup(
+                          activityPickerExpandedGroup === group.group ? null : group.group
+                        )}
+                      >
+                        <span>{group.group}</span>
+                        <span className="activity-picker-arrow">{activityPickerExpandedGroup === group.group ? '▼' : '▶'}</span>
+                      </button>
+                      {activityPickerExpandedGroup === group.group && (
+                        <div className="activity-picker-items">
+                          {group.items.map(item => (
+                            <button
+                              key={item.value}
+                              className={`activity-picker-item ${dockyAnswers.activity === item.value ? 'selected' : ''}`}
+                              onClick={() => {
+                                handleDockyAnswerChange('activity', item.value);
+                                setShowActivityPicker(false);
+                                setActivityPickerExpandedGroup(null);
+                              }}
+                            >
+                              {item.label}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
