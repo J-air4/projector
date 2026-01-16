@@ -28,7 +28,7 @@ const DockyAssistant = {
     {
       id: 'activity',
       prompt: 'Activity performed:',
-      type: 'groupedSelect',
+      type: 'activityPicker',
       options: [
         {
           group: 'Transfers',
