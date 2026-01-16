@@ -19,14 +19,13 @@ const DockyPhrases = {
       'Aiming to'
     ],
     activity: [
-      'Patient engaged in',
-      'Patient participated in',
-      'Patient performed',
-      'Patient completed',
+      'Pt engaged in',
+      'Pt participated in',
+      'Pt performed',
+      'Pt completed',
       'Pt worked on',
-      'Treatment focused on',
-      'Session involved',
-      'Patient practiced'
+      'Patient engaged in',
+      'Patient participated in'
     ]
   },
 
