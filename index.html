@@ -532,6 +532,105 @@
       font-size: 10px;
     }
 
+    /* Docky Suggester - Chip-based UI */
+    .docky-suggester {
+      max-width: 700px;
+    }
+    .docky-activity-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .docky-section-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .docky-activity-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .docky-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .docky-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .docky-chip {
+      padding: 6px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+    .docky-chip:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+    .docky-chip.selected {
+      background: linear-gradient(135deg, var(--docky-accent-start), var(--docky-accent-end));
+      border-color: transparent;
+      color: #fff;
+    }
+    .docky-chip.selected:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .docky-suggestions {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .docky-selected-activity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, var(--docky-accent-start), var(--docky-accent-end));
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .docky-selected-activity button {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .docky-selected-activity button:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .docky-suggestion-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .docky-row-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
     /* Activity Picker Popup */
     .activity-picker-overlay {
       position: fixed;
@@ -2438,13 +2537,8 @@
       };
 
       const handleDockyGenerate = () => {
-        if (dockyMode === 'guided') {
-          const narrative = DOCKY.generateNarrative(dockyAnswers);
-          setDockyGeneratedNote(narrative);
-        } else {
-          const narrative = DOCKY.generateFromFreeForm(dockyFreeformText);
-          setDockyGeneratedNote(narrative);
-        }
+        const narrative = DOCKY.generateNarrative(dockyAnswers);
+        setDockyGeneratedNote(narrative);
       };
 
       const handleDockyUseNote = async () => {
@@ -3299,118 +3393,176 @@
             </div>
           )}
 
-          {/* Docky Assistant Modal */}
+          {/* Docky Documentation Suggester */}
           {showDockyAssistant && (
             <div className="docky-modal-overlay" onClick={handleDockyClose}>
-              <div className="docky-modal" onClick={e => e.stopPropagation()}>
+              <div className="docky-modal docky-suggester" onClick={e => e.stopPropagation()}>
                 <div className="docky-modal-header">
                   <div className="docky-modal-title">
                     <span>🤖</span>
-                    <span>Docky Assistant</span>
+                    <span>Docky</span>
                   </div>
                   <button className="docky-modal-close" onClick={handleDockyClose}>×</button>
                 </div>
 
-                <div className="docky-tabs">
-                  <button
-                    className={`docky-tab ${dockyMode === 'guided' ? 'active' : ''}`}
-                    onClick={() => setDockyMode('guided')}
-                  >
-                    Guided
-                  </button>
-                  <button
-                    className={`docky-tab ${dockyMode === 'freeform' ? 'active' : ''}`}
-                    onClick={() => setDockyMode('freeform')}
-                  >
-                    Free-form
-                  </button>
-                </div>
-
                 <div className="docky-modal-body">
-                  {dockyMode === 'guided' ? (
-                    <>
-                      {DOCKY.getVisibleQuestions(dockyAnswers).map(q => (
-                        <div key={q.id} className="docky-question">
-                          <label className="docky-question-label">
-                            {q.prompt}
-                            {q.required && <span style={{ color: 'var(--danger)', marginLeft: '4px' }}>*</span>}
-                          </label>
-                          {q.type === 'activityPicker' ? (
-                            <button
-                              type="button"
-                              className="docky-activity-picker-btn"
-                              onClick={() => setShowActivityPicker(true)}
-                            >
-                              {dockyAnswers.activity ? (
-                                <span className="docky-activity-selected">{dockyAnswers.activity}</span>
-                              ) : (
-                                <span className="docky-activity-placeholder">Select activity...</span>
-                              )}
-                              <span className="docky-activity-picker-icon">▼</span>
-                            </button>
-                          ) : q.type === 'groupedSelect' ? (
-                            <select
-                              className="docky-question-select"
-                              value={dockyAnswers[q.id] || ''}
-                              onChange={e => handleDockyAnswerChange(q.id, e.target.value)}
-                            >
-                              <option value="">Select...</option>
-                              {q.options.map(group => (
-                                <optgroup key={group.group} label={group.group}>
-                                  {group.items.map(opt => (
-                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
-                                  ))}
-                                </optgroup>
-                              ))}
-                            </select>
-                          ) : q.type === 'select' ? (
-                            <select
-                              className="docky-question-select"
-                              value={dockyAnswers[q.id] || ''}
-                              onChange={e => handleDockyAnswerChange(q.id, e.target.value)}
-                            >
-                              <option value="">Select...</option>
-                              {q.options.map(opt => (
-                                <option key={opt.value} value={opt.value}>{opt.label}</option>
-                              ))}
-                            </select>
-                          ) : q.type === 'textarea' ? (
-                            <textarea
-                              className="docky-question-textarea"
-                              placeholder={q.placeholder}
-                              value={dockyAnswers[q.id] || ''}
-                              onChange={e => handleDockyAnswerChange(q.id, e.target.value)}
-                            />
-                          ) : (
-                            <input
-                              type="text"
-                              className="docky-question-input"
-                              placeholder={q.placeholder}
-                              value={dockyAnswers[q.id] || ''}
-                              onChange={e => handleDockyAnswerChange(q.id, e.target.value)}
-                            />
-                          )}
+                  {/* Activity Selection */}
+                  {!dockyAnswers.activity ? (
+                    <div className="docky-activity-grid">
+                      <div className="docky-section-label">What did you work on?</div>
+                      {['Transfers', 'Bed Mobility', 'ADLs', 'Balance', 'Mobility', 'Exercise', 'IADLs'].map(group => (
+                        <div key={group} className="docky-activity-group">
+                          <div className="docky-group-label">{group}</div>
+                          <div className="docky-chips">
+                            {DockyAssistant.activities.filter(a => a.group === group).map(activity => (
+                              <button
+                                key={activity.value}
+                                className="docky-chip"
+                                onClick={() => handleDockyAnswerChange('activity', activity.value)}
+                              >
+                                {activity.label}
+                              </button>
+                            ))}
+                          </div>
                         </div>
                       ))}
-                    </>
+                    </div>
                   ) : (
-                    <>
-                      <textarea
-                        className="docky-freeform-input"
-                        placeholder="Type your clinical shorthand here...&#10;&#10;Example: transfer training, min A at trunk for safety, pt tolerating well, improved from mod A, continue current plan"
-                        value={dockyFreeformText}
-                        onChange={e => setDockyFreeformText(e.target.value)}
-                      />
-                      <div className="docky-freeform-hint">
-                        Docky understands: assist levels (min A, mod A, CGA), tolerance (tolerated well, fatigue),
-                        progress (improved, static), activities (transfers, dressing), and more.
+                    /* Suggestions View - shown after activity selection */
+                    <div className="docky-suggestions">
+                      <div className="docky-selected-activity">
+                        <span>{dockyAnswers.activity}</span>
+                        <button onClick={() => handleDockyAnswerChange('activity', null)}>✕ Change</button>
                       </div>
-                    </>
+
+                      {(() => {
+                        const suggestions = DockyAssistant.getSuggestions(dockyAnswers.activity);
+                        const globalOpts = DockyAssistant.globalOptions;
+                        return (
+                          <>
+                            {/* Assist Level */}
+                            <div className="docky-suggestion-row">
+                              <div className="docky-row-label">Assist</div>
+                              <div className="docky-chips">
+                                {suggestions.assist.map(opt => (
+                                  <button
+                                    key={opt}
+                                    className={`docky-chip ${dockyAnswers.assist === opt ? 'selected' : ''}`}
+                                    onClick={() => handleDockyAnswerChange('assist', dockyAnswers.assist === opt ? null : opt)}
+                                  >
+                                    {opt}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Goal */}
+                            <div className="docky-suggestion-row">
+                              <div className="docky-row-label">Goal</div>
+                              <div className="docky-chips">
+                                {suggestions.goal.map(opt => (
+                                  <button
+                                    key={opt}
+                                    className={`docky-chip ${dockyAnswers.goal === opt ? 'selected' : ''}`}
+                                    onClick={() => handleDockyAnswerChange('goal', dockyAnswers.goal === opt ? null : opt)}
+                                  >
+                                    {opt}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Deficit */}
+                            <div className="docky-suggestion-row">
+                              <div className="docky-row-label">Deficit</div>
+                              <div className="docky-chips">
+                                {suggestions.deficit.map(opt => (
+                                  <button
+                                    key={opt}
+                                    className={`docky-chip ${dockyAnswers.deficit === opt ? 'selected' : ''}`}
+                                    onClick={() => handleDockyAnswerChange('deficit', dockyAnswers.deficit === opt ? null : opt)}
+                                  >
+                                    {opt}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Cues (if available) */}
+                            {suggestions.cues && suggestions.cues.length > 0 && (
+                              <div className="docky-suggestion-row">
+                                <div className="docky-row-label">Cues</div>
+                                <div className="docky-chips">
+                                  {suggestions.cues.map(opt => (
+                                    <button
+                                      key={opt}
+                                      className={`docky-chip ${dockyAnswers.cues === opt ? 'selected' : ''}`}
+                                      onClick={() => handleDockyAnswerChange('cues', dockyAnswers.cues === opt ? null : opt)}
+                                    >
+                                      {opt}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Response/Tolerance */}
+                            <div className="docky-suggestion-row">
+                              <div className="docky-row-label">Response</div>
+                              <div className="docky-chips">
+                                {globalOpts.response.map(opt => (
+                                  <button
+                                    key={opt.value}
+                                    className={`docky-chip ${dockyAnswers.response === opt.value ? 'selected' : ''}`}
+                                    onClick={() => handleDockyAnswerChange('response', dockyAnswers.response === opt.value ? null : opt.value)}
+                                  >
+                                    {opt.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Progress */}
+                            <div className="docky-suggestion-row">
+                              <div className="docky-row-label">Progress</div>
+                              <div className="docky-chips">
+                                {globalOpts.progress.map(opt => (
+                                  <button
+                                    key={opt.value}
+                                    className={`docky-chip ${dockyAnswers.progress === opt.value ? 'selected' : ''}`}
+                                    onClick={() => handleDockyAnswerChange('progress', dockyAnswers.progress === opt.value ? null : opt.value)}
+                                  >
+                                    {opt.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Plan */}
+                            <div className="docky-suggestion-row">
+                              <div className="docky-row-label">Plan</div>
+                              <div className="docky-chips">
+                                {globalOpts.plan.map(opt => (
+                                  <button
+                                    key={opt.value}
+                                    className={`docky-chip ${dockyAnswers.plan === opt.value ? 'selected' : ''}`}
+                                    onClick={() => handleDockyAnswerChange('plan', dockyAnswers.plan === opt.value ? null : opt.value)}
+                                  >
+                                    {opt.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          </>
+                        );
+                      })()}
+                    </div>
                   )}
 
+                  {/* Generated Note Preview */}
                   {dockyGeneratedNote && (
                     <div className="docky-output-section">
-                      <div className="docky-output-label">Generated Narrative</div>
+                      <div className="docky-output-label">Generated Note</div>
                       <div className="docky-output-preview">{dockyGeneratedNote}</div>
                     </div>
                   )}

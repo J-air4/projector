@@ -1,8 +1,8 @@
 /**
  * DOCKY Assistant
  *
- * Provides guided interview and free-form input modes
- * for generating cohesive clinical narratives.
+ * Activity-driven documentation suggester.
+ * Select an activity, see relevant options, build your note.
  */
 
 const DockyAssistant = {
@@ -19,164 +19,261 @@ const DockyAssistant = {
   },
 
   // ============================================
-  // INTERVIEW QUESTIONS
+  // ACTIVITIES & SUGGESTIONS
   // ============================================
 
-  // Streamlined questions - reduced from 12 to 6 core questions
-  // Combines related fields and makes optional items truly optional
-  questions: [
-    {
-      id: 'activity',
-      prompt: 'Activity performed:',
-      type: 'activityPicker',
-      options: [
-        {
-          group: 'Transfers',
-          items: [
-            { value: 'sit-to-stand transfers', label: 'Sit-to-stand transfers' },
-            { value: 'stand-pivot transfers', label: 'Stand-pivot transfers' },
-            { value: 'bed-to-wheelchair transfers', label: 'Bed-to-wheelchair transfers' },
-            { value: 'toilet transfers', label: 'Toilet transfers' },
-            { value: 'tub/shower transfers', label: 'Tub/shower transfers' },
-            { value: 'car transfers', label: 'Car transfers' }
-          ]
-        },
-        {
-          group: 'Bed Mobility',
-          items: [
-            { value: 'supine-to-sit', label: 'Supine-to-sit' },
-            { value: 'rolling', label: 'Rolling in bed' },
-            { value: 'scooting in bed', label: 'Scooting in bed' },
-            { value: 'bed mobility training', label: 'Bed mobility training' }
-          ]
-        },
-        {
-          group: 'ADLs',
-          items: [
-            { value: 'upper body dressing', label: 'Upper body dressing' },
-            { value: 'lower body dressing', label: 'Lower body dressing' },
-            { value: 'donning/doffing footwear', label: 'Donning/doffing footwear' },
-            { value: 'shower routine', label: 'Shower routine' },
-            { value: 'grooming at sink', label: 'Grooming at sink' },
-            { value: 'toileting routine', label: 'Toileting routine' },
-            { value: 'self-feeding', label: 'Self-feeding' }
-          ]
-        },
-        {
-          group: 'Balance & Mobility',
-          items: [
-            { value: 'sitting balance activities', label: 'Sitting balance' },
-            { value: 'standing balance activities', label: 'Standing balance' },
-            { value: 'dynamic balance training', label: 'Dynamic balance' },
-            { value: 'functional ambulation', label: 'Functional ambulation' },
-            { value: 'stair navigation', label: 'Stair navigation' }
-          ]
-        },
-        {
-          group: 'Therapeutic Exercise',
-          items: [
-            { value: 'UE strengthening', label: 'UE strengthening' },
-            { value: 'core strengthening', label: 'Core strengthening' },
-            { value: 'AROM/PROM exercises', label: 'AROM/PROM exercises' },
-            { value: 'fine motor coordination', label: 'Fine motor coordination' }
-          ]
-        },
-        {
-          group: 'IADLs',
-          items: [
-            { value: 'meal preparation', label: 'Meal preparation' },
-            { value: 'light housekeeping', label: 'Light housekeeping' },
-            { value: 'medication management', label: 'Medication management' }
-          ]
-        }
-      ],
-      required: true
-    },
-    {
-      id: 'assist',
-      prompt: 'Assistance level:',
-      type: 'select',
-      options: [
-        { value: 'independent', label: 'Independent' },
-        { value: 'supervision', label: 'Supervision for safety' },
-        { value: 'supervision-cues', label: 'Supervision with verbal cues' },
-        { value: 'cga', label: 'CGA for balance' },
-        { value: 'cga-safety', label: 'CGA for safety' },
-        { value: 'minA-trunk', label: 'MinA at trunk' },
-        { value: 'minA-LE', label: 'MinA at LE' },
-        { value: 'modA-trunk', label: 'ModA at trunk' },
-        { value: 'modA-bilateral', label: 'ModA bilateral support' },
-        { value: 'maxA-trunk', label: 'MaxA at trunk' },
-        { value: 'maxA-total', label: 'MaxA for all components' },
-        { value: 'dependent', label: 'Dependent' }
-      ],
-      required: true
-    },
-    {
-      id: 'tolerance',
-      prompt: 'Tolerance & progress:',
-      type: 'select',
-      options: [
-        { value: 'wellTolerated-improved', label: 'Tolerated well - improved from prior' },
-        { value: 'wellTolerated-same', label: 'Tolerated well - same as prior' },
-        { value: 'wellTolerated-new', label: 'Tolerated well - new activity' },
-        { value: 'minimalFatigue-improved', label: 'Minimal fatigue - improved from prior' },
-        { value: 'minimalFatigue-same', label: 'Minimal fatigue - same as prior' },
-        { value: 'restBreaks-improved', label: 'Required rest breaks - improved' },
-        { value: 'restBreaks-same', label: 'Required rest breaks - same' },
-        { value: 'fatigue', label: 'Fatigue limited activity' },
-        { value: 'pain', label: 'Pain limited activity' },
-        { value: 'SOB', label: 'SOB limited activity' },
-        { value: 'declined', label: 'Declined from prior session' }
-      ],
-      required: true
-    },
-    {
-      id: 'goal',
-      prompt: 'Goal (optional):',
-      type: 'select',
-      options: [
-        { value: '', label: '— Auto-select based on activity —' },
-        { value: 'improve safety during functional activities', label: 'Improve safety' },
-        { value: 'decrease fall risk', label: 'Decrease fall risk' },
-        { value: 'increase independence with ADLs', label: 'Increase ADL independence' },
-        { value: 'increase independence with transfers', label: 'Increase transfer independence' },
-        { value: 'improve functional mobility', label: 'Improve functional mobility' },
-        { value: 'improve standing balance', label: 'Improve standing balance' },
-        { value: 'improve activity tolerance', label: 'Improve activity tolerance' },
-        { value: 'improve UE function', label: 'Improve UE function' },
-        { value: 'improve fine motor coordination', label: 'Improve fine motor coordination' }
-      ]
-    },
-    {
-      id: 'plan',
-      prompt: 'Plan (optional):',
-      type: 'select',
-      options: [
-        { value: '', label: '— No plan statement —' },
-        { value: 'continue', label: 'Continue current plan' },
-        { value: 'progress', label: 'Progress activity' },
-        { value: 'decreaseAssist', label: 'Decrease assistance level' },
-        { value: 'addEquipment', label: 'Introduce adaptive equipment' },
-        { value: 'modify', label: 'Modify approach' }
-      ]
-    },
-    {
-      id: 'additional',
-      prompt: 'Additional notes (optional):',
-      placeholder: 'e.g., family training, equipment used, specific observations',
-      type: 'textarea'
-    }
+  activities: [
+    { value: 'sit-to-stand transfers', label: 'Sit-to-stand', group: 'Transfers' },
+    { value: 'stand-pivot transfers', label: 'Stand-pivot', group: 'Transfers' },
+    { value: 'toilet transfers', label: 'Toilet transfer', group: 'Transfers' },
+    { value: 'tub/shower transfers', label: 'Tub/shower transfer', group: 'Transfers' },
+    { value: 'bed-to-wheelchair transfers', label: 'Bed ↔ W/C', group: 'Transfers' },
+    { value: 'car transfers', label: 'Car transfer', group: 'Transfers' },
+    { value: 'supine-to-sit', label: 'Supine-to-sit', group: 'Bed Mobility' },
+    { value: 'rolling', label: 'Rolling', group: 'Bed Mobility' },
+    { value: 'scooting in bed', label: 'Scooting', group: 'Bed Mobility' },
+    { value: 'upper body dressing', label: 'UB dressing', group: 'ADLs' },
+    { value: 'lower body dressing', label: 'LB dressing', group: 'ADLs' },
+    { value: 'donning/doffing footwear', label: 'Footwear', group: 'ADLs' },
+    { value: 'shower routine', label: 'Showering', group: 'ADLs' },
+    { value: 'grooming at sink', label: 'Grooming', group: 'ADLs' },
+    { value: 'toileting routine', label: 'Toileting', group: 'ADLs' },
+    { value: 'self-feeding', label: 'Self-feeding', group: 'ADLs' },
+    { value: 'sitting balance activities', label: 'Sitting balance', group: 'Balance' },
+    { value: 'standing balance activities', label: 'Standing balance', group: 'Balance' },
+    { value: 'dynamic balance training', label: 'Dynamic balance', group: 'Balance' },
+    { value: 'functional ambulation', label: 'Ambulation', group: 'Mobility' },
+    { value: 'stair navigation', label: 'Stairs', group: 'Mobility' },
+    { value: 'UE strengthening', label: 'UE strengthening', group: 'Exercise' },
+    { value: 'core strengthening', label: 'Core strengthening', group: 'Exercise' },
+    { value: 'AROM/PROM exercises', label: 'ROM exercises', group: 'Exercise' },
+    { value: 'fine motor coordination', label: 'Fine motor', group: 'Exercise' },
+    { value: 'meal preparation', label: 'Meal prep', group: 'IADLs' },
+    { value: 'light housekeeping', label: 'Housekeeping', group: 'IADLs' },
+    { value: 'medication management', label: 'Med management', group: 'IADLs' }
   ],
 
+  // Activity-specific suggestions
+  activitySuggestions: {
+    // Transfers
+    'sit-to-stand transfers': {
+      assist: ['CGA', 'MinA at trunk', 'ModA at trunk', 'MinA bilateral', 'Supervision'],
+      goal: ['Improve transfer safety', 'Increase transfer independence', 'Decrease fall risk'],
+      deficit: ['Decreased LE strength', 'Impaired balance', 'Decreased activity tolerance'],
+      cues: ['Weight shift', 'Nose over toes', 'Push through legs']
+    },
+    'stand-pivot transfers': {
+      assist: ['CGA', 'MinA at trunk', 'ModA bilateral', 'Supervision'],
+      goal: ['Improve transfer safety', 'Increase transfer independence'],
+      deficit: ['Impaired balance', 'Decreased LE strength', 'Decreased trunk control'],
+      cues: ['Weight shift', 'Hand placement', 'Pivot feet']
+    },
+    'toilet transfers': {
+      assist: ['CGA', 'MinA at trunk', 'Supervision', 'ModA bilateral'],
+      goal: ['Increase toileting independence', 'Improve transfer safety'],
+      deficit: ['Impaired balance', 'Decreased LE strength'],
+      cues: ['Grab bar use', 'Weight shift', 'Clothing management']
+    },
+    'tub/shower transfers': {
+      assist: ['CGA', 'MinA', 'ModA', 'Supervision'],
+      goal: ['Improve safety with bathing', 'Increase bathing independence'],
+      deficit: ['Impaired balance', 'Decreased LE strength', 'Fear of falling'],
+      cues: ['Grab bar use', 'Foot placement', 'Sequence']
+    },
+    'bed-to-wheelchair transfers': {
+      assist: ['MinA at trunk', 'ModA at trunk', 'CGA', 'Sliding board'],
+      goal: ['Increase transfer independence', 'Improve transfer safety'],
+      deficit: ['Decreased LE strength', 'Impaired balance', 'Decreased trunk control'],
+      cues: ['Wheelchair positioning', 'Brake locks', 'Scoot forward']
+    },
+    'car transfers': {
+      assist: ['CGA', 'MinA', 'Supervision', 'ModA'],
+      goal: ['Increase community mobility', 'Improve transfer safety'],
+      deficit: ['Decreased LE strength', 'Limited hip ROM', 'Impaired balance'],
+      cues: ['Seat height', 'Hand placement', 'Leg management']
+    },
+
+    // Bed Mobility
+    'supine-to-sit': {
+      assist: ['MinA', 'ModA', 'CGA', 'Supervision'],
+      goal: ['Improve bed mobility', 'Increase independence'],
+      deficit: ['Decreased core strength', 'Decreased UE strength', 'Impaired trunk control'],
+      cues: ['Log roll first', 'Push through arms', 'Sequence']
+    },
+    'rolling': {
+      assist: ['MinA', 'ModA', 'CGA', 'Supervision'],
+      goal: ['Improve bed mobility', 'Increase bed positioning independence'],
+      deficit: ['Decreased trunk control', 'Decreased core strength'],
+      cues: ['Head leads', 'Arm swing', 'Knee drive']
+    },
+    'scooting in bed': {
+      assist: ['MinA', 'ModA', 'Supervision'],
+      goal: ['Improve bed mobility', 'Improve bed positioning'],
+      deficit: ['Decreased LE strength', 'Decreased core strength'],
+      cues: ['Bridge', 'Weight shift', 'Small movements']
+    },
+
+    // ADLs
+    'upper body dressing': {
+      assist: ['MinA', 'Supervision', 'ModA', 'Setup only'],
+      goal: ['Increase dressing independence', 'Improve UE function'],
+      deficit: ['Limited shoulder ROM', 'Decreased UE strength', 'Impaired coordination'],
+      cues: ['Affected arm first', 'Head through', 'Sequence']
+    },
+    'lower body dressing': {
+      assist: ['MinA', 'ModA', 'Supervision', 'Setup only'],
+      goal: ['Increase dressing independence', 'Improve LE management'],
+      deficit: ['Limited hip ROM', 'Decreased balance', 'Decreased LE strength'],
+      cues: ['Seated position', 'Leg lifter use', 'Reacher use']
+    },
+    'donning/doffing footwear': {
+      assist: ['MinA', 'Supervision', 'Setup only'],
+      goal: ['Increase dressing independence'],
+      deficit: ['Limited hip ROM', 'Decreased balance', 'Impaired fine motor'],
+      cues: ['Long-handled shoe horn', 'Seated position', 'Elastic laces']
+    },
+    'shower routine': {
+      assist: ['CGA', 'MinA', 'Supervision', 'ModA'],
+      goal: ['Increase bathing independence', 'Improve safety with bathing'],
+      deficit: ['Decreased activity tolerance', 'Impaired balance', 'Decreased UE ROM'],
+      cues: ['Shower chair use', 'Long-handled sponge', 'Energy conservation']
+    },
+    'grooming at sink': {
+      assist: ['Supervision', 'MinA', 'Setup only'],
+      goal: ['Increase grooming independence', 'Improve standing tolerance'],
+      deficit: ['Decreased standing tolerance', 'Impaired balance', 'Decreased UE function'],
+      cues: ['Counter support', 'Seated option', 'Item organization']
+    },
+    'toileting routine': {
+      assist: ['CGA', 'MinA', 'Supervision'],
+      goal: ['Increase toileting independence', 'Improve safety'],
+      deficit: ['Impaired balance', 'Decreased LE strength', 'Impaired sequencing'],
+      cues: ['Grab bar use', 'Clothing management', 'Hygiene sequence']
+    },
+    'self-feeding': {
+      assist: ['Supervision', 'MinA', 'Setup only'],
+      goal: ['Increase feeding independence', 'Improve UE function'],
+      deficit: ['Decreased UE strength', 'Impaired coordination', 'Decreased grip strength'],
+      cues: ['Adaptive utensils', 'Plate guard', 'Arm positioning']
+    },
+
+    // Balance
+    'sitting balance activities': {
+      assist: ['CGA', 'Supervision', 'MinA'],
+      goal: ['Improve sitting balance', 'Improve trunk control'],
+      deficit: ['Decreased trunk control', 'Impaired sitting balance', 'Decreased core strength'],
+      cues: ['Midline', 'Weight shift', 'Reach activities']
+    },
+    'standing balance activities': {
+      assist: ['CGA', 'MinA', 'Supervision'],
+      goal: ['Improve standing balance', 'Decrease fall risk'],
+      deficit: ['Impaired standing balance', 'Decreased LE strength', 'Decreased ankle strategy'],
+      cues: ['Feet position', 'Visual focus', 'Weight shift']
+    },
+    'dynamic balance training': {
+      assist: ['CGA', 'MinA', 'Supervision'],
+      goal: ['Improve dynamic balance', 'Decrease fall risk'],
+      deficit: ['Impaired dynamic balance', 'Decreased reactive balance'],
+      cues: ['Anticipatory adjustments', 'Multi-directional reach', 'Gait variations']
+    },
+
+    // Mobility
+    'functional ambulation': {
+      assist: ['CGA', 'Supervision', 'MinA', 'Contact guard with device'],
+      goal: ['Improve functional mobility', 'Increase ambulation distance'],
+      deficit: ['Decreased activity tolerance', 'Impaired balance', 'Decreased LE strength'],
+      cues: ['Gait pattern', 'Device use', 'Heel strike']
+    },
+    'stair navigation': {
+      assist: ['CGA', 'MinA', 'Supervision with rail'],
+      goal: ['Improve stair safety', 'Increase stair independence'],
+      deficit: ['Decreased LE strength', 'Impaired balance', 'Decreased activity tolerance'],
+      cues: ['Up with strong', 'Down with weak', 'Rail use']
+    },
+
+    // Exercise
+    'UE strengthening': {
+      assist: ['Supervision', 'Setup only', 'Verbal cues'],
+      goal: ['Improve UE strength', 'Improve UE function'],
+      deficit: ['Decreased UE strength', 'Decreased grip strength', 'Limited UE ROM'],
+      cues: ['Form', 'Breathing', 'Rep count']
+    },
+    'core strengthening': {
+      assist: ['Supervision', 'MinA for positioning'],
+      goal: ['Improve core strength', 'Improve trunk control'],
+      deficit: ['Decreased core strength', 'Decreased trunk control'],
+      cues: ['Engage core', 'Neutral spine', 'Breathing']
+    },
+    'AROM/PROM exercises': {
+      assist: ['PROM', 'AAROM', 'AROM supervision'],
+      goal: ['Increase ROM', 'Maintain joint mobility'],
+      deficit: ['Limited ROM', 'Joint stiffness', 'Pain with movement'],
+      cues: ['Pain-free range', 'Slow controlled', 'End range hold']
+    },
+    'fine motor coordination': {
+      assist: ['Supervision', 'Setup only'],
+      goal: ['Improve fine motor skills', 'Improve hand function'],
+      deficit: ['Impaired fine motor coordination', 'Decreased grip strength', 'Tremor'],
+      cues: ['Grasp patterns', 'Precision', 'Speed vs accuracy']
+    },
+
+    // IADLs
+    'meal preparation': {
+      assist: ['Supervision', 'MinA', 'Setup only'],
+      goal: ['Increase IADL independence', 'Improve safety in kitchen'],
+      deficit: ['Decreased standing tolerance', 'Impaired sequencing', 'Decreased safety awareness'],
+      cues: ['Energy conservation', 'Workstation setup', 'Safety awareness']
+    },
+    'light housekeeping': {
+      assist: ['Supervision', 'MinA'],
+      goal: ['Increase IADL independence', 'Improve activity tolerance'],
+      deficit: ['Decreased activity tolerance', 'Impaired balance', 'Decreased endurance'],
+      cues: ['Energy conservation', 'Body mechanics', 'Pacing']
+    },
+    'medication management': {
+      assist: ['Supervision', 'Setup only', 'Verbal cues'],
+      goal: ['Improve medication safety', 'Increase independence'],
+      deficit: ['Impaired memory', 'Decreased safety awareness', 'Impaired sequencing'],
+      cues: ['Pill organizer', 'Schedule review', 'Double check']
+    }
+  },
+
+  // Global options (shown for all activities)
+  globalOptions: {
+    response: [
+      { value: 'tolerated-well', label: 'Tolerated well' },
+      { value: 'minimal-fatigue', label: 'Minimal fatigue' },
+      { value: 'rest-breaks', label: 'Rest breaks needed' },
+      { value: 'fatigue-limited', label: 'Fatigue limited' },
+      { value: 'pain-limited', label: 'Pain limited' },
+      { value: 'SOB', label: 'SOB noted' }
+    ],
+    progress: [
+      { value: 'improved', label: 'Improved' },
+      { value: 'same', label: 'Same as prior' },
+      { value: 'new', label: 'New/baseline' },
+      { value: 'declined', label: 'Declined' }
+    ],
+    plan: [
+      { value: 'continue', label: 'Continue' },
+      { value: 'progress', label: 'Progress' },
+      { value: 'decrease-assist', label: '↓ Assist' },
+      { value: 'add-equipment', label: 'Add equipment' },
+      { value: 'modify', label: 'Modify' }
+    ]
+  },
+
   /**
-   * Get visible questions based on current answers
+   * Get suggestions for a specific activity
    */
-  getVisibleQuestions: function(answers) {
-    return this.questions.filter(q => {
-      if (!q.showIf) return true;
-      return q.showIf(answers);
-    });
+  getSuggestions: function(activity) {
+    const defaults = {
+      assist: ['Supervision', 'CGA', 'MinA', 'ModA'],
+      goal: ['Improve function', 'Increase independence', 'Improve safety'],
+      deficit: ['Decreased strength', 'Impaired balance', 'Decreased endurance'],
+      cues: []
+    };
+    return this.activitySuggestions[activity] || defaults;
   },
 
   // ============================================
@@ -691,6 +788,18 @@ const DockyAssistant = {
   },
 
   /**
+   * Map response values to tolerance text
+   */
+  responseToToleranceText: {
+    'tolerated-well': 'Patient tolerated the activity well without signs of fatigue.',
+    'minimal-fatigue': 'Patient tolerated the activity well with minimal fatigue noted.',
+    'rest-breaks': 'Rest breaks were required to complete the activity.',
+    'fatigue-limited': 'Fatigue was noted, limiting activity duration.',
+    'pain-limited': 'Pain limited full participation in the activity.',
+    'SOB': 'Shortness of breath was noted, requiring activity modification.'
+  },
+
+  /**
    * Generate a cohesive narrative from structured answers
    * All user inputs are sanitized to prevent XSS
    */
@@ -698,8 +807,8 @@ const DockyAssistant = {
     const sentences = [];
     const sanitize = this.utils.sanitize.bind(this.utils);
 
-    // Determine assist level (handle both old 'assistLevel' and new 'assist' fields)
-    const assistKey = answers.assist || answers.assistLevel;
+    // Determine assist level - handle direct string (new chip format) or key lookup
+    const assistValue = answers.assist || answers.assistLevel;
 
     // Auto-suggest goal if not provided
     let goal = answers.goal;
@@ -719,25 +828,20 @@ const DockyAssistant = {
 
       opening = `${starter} ${sanitize(answers.activity)}`;
 
-      // Add assist level (handles both combined and legacy formats)
-      if (assistKey && this.assistLevelText[assistKey]) {
-        opening += ` ${this.assistLevelText[assistKey]}`;
-      } else if (assistKey) {
-        // Fallback for legacy format with separate location/reason
-        if (this.assistLevelText[assistKey]) {
-          opening += ` ${this.assistLevelText[assistKey]}`;
-        }
-        if (answers.assistLocation) {
-          opening += ` at ${sanitize(answers.assistLocation)}`;
-        }
-        if (answers.assistReason) {
-          opening += ` ${sanitize(answers.assistReason)}`;
+      // Add assist level
+      if (assistValue) {
+        // Check if it's a key in assistLevelText (legacy format)
+        if (this.assistLevelText[assistValue]) {
+          opening += ` ${this.assistLevelText[assistValue]}`;
+        } else {
+          // Direct string from chip selection (new format)
+          opening += ` with ${sanitize(assistValue)}`;
         }
       }
 
       // Add goal
       if (goal) {
-        opening += ` to ${sanitize(goal)}`;
+        opening += ` to ${sanitize(goal.toLowerCase())}`;
       }
 
       opening += '.';
@@ -776,17 +880,18 @@ const DockyAssistant = {
       sentences.push(`${deficitStarter} ${sanitize(answers.deficit)}.`);
     }
 
-    // Tolerance + Progress sentence (handles combined format)
-    if (answers.tolerance && this.toleranceProgressText[answers.tolerance]) {
+    // Response/Tolerance sentence - handles new chip format and legacy format
+    if (answers.response && this.responseToToleranceText[answers.response]) {
+      sentences.push(this.responseToToleranceText[answers.response]);
+    } else if (answers.tolerance && this.toleranceProgressText[answers.tolerance]) {
       sentences.push(this.toleranceProgressText[answers.tolerance]);
-    } else {
-      // Fallback for legacy separate tolerance/progress fields
-      if (answers.tolerance && this.toleranceText[answers.tolerance]) {
-        sentences.push(this.toleranceText[answers.tolerance]);
-      }
-      if (answers.progress && this.progressText[answers.progress]) {
-        sentences.push(this.progressText[answers.progress]);
-      }
+    } else if (answers.tolerance && this.toleranceText[answers.tolerance]) {
+      sentences.push(this.toleranceText[answers.tolerance]);
+    }
+
+    // Progress sentence
+    if (answers.progress && this.progressText[answers.progress]) {
+      sentences.push(this.progressText[answers.progress]);
     }
 
     // Plan sentence
