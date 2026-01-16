@@ -820,10 +820,10 @@ const DockyAssistant = {
     let opening = '';
     if (answers.activity) {
       const starter = this.utils.pick([
-        'Patient participated in',
-        'Patient engaged in',
-        'Treatment session focused on',
-        'Patient completed'
+        'Pt participated in',
+        'Pt engaged in',
+        'Pt completed',
+        'Patient participated in'
       ]);
 
       opening = `${starter} ${sanitize(answers.activity)}`;
@@ -851,9 +851,9 @@ const DockyAssistant = {
     // Cues sentence (handle both old 'cues' field and legacy cueType/cuePurpose)
     if (answers.cueType && answers.cueType !== '') {
       const cueStarter = this.utils.pick([
-        'Cueing included',
+        'Cues provided for',
         'Patient required',
-        'Therapist provided'
+        'Cueing included'
       ]);
       let cuePhrase = sanitize(answers.cueType);
       if (answers.cuePurpose) {
@@ -863,9 +863,9 @@ const DockyAssistant = {
     } else if (answers.cues) {
       // Fallback for old cues field (from free-form parsing)
       const cueStarter = this.utils.pick([
-        'Cueing included',
+        'Cues provided for',
         'Patient required',
-        'Therapist provided'
+        'Cueing included'
       ]);
       sentences.push(`${cueStarter} ${sanitize(answers.cues)}.`);
     }
@@ -874,8 +874,8 @@ const DockyAssistant = {
     if (answers.deficit) {
       const deficitStarter = this.utils.pick([
         'Intervention addressed',
-        'Session targeted',
-        'Treatment focused on'
+        'Activity addressed',
+        'Session targeted'
       ]);
       sentences.push(`${deficitStarter} ${sanitize(answers.deficit)}.`);
     }
