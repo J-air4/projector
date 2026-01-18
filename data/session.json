@@ -4,149 +4,512 @@
       "id": "improved",
       "label": "Improved",
       "goalLed": "Improved compared to prior session",
-      "activityLed": "Improved performance noted"
+      "activityLed": "Improved performance noted",
+      "category": "Positive"
+    },
+    {
+      "id": "significantly_improved",
+      "label": "Significantly improved",
+      "goalLed": "Significantly improved compared to prior session",
+      "activityLed": "Significant improvement in performance noted",
+      "category": "Positive"
+    },
+    {
+      "id": "emerging_improvement",
+      "label": "Emerging improvement",
+      "goalLed": "Emerging improvement noted with continued cueing",
+      "activityLed": "Emerging improvement with verbal/tactile cueing",
+      "category": "Positive"
     },
     {
       "id": "same",
       "label": "Same",
       "goalLed": "Static compared to prior session",
-      "activityLed": "Static performance noted"
+      "activityLed": "Static performance noted",
+      "category": "Neutral"
+    },
+    {
+      "id": "plateau",
+      "label": "Plateau",
+      "goalLed": "Performance has reached a plateau",
+      "activityLed": "Performance plateau noted, may benefit from modified approach",
+      "category": "Neutral"
+    },
+    {
+      "id": "variable",
+      "label": "Variable",
+      "goalLed": "Variable performance compared to prior sessions",
+      "activityLed": "Variable performance noted session-to-session",
+      "category": "Neutral"
+    },
+    {
+      "id": "baseline",
+      "label": "New/Baseline",
+      "goalLed": "Baseline established this session",
+      "activityLed": "Baseline performance established",
+      "category": "Neutral"
     },
     {
       "id": "declined",
       "label": "Declined",
       "goalLed": "Declined compared to prior session",
-      "activityLed": "Declined performance noted"
+      "activityLed": "Declined performance noted",
+      "category": "Concern"
+    },
+    {
+      "id": "declined_fatigue",
+      "label": "Declined (fatigue)",
+      "goalLed": "Declined compared to prior session secondary to fatigue",
+      "activityLed": "Decline in performance noted secondary to fatigue",
+      "category": "Concern"
+    },
+    {
+      "id": "declined_pain",
+      "label": "Declined (pain)",
+      "goalLed": "Declined compared to prior session secondary to pain",
+      "activityLed": "Decline in performance noted secondary to pain",
+      "category": "Concern"
+    },
+    {
+      "id": "declined_medical",
+      "label": "Declined (medical status)",
+      "goalLed": "Declined compared to prior session secondary to change in medical status",
+      "activityLed": "Decline in performance noted secondary to medical status change",
+      "category": "Concern"
     }
   ],
   "TOLERANCE_OPTIONS": [
     {
+      "id": "tolerated_well",
+      "label": "Tolerated well",
+      "phrase": "Tolerated activity well without fatigue or distress",
+      "category": "Good"
+    },
+    {
       "id": "tolerated",
       "label": "Tolerated",
-      "phrase": "Tolerated without fatigue"
+      "phrase": "Tolerated without fatigue",
+      "category": "Good"
+    },
+    {
+      "id": "minimal_fatigue",
+      "label": "Minimal fatigue",
+      "phrase": "Tolerated with minimal fatigue noted",
+      "category": "Good"
+    },
+    {
+      "id": "moderate_fatigue",
+      "label": "Moderate fatigue",
+      "phrase": "Moderate fatigue noted during activity",
+      "category": "Moderate"
     },
     {
       "id": "rest_breaks",
-      "label": "Rest breaks",
-      "phrase": "Rest breaks required to complete activity"
+      "label": "Rest breaks needed",
+      "phrase": "Rest breaks required to complete activity",
+      "category": "Moderate"
+    },
+    {
+      "id": "frequent_rest_breaks",
+      "label": "Frequent rest breaks",
+      "phrase": "Frequent rest breaks required throughout activity",
+      "category": "Moderate"
+    },
+    {
+      "id": "pacing_required",
+      "label": "Pacing required",
+      "phrase": "Activity pacing required to manage fatigue",
+      "category": "Moderate"
     },
     {
       "id": "fatigued",
       "label": "Fatigued",
-      "phrase": "Fatigue noted limiting activity"
+      "phrase": "Fatigue noted limiting activity",
+      "category": "Limited"
+    },
+    {
+      "id": "fatigue_limited",
+      "label": "Fatigue-limited",
+      "phrase": "Activity duration limited secondary to fatigue",
+      "category": "Limited"
     },
     {
       "id": "pain",
-      "label": "Pain",
-      "phrase": "Pain limited activity"
+      "label": "Pain noted",
+      "phrase": "Pain noted during activity",
+      "category": "Limited"
+    },
+    {
+      "id": "pain_limited",
+      "label": "Pain-limited",
+      "phrase": "Pain limited full participation in activity",
+      "category": "Limited"
+    },
+    {
+      "id": "sob",
+      "label": "SOB noted",
+      "phrase": "Shortness of breath noted requiring activity modification",
+      "category": "Limited"
+    },
+    {
+      "id": "dizziness",
+      "label": "Dizziness",
+      "phrase": "Dizziness noted requiring activity modification",
+      "category": "Limited"
+    },
+    {
+      "id": "orthostatic",
+      "label": "Orthostatic symptoms",
+      "phrase": "Orthostatic symptoms noted requiring position changes",
+      "category": "Limited"
+    },
+    {
+      "id": "anxiety",
+      "label": "Anxiety limited",
+      "phrase": "Anxiety limited full participation in activity",
+      "category": "Limited"
+    },
+    {
+      "id": "unable_complete",
+      "label": "Unable to complete",
+      "phrase": "Unable to complete activity due to limitations noted",
+      "category": "Limited"
     }
   ],
   "PLAN_OPTIONS": [
     {
       "id": "continue",
       "label": "Continue current plan",
-      "phrase": "Will continue with current intervention plan"
+      "phrase": "Will continue with current intervention plan",
+      "category": "Continue"
+    },
+    {
+      "id": "continue_monitor",
+      "label": "Continue and monitor",
+      "phrase": "Will continue current plan and monitor response",
+      "category": "Continue"
     },
     {
       "id": "upgrade",
-      "label": "Upgrade task complexity",
-      "phrase": "Will grade activity up to increase challenge"
+      "label": "Upgrade complexity",
+      "phrase": "Will grade activity up to increase challenge",
+      "category": "Progress"
+    },
+    {
+      "id": "progress_assist",
+      "label": "Progress assist level",
+      "phrase": "Will progress to decreased assist level as tolerated",
+      "category": "Progress"
+    },
+    {
+      "id": "increase_reps",
+      "label": "Increase reps/duration",
+      "phrase": "Will increase repetitions and duration to build endurance",
+      "category": "Progress"
+    },
+    {
+      "id": "add_complexity",
+      "label": "Add task complexity",
+      "phrase": "Will add complexity to task as patient demonstrates mastery",
+      "category": "Progress"
+    },
+    {
+      "id": "reduce_cues",
+      "label": "Reduce cueing",
+      "phrase": "Will reduce cueing frequency to promote independence",
+      "category": "Progress"
     },
     {
       "id": "downgrade",
-      "label": "Downgrade due to fatigue",
-      "phrase": "Will grade activity down due to fatigue noted"
+      "label": "Downgrade (fatigue)",
+      "phrase": "Will grade activity down due to fatigue noted",
+      "category": "Modify"
     },
     {
       "id": "downgrade_pain",
-      "label": "Downgrade due to pain",
-      "phrase": "Will grade activity down due to pain limiting performance"
+      "label": "Downgrade (pain)",
+      "phrase": "Will grade activity down due to pain limiting performance",
+      "category": "Modify"
+    },
+    {
+      "id": "modify_approach",
+      "label": "Modify approach",
+      "phrase": "Will modify therapeutic approach based on patient response",
+      "category": "Modify"
+    },
+    {
+      "id": "simplify_task",
+      "label": "Simplify task",
+      "phrase": "Will simplify task to promote success and build confidence",
+      "category": "Modify"
     },
     {
       "id": "new_equipment",
-      "label": "Introduce adaptive equipment",
-      "phrase": "Will introduce adaptive equipment to improve independence"
+      "label": "Introduce equipment",
+      "phrase": "Will introduce adaptive equipment to improve independence",
+      "category": "Add Intervention"
     },
     {
-      "id": "focus_safety",
-      "label": "Focus on safety training",
-      "phrase": "Will emphasize safety awareness and technique refinement"
+      "id": "trial_equipment",
+      "label": "Trial different equipment",
+      "phrase": "Will trial alternative adaptive equipment",
+      "category": "Add Intervention"
     },
     {
       "id": "add_strengthening",
-      "label": "Add strengthening component",
-      "phrase": "Will incorporate strengthening activities to improve performance"
+      "label": "Add strengthening",
+      "phrase": "Will incorporate strengthening activities to improve performance",
+      "category": "Add Intervention"
+    },
+    {
+      "id": "add_balance",
+      "label": "Add balance training",
+      "phrase": "Will incorporate balance training activities",
+      "category": "Add Intervention"
+    },
+    {
+      "id": "add_endurance",
+      "label": "Add endurance training",
+      "phrase": "Will incorporate endurance training activities",
+      "category": "Add Intervention"
+    },
+    {
+      "id": "focus_safety",
+      "label": "Focus on safety",
+      "phrase": "Will emphasize safety awareness and technique refinement",
+      "category": "Safety/Education"
+    },
+    {
+      "id": "fall_prevention",
+      "label": "Fall prevention focus",
+      "phrase": "Will focus on fall prevention strategies",
+      "category": "Safety/Education"
     },
     {
       "id": "energy_conservation",
-      "label": "Add energy conservation",
-      "phrase": "Will focus on energy conservation techniques"
+      "label": "Energy conservation",
+      "phrase": "Will focus on energy conservation techniques",
+      "category": "Safety/Education"
+    },
+    {
+      "id": "body_mechanics",
+      "label": "Body mechanics training",
+      "phrase": "Will focus on proper body mechanics training",
+      "category": "Safety/Education"
     },
     {
       "id": "cognitive_strategies",
-      "label": "Add cognitive strategies",
-      "phrase": "Will introduce memory aids and sequencing strategies"
+      "label": "Cognitive strategies",
+      "phrase": "Will introduce memory aids and sequencing strategies",
+      "category": "Cognitive"
+    },
+    {
+      "id": "external_cues",
+      "label": "External cue setup",
+      "phrase": "Will set up external cues and reminders for task completion",
+      "category": "Cognitive"
+    },
+    {
+      "id": "errorless_learning",
+      "label": "Errorless learning",
+      "phrase": "Will implement errorless learning strategies",
+      "category": "Cognitive"
     },
     {
       "id": "family_training",
       "label": "Family/caregiver training",
-      "phrase": "Will provide family/caregiver training for carry-over"
+      "phrase": "Will provide family/caregiver training for carry-over",
+      "category": "Collaboration"
+    },
+    {
+      "id": "coordinate_nursing",
+      "label": "Coordinate with nursing",
+      "phrase": "Will coordinate with nursing for consistent approach",
+      "category": "Collaboration"
+    },
+    {
+      "id": "coordinate_pt",
+      "label": "Coordinate with PT",
+      "phrase": "Will coordinate with PT for comprehensive mobility plan",
+      "category": "Collaboration"
+    },
+    {
+      "id": "home_program",
+      "label": "Develop home program",
+      "phrase": "Will develop home exercise/activity program",
+      "category": "Discharge Planning"
+    },
+    {
+      "id": "discharge_planning",
+      "label": "Initiate D/C planning",
+      "phrase": "Will initiate discharge planning discussions",
+      "category": "Discharge Planning"
+    },
+    {
+      "id": "equipment_recommendations",
+      "label": "Equipment recommendations",
+      "phrase": "Will provide DME/adaptive equipment recommendations",
+      "category": "Discharge Planning"
     }
   ],
   "PATIENT_SUBJECTIVE_OPTIONS": [
     "\"feeling better today\"",
+    "\"feeling stronger\"",
     "\"less wobbly\"",
     "\"that was easier\"",
-    "\"harder than yesterday\"",
-    "\"my balance feels off\"",
-    "\"right shoulder hurts\"",
-    "\"left knee is stiff\"",
-    "\"I'm tired\"",
-    "\"getting stronger\"",
-    "\"want to go home\"",
-    "\"don't need help\"",
-    "\"feels the same\"",
     "\"getting easier each time\"",
     "\"more confident now\"",
+    "\"can do more today\"",
+    "\"that equipment helps\"",
+    "\"ready to go home\"",
+    "\"want to go home\"",
+    "\"harder than yesterday\"",
+    "\"my balance feels off\"",
     "\"still feels scary\"",
     "\"can't do it alone\"",
-    "\"that equipment helps\"",
-    "\"prefer the other way\"",
+    "\"I'm tired\"",
+    "\"I'm exhausted\"",
+    "\"need to rest\"",
+    "\"feels the same\"",
+    "\"no change\"",
+    "\"right shoulder hurts\"",
+    "\"left knee is stiff\"",
+    "\"my back hurts\"",
+    "\"my hip is bothering me\"",
+    "\"hurts too much\"",
     "\"makes me dizzy\"",
-    "\"hurts too much\""
+    "\"I feel lightheaded\"",
+    "\"short of breath\"",
+    "\"don't need help\"",
+    "\"I can do this myself\"",
+    "\"prefer the other way\"",
+    "\"that's too hard\"",
+    "\"don't want to try\"",
+    "\"afraid I'll fall\"",
+    "\"worried about falling\"",
+    "\"feeling unsteady\"",
+    "\"legs feel weak\"",
+    "\"arms feel tired\"",
+    "\"hands are stiff\"",
+    "\"forgot how to do it\"",
+    "\"I remember now\""
   ],
   "SESSION_CONTEXT_OPTIONS": [
     "Patient more alert today",
     "Patient appeared fatigued after PT",
+    "Patient appeared well-rested",
     "Patient had pain medication 1 hour prior",
+    "Patient had pain medication 30 minutes prior",
     "First session post-medication adjustment",
+    "First session post-procedure",
+    "First session post-fall",
     "Family member present for training",
+    "Caregiver present for training",
     "Patient slept poorly last night",
+    "Patient reports sleeping well",
     "Patient complained of increased pain",
+    "Patient reports decreased pain",
     "Patient in better mood today",
-    "Nursing noted improved appetite",
+    "Patient appeared anxious",
+    "Patient appeared frustrated",
     "Patient expressed motivation to return home",
+    "Patient expressed concerns about discharge",
+    "Nursing noted improved appetite",
+    "Nursing noted decreased appetite",
     "New equipment trialed today",
     "Environmental modifications made",
+    "Room setup modified for safety",
     "Patient demonstrated carryover from previous session",
     "Patient forgot techniques from last session",
-    "Therapy interrupted by medical procedure"
+    "Therapy interrupted by medical procedure",
+    "Therapy interrupted for meal",
+    "Therapy interrupted for visitor",
+    "Session conducted bedside",
+    "Session conducted in therapy gym",
+    "Session conducted in patient room",
+    "Weather affecting patient mood",
+    "Patient had diagnostic testing this AM",
+    "Patient had dialysis this AM",
+    "Patient reports nausea",
+    "Patient reports dizziness upon standing",
+    "Patient oriented x4",
+    "Patient oriented x3",
+    "Patient confused at times"
   ],
   "CLINICAL_REASONING_OPTIONS": [
     "Graded task up to increase challenge",
     "Graded task down due to fatigue",
+    "Graded task down due to pain",
+    "Graded task down due to decreased tolerance",
     "Modified approach due to pain complaints",
+    "Modified approach due to patient preferences",
+    "Modified approach for safety",
     "Introduced compensatory strategy",
+    "Reinforced compensatory strategy from prior session",
     "Trialed new adaptive equipment",
+    "Trialed alternative equipment",
+    "Equipment effective - will recommend for discharge",
+    "Equipment not effective - will trial alternative",
     "Emphasized safety awareness",
     "Focused on technique refinement",
+    "Focused on quality of movement vs. quantity",
+    "Focused on building confidence",
     "Added cognitive strategies for carryover",
+    "Simplified verbal instructions",
+    "Used demonstration for learning",
+    "Provided hand-over-hand guidance",
+    "Reduced cueing to promote independence",
+    "Increased cueing for safety",
     "Provided family education",
+    "Provided caregiver training",
     "Coordinated with nursing staff",
+    "Coordinated with PT for mobility plan",
+    "Coordinated with SLP for cognitive strategies",
     "Adjusted for environmental factors",
     "Modified for patient preferences",
     "Addressed safety concerns",
+    "Addressed patient's fears about activity",
     "Incorporated patient feedback",
-    "Will progress to next level next session"
+    "Will progress to next level next session",
+    "Will trial in more challenging environment",
+    "Will assess for discharge readiness",
+    "Will reassess equipment needs"
+  ],
+  "PERFORMANCE_QUALIFIERS": [
+    "with improved technique",
+    "with decreased effort",
+    "with improved timing",
+    "with improved confidence",
+    "slowly and deliberately",
+    "with loss of balance",
+    "requiring multiple attempts",
+    "with poor body mechanics",
+    "with decreased safety awareness",
+    "with unsteady movements",
+    "requiring frequent rest breaks",
+    "with decreased fear",
+    "with forward lean difficulty",
+    "with knee buckling",
+    "requiring momentum generation",
+    "with decreased attention to task",
+    "with frustration noted",
+    "after setup assistance",
+    "with improved sequencing",
+    "requiring frequent redirection",
+    "with fatigue noted",
+    "with hip flexibility limitations",
+    "requiring seated position",
+    "with safety concerns noted",
+    "with improved accuracy",
+    "with decreased spillage",
+    "with improved hand-to-mouth coordination",
+    "requiring visual guidance",
+    "with improved precision",
+    "with decreased coordination noted",
+    "with improved form",
+    "requiring frequent prompting",
+    "with decreased confusion",
+    "with improved recognition of hazards",
+    "with decreased impulsivity"
   ]
 }
