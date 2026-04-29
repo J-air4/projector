@@ -832,7 +832,241 @@
   <script src="docky/utils.js"></script>
   <script src="docky/generator.js"></script>
   <script src="docky/assistant.js"></script>
+  <!-- v2 (OTPF-4) modules: must load before docky.js so initV2 sees them -->
+  <script src="docky/core/data.js"></script>
+  <script src="docky/core/engine.js"></script>
+  <script src="docky/core/validator.js"></script>
+  <script src="docky/modules/smart-defaults.js"></script>
+  <script src="docky/modules/quick-notes.js"></script>
+  <script src="docky/modules/part-b.js"></script>
+  <script>
+    // Boot-time diagnostic: confirm each v2 module attached to window.
+    // If any read MISSING here, commit 1 is the regression site, not the wiring.
+    (function() {
+      var names = ['DockyData','DockyEngine','DockyValidator','SmartDefaults','QuickNotes','PartBExpansion'];
+      var status = {};
+      for (var i = 0; i < names.length; i++) {
+        status[names[i]] = typeof window[names[i]] !== 'undefined' ? 'ok' : 'MISSING';
+      }
+      console.info('[DOCKY] v2 module load status:', status);
+    })();
+  </script>
   <script src="docky.js"></script>
+  <script>
+    // ──────────────────────────────────────────────────────────────
+    // V2_TRANSLATION: single auditable mapping from v1 React state
+    // shape to v2 engine.generate() params. Returns null on any
+    // incomplete piece so the caller can fall back to v1 cleanly.
+    // ──────────────────────────────────────────────────────────────
+    window.V2_TRANSLATION = {
+      // v1 progress id -> v2 progress id (v2 set: improved/progressing/same/plateau/declined/baseline)
+      progress: {
+        improved: 'improved',
+        significantly_improved: 'improved',
+        emerging_improvement: 'progressing',
+        same: 'same',
+        plateau: 'plateau',
+        variable: 'progressing',
+        baseline: 'baseline',
+        declined: 'declined',
+        declined_fatigue: 'declined',
+        declined_pain: 'declined',
+        declined_medical: 'declined'
+      },
+      // v1 tolerance id -> v2 tolerance id (v2 set: well/min-fatigue/rest-breaks/fatigue-limited/pain-limited/sob/declined)
+      tolerance: {
+        tolerated_well: 'well',
+        tolerated: 'well',
+        minimal_fatigue: 'min-fatigue',
+        moderate_fatigue: 'min-fatigue',
+        rest_breaks: 'rest-breaks',
+        frequent_rest_breaks: 'rest-breaks',
+        pacing_required: 'rest-breaks',
+        fatigued: 'fatigue-limited',
+        fatigue_limited: 'fatigue-limited',
+        pain: 'pain-limited',
+        pain_limited: 'pain-limited',
+        sob: 'sob',
+        dizziness: 'sob',
+        orthostatic: 'sob',
+        anxiety: 'well',
+        unable_complete: 'declined'
+      },
+      // v1 plan id -> v2 plan id (v2 set: continue/progress/decrease-assist/add-equipment/modify/reassess/dc-planning)
+      plan: {
+        continue: 'continue',
+        continue_monitor: 'continue',
+        upgrade: 'progress',
+        progress_assist: 'decrease-assist',
+        increase_reps: 'progress',
+        add_complexity: 'progress',
+        reduce_cues: 'decrease-assist',
+        downgrade: 'modify',
+        downgrade_pain: 'modify',
+        modify_approach: 'modify',
+        simplify_task: 'modify',
+        new_equipment: 'add-equipment',
+        trial_equipment: 'add-equipment',
+        add_strengthening: 'progress',
+        add_balance: 'progress',
+        add_endurance: 'progress',
+        focus_safety: 'modify',
+        fall_prevention: 'modify',
+        energy_conservation: 'modify',
+        body_mechanics: 'modify',
+        cognitive_strategies: 'modify',
+        external_cues: 'modify',
+        errorless_learning: 'modify',
+        family_training: 'continue',
+        coordinate_nursing: 'continue',
+        coordinate_pt: 'continue',
+        home_program: 'dc-planning',
+        discharge_planning: 'dc-planning',
+        equipment_recommendations: 'add-equipment'
+      },
+      // v1 (parent|subcat) or activity label -> v2 activity id.
+      // Conservative: only entries with a clean OTPF-4 v2 mapping.
+      // Keys are lowercased and trimmed.
+      activityLabelToId: {
+        'bathing|upper body': 'bathing',
+        'bathing|lower body': 'bathing',
+        'bathing|shower/tub': 'bathing',
+        'dressing|upper body': 'dressing-ub',
+        'dressing|lower body': 'dressing-lb',
+        'dressing|footwear': 'dressing-lb',
+        'dressing|fasteners': 'dressing-ub',
+        'grooming|oral care': 'grooming',
+        'grooming|hair care': 'grooming',
+        'grooming|face/skin': 'grooming',
+        'grooming|nail care': 'grooming',
+        'toileting|transfer': 'toilet-transfer',
+        'toileting|hygiene': 'toilet-hygiene',
+        'toileting|clothing management': 'toileting',
+        'feeding|self-feeding': 'self-feeding',
+        'feeding|meal setup': 'self-feeding',
+        // Direct labels (also tried against v2 data.occupations dynamically)
+        'sit ↔ stand': 'sit-stand',
+        'sit-stand': 'sit-stand',
+        'bathing/showering': 'bathing',
+        'ub dressing': 'dressing-ub',
+        'lb dressing': 'dressing-lb',
+        'functional mobility': 'functional-mobility',
+        'rolling': 'rolling',
+        'sitting balance': 'sitting-balance',
+        'standing balance': 'standing-balance',
+        'dynamic balance': 'dynamic-balance'
+      },
+      // v1 free-text performance descriptor -> v2 OTPF-4 skill id (substring match; first hit wins per descriptor).
+      performanceSkillMatch: [
+        { match: ['attention', 'focus'], skill: 'attends' },
+        { match: ['safety'], skill: 'heeds' },
+        { match: ['sequencing', 'sequence'], skill: 'sequences' },
+        { match: ['initiation', 'initiate'], skill: 'initiates' },
+        { match: ['stabili', 'trunk control'], skill: 'stabilizes' },
+        { match: ['balance', 'aligns', 'alignment'], skill: 'aligns' },
+        { match: ['endur', 'fatigue'], skill: 'endures' },
+        { match: ['pacing', 'pace'], skill: 'paces' },
+        { match: ['reach'], skill: 'reaches' },
+        { match: ['grip', 'grasp'], skill: 'grips' },
+        { match: ['coordin'], skill: 'coordinates' },
+        { match: ['organiz'], skill: 'organizes' }
+      ]
+    };
+
+    window.translateV1ToV2 = function(p, dockyData) {
+      if (!dockyData) return null;
+      var T = window.V2_TRANSLATION;
+      var lower = function(s) { return String(s == null ? '' : s).toLowerCase().trim(); };
+
+      // Activity: try parent|subcat key first, then individual labels against
+      // the static table, then dynamically against v2 data.occupations.
+      var activityId = null;
+      if (p.selectedParent && p.selectedSubCategory) {
+        activityId = T.activityLabelToId[lower(p.selectedParent) + '|' + lower(p.selectedSubCategory)] || null;
+      }
+      if (!activityId) {
+        var candidates = [].concat(p.selectedActivities || [], [p.selectedSubCategory, p.selectedParent])
+          .filter(function(x) { return !!x; }).map(lower);
+        for (var i = 0; i < candidates.length && !activityId; i++) {
+          var c = candidates[i];
+          if (T.activityLabelToId[c]) { activityId = T.activityLabelToId[c]; break; }
+          var occ = dockyData.occupations || {};
+          for (var k in occ) {
+            var acts = (occ[k] && occ[k].activities) || [];
+            for (var j = 0; j < acts.length; j++) {
+              var a = acts[j];
+              if (a.id === c || a.shortcut === c || lower(a.label) === c) {
+                activityId = a.id; break;
+              }
+            }
+            if (activityId) break;
+          }
+        }
+      }
+      if (!activityId) return null;
+
+      // Assist: must have at least one v1 assist with a level matching a v2 id.
+      var firstAssist = (p.assists || [])[0];
+      if (!firstAssist || !firstAssist.level) return null;
+      var v2AssistIds = (dockyData.assistLevels || []).map(function(a) { return a.id; });
+      if (v2AssistIds.indexOf(firstAssist.level) === -1) return null;
+
+      // Goal: v1 id -> v2 free-text via data.GOALS phrase lookup.
+      var goalText = null;
+      if (p.goal && p.data && p.data.GOALS) {
+        var g = p.data.GOALS.find(function(x) { return x.id === p.goal; });
+        if (g && g.phrase) goalText = g.phrase;
+      }
+      if (!goalText) return null;
+
+      // Location: optional. Best-effort mapping from v1 free string.
+      var locationId = null;
+      if (firstAssist.location) {
+        var loc = lower(firstAssist.location);
+        var v2Loc = (dockyData.assistLocations || []).find(function(l) {
+          return l.id === loc || lower(l.label).indexOf(loc) !== -1;
+        });
+        if (v2Loc) locationId = v2Loc.id;
+      }
+
+      // Cues: keep type/purpose, drop level/bodyPart/context.
+      var cues = (p.cues || []).map(function(c) {
+        var type = lower(c.type);
+        var v2Type = (dockyData.cueTypes || []).find(function(t) {
+          return t.id === type || lower(t.label) === type;
+        });
+        if (!v2Type) return null;
+        var purposeRaw = lower(c.purpose);
+        var v2Purpose = (dockyData.cuePurposes || []).find(function(pp) {
+          return pp.id === purposeRaw || (purposeRaw && lower(pp.label).indexOf(purposeRaw) !== -1);
+        });
+        return { type: v2Type.id, purpose: v2Purpose ? v2Purpose.id : 'safety' };
+      }).filter(function(x) { return !!x; });
+
+      // Performance skills: keyword match v1 free strings into v2 OTPF-4 ids.
+      var performanceSkills = [];
+      (p.selectedPerformance || []).forEach(function(raw) {
+        var rl = lower(raw);
+        T.performanceSkillMatch.forEach(function(m) {
+          if (m.match.some(function(k) { return rl.indexOf(k) !== -1; })) {
+            if (performanceSkills.indexOf(m.skill) === -1) performanceSkills.push(m.skill);
+          }
+        });
+      });
+
+      return {
+        activities: [activityId],
+        performanceSkills: performanceSkills,
+        assist: firstAssist.level,
+        location: locationId,
+        cues: cues,
+        goal: goalText,
+        tolerance: T.tolerance[p.tolerance] || null,
+        progress: T.progress[p.progress] || null,
+        plan: T.plan[p.plan] || null
+      };
+    };
+  </script>
   <script type="text/babel">
     const { useState, useEffect, useCallback, useRef, useMemo } = React;
 
@@ -2469,29 +2703,41 @@
         return parts.join(' ');
       }, [data, selectedActivities, activityParams, goal, assists, cues, deficit, progress, tolerance, plan, selectedPerformance, selectedContext, selectedReasoning, patientSubjective, painLocation, painRating, vitals, outputStyle, buildClinicianAnalysis]);
 
-      // Uses external DOCKY engine from docky.js
+      // Uses external DOCKY engine. Tries v2 (OTPF-4) first via translation
+      // layer; on any incomplete piece (no v2 activity match, no assists[0],
+      // unresolved goal phrase) falls back to v1. Validator runs as a
+      // console.info diagnostic only — no UI gating in this pass.
       const buildDockyOutput = useCallback(() => {
-        return DOCKY.generate({
-          data,
-          selectedActivities,
-          activityParams,
-          goal,
-          assists,
-          cues,
-          deficit,
-          progress,
-          tolerance,
-          plan,
-          selectedPerformance,
-          selectedContext,
-          selectedReasoning,
-          patientSubjective,
-          painLocation,
-          painRating,
-          vitals,
-          outputStyle
-        });
-      }, [data, selectedActivities, activityParams, goal, assists, cues, deficit, progress, tolerance, plan, selectedPerformance, selectedContext, selectedReasoning, patientSubjective, painLocation, painRating, vitals, outputStyle]);
+        const v1Params = {
+          data, selectedActivities, activityParams, goal, assists, cues, deficit,
+          progress, tolerance, plan, selectedPerformance, selectedContext,
+          selectedReasoning, patientSubjective, painLocation, painRating, vitals,
+          outputStyle,
+          selectedParent, selectedSubCategory
+        };
+        const v2Available = !!(window.DOCKY && DOCKY.isV2Available && DOCKY.isV2Available());
+        const dockyData = v2Available ? DOCKY.data : null;
+        const v2Params = (v2Available && window.translateV1ToV2)
+          ? window.translateV1ToV2(v1Params, dockyData)
+          : null;
+        if (v2Params) {
+          try {
+            const note = DOCKY.generateV2(v2Params);
+            console.info('[DOCKY] route=v2', { v2Params, note });
+            try {
+              const validation = DOCKY.validate(v2Params);
+              console.info('[DOCKY] validate', validation);
+            } catch (vErr) {
+              console.warn('[DOCKY] validator error', vErr);
+            }
+            return note;
+          } catch (e) {
+            console.warn('[DOCKY] v2 generate threw, falling back to v1', e);
+          }
+        }
+        console.info('[DOCKY] route=v1');
+        return DOCKY.generate(v1Params);
+      }, [data, selectedActivities, activityParams, goal, assists, cues, deficit, progress, tolerance, plan, selectedPerformance, selectedContext, selectedReasoning, patientSubjective, painLocation, painRating, vitals, outputStyle, selectedParent, selectedSubCategory]);
 
       const output = useMemo(() => useDocky ? buildDockyOutput() : buildOutput(), [useDocky, buildDockyOutput, buildOutput]);
 
