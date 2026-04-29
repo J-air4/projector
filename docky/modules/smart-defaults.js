@@ -308,3 +308,6 @@ const SmartDefaults = {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = SmartDefaults;
 }
+if (typeof window !== 'undefined') {
+  window.SmartDefaults = SmartDefaults;
+}

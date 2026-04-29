@@ -470,3 +470,6 @@ const DockyEngine = {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = DockyEngine;
 }
+if (typeof window !== 'undefined') {
+  window.DockyEngine = DockyEngine;
+}
