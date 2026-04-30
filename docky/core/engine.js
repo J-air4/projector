@@ -14,13 +14,17 @@
  * { error, partial } so the translation layer can decide whether
  * to use the partial output or fall back to v1 entirely.
  *
- * Patterns implemented in this slice: P1, P2, P3, P4 (orchestrator only),
- * P7 (goal in opener position), P15 (foregrounding rule + operational
- * tests + tiebreaker). Stubbed (return null): P-Obs-Pre/Within/Summary,
- * P5 quantification rendering for non-foregrounded slots, P6 cues, P8
- * tolerance, P9 closer, P10 plan, P12 causal connectors, P-BackRef,
- * P-Stack-Connectors. Slice goal is sentence-shape match for one
- * corpus fragment.
+ * Patterns implemented:
+ *   slice 1 — P1, P2, P3, P4 (orchestrator only), P7 (goal in opener
+ *     position), P15 (foregrounding rule + operational tests + tiebreaker).
+ *   slice 2 — P6 flat-cue form (single cue per note), P9 generic-progress
+ *     closer.
+ * Stubbed (return null): P-Obs-Pre/Within/Summary, P5 quantification
+ * rendering for non-foregrounded slots, P6 chained-cue form and multi-cue
+ * stacks, P8 tolerance, P9 within-session and cross-session improvement
+ * closers, P10 plan, P12 causal connectors, P-BackRef,
+ * P-Stack-Connectors. Slice goal is sentence-shape match for verbatim
+ * corpus fragments.
  */
 
 const DockyEngine = {
@@ -40,6 +44,7 @@ const DockyEngine = {
       opener: this._renderOpener(params),
       preObs: this._renderPreObs(params),
       activitySentences: this._renderActivityStack(params),
+      cues: this._renderCues(params),
       summaryObs: this._renderSummaryObs(params),
       tolerance: this._renderTolerance(params),
       closer: this._renderCloser(params)
@@ -403,13 +408,87 @@ const DockyEngine = {
   },
 
   // ───────────────────────────────────────────────────────────────
+  // CUES (P6 — flat cue form only; chained-cue form deferred)
+  // ───────────────────────────────────────────────────────────────
+
+  /**
+   * Flat cue: "[quantity|level] [type] cues for [purpose][ <tail>]."
+   *   - quantity: numeric ("1", "2"), preserved verbatim
+   *   - level:    qualifier ("min", "Min", "mod", "MOD", "Intermittent")
+   *               preserved verbatim — corpus does not normalize case
+   *   - type:     "verbal" | "tactile" | "visual" (verbatim)
+   *   - purpose:  free-text phrase. May begin with "for" already, or
+   *               with "to" (purpose-clause form) — caller controls.
+   *   - tail:     optional trailing phrase ("were required",
+   *               "when reaching towards the ground"). Verbatim.
+   *
+   * Returns a single sentence string for now. When called with
+   * cues = [], returns null (no sentence emitted).
+   * Multi-cue stacking deferred — flag and bail with error.
+   */
+  _renderCues: function(params) {
+    const cues = params.cues;
+    if (!cues || !Array.isArray(cues) || cues.length === 0) return null;
+
+    // Multi-cue stacking is deferred (chained cues + sentence-boundary
+    // stack connectors land in a later slice). Skip silently rather than
+    // erroring so a partially-mappable v1->v2 input still produces a
+    // best-effort note.
+    if (cues.length > 1) return null;
+
+    const cue = cues[0];
+    if (!cue.type || !cue.purpose) return null;
+    const lead = cue.quantity || cue.level;
+    if (!lead) return null;
+
+    // If purpose matches a known v2 cuePurpose id, use its label (which
+    // already begins with "for"). Otherwise treat as free text and
+    // prepend "for" only when the phrase doesn't already start with
+    // a binding word.
+    let purposePhrase;
+    const lookup = this.data && this.data.cuePurposes
+      ? this.data.cuePurposes.find(p => p.id === cue.purpose)
+      : null;
+    if (lookup && lookup.label) {
+      purposePhrase = lookup.label;
+    } else {
+      const p = String(cue.purpose).trim();
+      purposePhrase = /^(for|to)\b/i.test(p) ? p : `for ${p}`;
+    }
+
+    let sentence = `${lead} ${cue.type} cues ${purposePhrase}`;
+    if (cue.tail) sentence += ` ${String(cue.tail).trim()}`;
+    sentence += '.';
+    return sentence;
+  },
+
+  // ───────────────────────────────────────────────────────────────
+  // CLOSER (P9 — generic-progress form only; within-session and
+  // cross-session improvement closers deferred)
+  // ───────────────────────────────────────────────────────────────
+
+  /**
+   * Generic-progress closer:
+   *   "The patient continues to make good progress toward therapeutic goals."
+   * Other closer types (within-session improvement, cross-session
+   * improvement) return null until a later slice.
+   */
+  _renderCloser: function(params) {
+    const c = params.closer;
+    if (!c || !c.type || c.type === 'none') return null;
+    if (c.type === 'generic-progress') {
+      return 'The patient continues to make good progress toward therapeutic goals.';
+    }
+    return null;
+  },
+
+  // ───────────────────────────────────────────────────────────────
   // STUBBED RENDERERS (return null until later slices)
   // ───────────────────────────────────────────────────────────────
 
   _renderPreObs: function(params) { return null; },
   _renderSummaryObs: function(params) { return null; },
   _renderTolerance: function(params) { return null; },
-  _renderCloser: function(params) { return null; },
 
   // ───────────────────────────────────────────────────────────────
   // ASSEMBLY (dumb: filter, propagate errors, join)
@@ -419,7 +498,7 @@ const DockyEngine = {
     // Error propagation: if any required slot returned an error object,
     // bubble it up with whatever partial string we can assemble from the
     // remaining successful slots.
-    const slots = ['opener','preObs','activitySentences','summaryObs','tolerance','closer'];
+    const slots = ['opener','preObs','activitySentences','cues','summaryObs','tolerance','closer'];
     for (const s of slots) {
       if (note[s] && note[s].error) {
         return { error: note[s].error, partial: this._joinPartial(note), slot: s };
@@ -430,6 +509,7 @@ const DockyEngine = {
     if (note.opener) parts.push(note.opener);
     if (note.preObs) parts.push(note.preObs);
     if (Array.isArray(note.activitySentences)) parts.push(...note.activitySentences);
+    if (note.cues)       parts.push(note.cues);
     if (note.summaryObs) parts.push(note.summaryObs);
     if (note.tolerance)  parts.push(note.tolerance);
     if (note.closer)     parts.push(note.closer);
@@ -456,6 +536,7 @@ const DockyEngine = {
       ok(note.opener),
       ok(note.preObs),
       ok(note.activitySentences),
+      ok(note.cues),
       ok(note.summaryObs),
       ok(note.tolerance),
       ok(note.closer)
