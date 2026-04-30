@@ -85,4 +85,188 @@ Functional sit-to-stand transfers from w/c to RW trained during room organizatio
 
 # Section 2 — Annotation index
 
-*To be filled in next pass. Will reference paragraphs by opening phrase, not by inserted numbering. Will mark CPT and patterns anchored per paragraph.*
+Paragraphs are referenced by their opening phrase, not by numbers
+inserted into Section 1. Pattern anchors list the specific words in
+the paragraph that anchor each pattern. If a pattern can't be
+anchored to specific words, it isn't tagged — undertagging beats
+overtagging. Counter-examples (corpus content that contradicts a
+locked rule) are listed at the end of this section.
+
+CPT codes used: 97530 (therapeutic activities, the focus of this
+spec), 97535 (self-care, set aside per user filter), 97112
+(neuromuscular re-ed, set aside).
+
+---
+
+**Paragraph "To promote functional transfer skills, the patient completed"**
+- CPT: 97530
+- P2 opener: "To promote functional transfer skills, the patient completed"
+- P5 fraction: "6/6 trials completed"
+- P6 chained cue: "min verbal cues to use previously trained breathing techniques to improve activity tolerance and task performance, secondary to symptoms of COPD"
+- P12 "secondary to" (diagnostic): "secondary to symptoms of COPD"
+- P-Stack-Connectors sentence-boundary stack: between cue sentence and "6/6 trials completed"
+
+**Paragraph "The patient verbalized pain on left side of body"**
+- CPT: 97112 — set aside per user filter (scapular retraction with tactile facilitation)
+
+**Paragraph "Patient untied 9/9 knots from theraband"**
+- CPT: 97530
+- P1.b patient-as-agent opener: "Patient untied"
+- P5 fraction: "9/9 knots"
+- P5 sets: "9x3 reps"
+- P6 flat cue: "1 verbal cues for pinch strategies"
+
+**Paragraph "With RW and SBA for safety, patient facilitated"**
+- CPT: 97530 (mixed — stand-pivot transfer training + EC concepts)
+- P6 chained cue: "mod verbal cues for safe sequence and hand UE placement"
+- P8 concrete tolerance: "Short rest period required throughput session"
+- P13 abbreviations: "RW", "SBA", "EOB", "UE"
+
+**Paragraph "To promote bilateral coordination and forearm/ grip strength" (first version)**
+- CPT: 97530
+- P2 opener: "To promote bilateral coordination and forearm/ grip strength,"
+- P4 activity stack: wrist roller + plastic eggs + theraputty
+- P5 distance: "4 feet"
+- P5 fraction: "6/12  plastic eggs"
+- P5 duration: "increments of 7 minutes this session"
+- P9 generic closer: "The patient continues to make good progress toward therapeutic goals"
+- P15 substrate equipment: "lightweight rope" + "dowel bar"
+- P15 bundled substrate-graded: "orange theraputty" (orange = resistance grade)
+- P15 position-as-progression-marker: "While standing, the patient progressed to"
+- P-Stack-Connectors "in addition to" (concurrent): "in addition to rolling out orange theraputty"
+- P-Stack-Connectors progression verb: "the patient progressed to"
+
+**Paragraph "Session focused on promoting bilateral coordination" (second version)**
+- CPT: 97530
+- Same patterns as the first wrist-roller paragraph above
+- P5 duration evidence updated: "increments of 8 minutes this session" (vs. 7 in prior; implicit cross-session progress per P9)
+- P6 flat cue: "min verbal cues for pacing"
+- P15 qualifying-difficulty equipment: "wrist roller activity seated in w/c" (w/c qualifies position even though it's a default surface)
+
+**Paragraph "o promote safety and independence within living environment"**
+- CPT: 97530
+- P2 opener (typo: missing leading "T"): "o promote safety and independence within living environment"
+- P-Obs-Within: "Posterior retropulsion noted when standing from w/c."
+- P9 within-session improvement: "improved body flexion noted during subsequent transfers"
+- P13 abbreviations: "RW", "w/c", "CGA", "B shoulder"
+
+**Paragraph "Item retrieval completed while seated EOB"**
+- CPT: 97530
+- P1.a activity-as-subject opener: "Item retrieval completed while seated EOB"
+- P-Obs-Summary: "No loss of balance this session"
+- P8 concrete tolerance: "patient required multiple short breaks"
+- P12 "secondary to" (symptom): "secondary to multiple reports of dizziness"
+- P13 abbreviations: "EOB", "RW", "SBA"
+
+**Paragraph "Self-care tasks at the bedside"**
+- CPT: 97535 — set aside per user filter (self-care)
+
+**Paragraph "Patient instructed in 4/4 trials"**
+- CPT: 97530
+- P1.b patient-as-agent opener: "Patient instructed in"
+- P5 fraction: "4/4 trials"
+- P6 flat cue: "min verbal cues for increased body and safety awareness"
+- P-Obs-Within: "1 instance of instability without physcial assist to correct noted"
+- P3 skilled-interventions opener: "Skilled interventions focused on dynamic functional activities"
+- P4 activity stack: dynamic standing + side stepping + bending/lifting/carrying + weight shifting
+
+**Paragraph "Skilled interventions focused on bending/lifting/carrying tasks"**
+- CPT: 97530
+- P3 opener: "Skilled interventions focused on bending/lifting/carrying tasks, side stepping  to increase functional skill performance."
+- P6 chained cue: "fading visual demonstration, and minimal / intermittent tactile cues / facilitation required due to compromised balance and sensation in BLE"
+- P-Obs-Within: "1 instance of instability not requiring assist to correct noted"
+- P13 abbreviations: "CGA", "BLE"
+
+**Paragraph "Dynamic standing balance with tasks with rollator and 15/15  trials"**
+- CPT: 97530 (appears three times in the original message)
+- P5 fraction: "15/15  trials"
+- P6 chained cue: "MOD verbal cues for BLE and foot placement facilitating wider BOS for increased stability"
+- P15 qualifying-difficulty equipment: "with rollator" / "using RW" (RW qualifies the standing-balance task difficulty)
+- P13 abbreviations: "RW", "BLE", "BOS", "MOD"
+- Counter-example flagged in section below: "secondary to decreased standing balance" uses "secondary to" attachment for a bare functional-state noun
+
+**Paragraph ", the patient was educated on energy conservation concepts"**
+- CPT: 97530 (multi-activity composite)
+- P4 activity stack: EC + dynamic sitting balance + ring toss + functional mobility
+- P5 duration: "10 minutes"
+- P5 distance: "250 feet"
+- P5 count: "2 rest required"
+- P-Obs-Within: "Dynamic sitting balance activity incorporating floor level reaching completed without a loss of balance this session"
+- P-Obs-Summary: "no abnormal change in vitals noted this session"
+- P8 concrete tolerance: "verbalizing the need to sit, secondary to shortness of breath"; "2 rest required"
+- P12 "secondary to" (symptom): "secondary to shortness of breath"
+- P12 cause registry / dedup: same SOB-endurance cause surfaced twice in one paragraph; user's locked dedup ruling preserves the proximal-symptom occurrence
+
+**Paragraph "Item retrieval tasks completed outside with RW"**
+- CPT: 97530
+- P1.a activity-as-subject opener: "Item retrieval tasks completed outside with RW"
+- P5 fraction: "8/8 items"; "15/15  trials"
+- P6 flat cue: "Min verbal cues to keep walker on ground were required"
+- P-Obs-Within: "The patient verbalized improved comfort during functional mobility with RW  after adjustment"
+- P15 qualifying-difficulty equipment: "RW" notable because "uneven walkway surfaces" makes its presence clinically meaningful
+
+**Paragraph "Skilled interventions included energy conservation training during bathing"**
+- CPT: 97535 — set aside per user filter (bathing/transfer training)
+
+**Paragraph "Skilled interventions focused on bending/lifting/carrying tasks" (duplicate)**
+- CPT: 97530 — duplicate of the earlier paragraph with the same opening; preserved in Section 1 because the original message contained the duplication
+
+**Paragraph "Dynamic standing balance with tasks with rollator and 15/15  trials" (with trailing fragment)**
+- CPT: 97530 (third instance) plus trailing cross-CPT bleed
+- Same anchors as the other instances of this paragraph
+- Trailing fragment "safety training during functional mobility during bathing, decision-making, and safety awareness skills to facilitate safety and independence when completing" reads as 97535 bleed — not anchored to 97530 patterns
+
+**Paragraph "To improve overall task performance during ADLs, patient facilitated skilled interventions"**
+- CPT: 97530
+- P2 opener: "To improve overall task performance during ADLs, patient facilitated skilled interventions"
+- P3 (within-sentence rather than as standalone opener): "skilled interventions focused on dynamic standing balance activities"
+- P4 activity stack: dynamic standing balance + throwing/catching + heavy door management
+- P5 count: "2 trials of heavy door management"
+- P12 "2/2" (functional-state): "2/2 decreased cardiopulmonary endurance/activity tolerance" — confirms locked rule
+- P-Obs-Within: "multiple instances of instability with minimal physical assistance to correct"
+- P13 abbreviations: "CGA", "ADLs"
+
+**Paragraph " 6 trials of standing Ring toss activity using 5 large lightweight rings"**
+- CPT: 97530
+- P1.a activity-as-subject opener: "6 trials of standing Ring toss activity"
+- P4 activity stack: ring toss + functional floor level reaching
+- P5 count: "6 trials" (twice — once per stacked activity)
+- P6 chained cue: "Min verbal cues for hip mobility when reaching towards the ground"
+- P15 quantification foreground (count leads); pre-position "standing"; bundled substrate-graded "5 large lightweight rings" preserved as single tail noun phrase
+- P13 abbreviations: "RW"
+
+**Paragraph "Sit-to-stand transfer trained and rehearsed"**
+- CPT: 97530
+- P1.a activity-as-subject opener: "Sit-to-stand transfer trained and rehearsed"
+- P6 flat cue: "min verbal cues for safety awareness"
+- P11 (deferred — patient-education event): "the patient verbalized understanding the importance of pacing during functional tasks"
+
+**Paragraph "Functional sit-to-stand transfers from w/c to RW trained"**
+- CPT: 97530
+- P1.a activity-as-subject opener: "Functional sit-to-stand transfers from w/c to RW trained"
+- P6 flat cue: "verbal cues for safety awareness"
+- P11 (deferred — performance review documentation): "Performace review conducted with patient at end of session; patient able to verbalize recognition of the importance pacing self"
+- P13 abbreviations: "w/c", "RW"
+
+---
+
+# Section 3 — Counter-examples and rule-edge cases
+
+These are corpus instances that contradict, or sit uncomfortably
+with, the locked rules in `docs/97530-patterns.md`. They are not
+errors in the corpus — the corpus is the ground truth. They are
+flags that a rule may need refinement, or that "human review on
+first emission" applies.
+
+- **P12 selection rule edge case — "secondary to" attaching to a bare functional-state noun.** The locked rule says bare functional-state nouns ("decreased X") take the "2/2" connector; symptoms/diagnoses/behaviors take "secondary to". The corpus contains:
+    - "CGA required secondary to decreased standing balance." (in the "Dynamic standing balance with tasks with rollator" paragraph, three instances)
+    - "2 rest required secondary to decreased activity tolerance" (in the EC concepts paragraph)
+  Both attach "secondary to" to bare functional-state nouns, contradicting the locked rule. Already flagged earlier in this session as needing human review on first emission. The locked rule's "secondary to" default-on-uncertain stays correct; the rule may be that bare functional-state nouns take *either* connector and the engine should accept both as valid corpus voice rather than enforce "2/2".
+
+- **P3 opener variant "Session focused on" vs "Skilled interventions focused on".** The locked P3 form is "Skilled interventions focused on/included [activity list] to [purpose]". The corpus also contains "Session focused on promoting bilateral coordination and forearm/ grip strength." This is structurally adjacent (focused-on opener) but uses "Session" as the subject, which doesn't claim skilled service. May be a separate opener template, may be a stylistic variant. Undertag here — only the "Skilled interventions" form is anchored to P3.
+
+- **"due to" vs "secondary to" causal connector.** The corpus contains "due to compromised balance and sensation in BLE" in the bending/lifting/carrying paragraph. The locked P12 rule names "2/2" and "secondary to" but not "due to". May be a synonymous alternate, may need its own slot. Not tagged to P12 above; flagging here.
+
+- **P11 deferred but appears in 97530 paragraphs.** The user filter set aside "discrete patient-education events" as cross-cuts CPT codes, deferred to week 3. However, paragraphs "Sit-to-stand transfer trained and rehearsed" and "Functional sit-to-stand transfers from w/c to RW trained" are 97530 *and* contain education events / performance reviews. Tagged P11 (deferred) in those entries to preserve the evidence; the deferral decision still holds for slice 2.
+
+- **Repeated paragraphs in original message.** The "Dynamic standing balance with tasks with rollator and 15/15 trials" block appears three times. The "Skilled interventions focused on bending/lifting/carrying tasks" appears twice. Preserved in Section 1 because the original message contained the duplication. Annotated once each above with a note on instance count.
