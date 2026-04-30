@@ -1,147 +1,465 @@
 /**
- * DOCKY v2.0 - Note Generation Engine
+ * DOCKY v2.0 - Note Generation Engine (97530-shaped)
  *
- * Generates Medicare-compliant clinical notes from structured parameters.
- * Focuses on Performance Skills Model (OTPF-4).
+ * Week 2: replaced the generic OTPF-4 assembler with a 97530-shaped
+ * sentence-stack constructor. ADL/neuro activities currently routed
+ * to v2 will read like therapeutic-activities notes through weeks
+ * 2-4 until per-CPT assemblers land. v1 fallback unaffected.
+ *
+ * Architecture: per-note flow is opener -> pre-obs -> activity stack
+ * -> summary-obs -> tolerance -> closer. No plan tail (P10).
+ *
+ * Each _render* helper returns string | null | { error, ... }.
+ * Errors propagate; generate() returns string OR
+ * { error, partial } so the translation layer can decide whether
+ * to use the partial output or fall back to v1 entirely.
+ *
+ * Patterns implemented in this slice: P1, P2, P3, P4 (orchestrator only),
+ * P7 (goal in opener position), P15 (foregrounding rule + operational
+ * tests + tiebreaker). Stubbed (return null): P-Obs-Pre/Within/Summary,
+ * P5 quantification rendering for non-foregrounded slots, P6 cues, P8
+ * tolerance, P9 closer, P10 plan, P12 causal connectors, P-BackRef,
+ * P-Stack-Connectors. Slice goal is sentence-shape match for one
+ * corpus fragment.
  */
 
 const DockyEngine = {
   data: null,
 
-  /**
-   * Initialize engine with data module
-   */
   init: function(data) {
     this.data = data;
     return this;
   },
 
   /**
-   * Generate a clinical note from parameters
-   *
-   * @param {Object} params - Note parameters
-   * @param {string[]} params.activities - Activity IDs
-   * @param {string[]} params.performanceSkills - Performance skill IDs
-   * @param {string} params.assist - Assist level ID
-   * @param {string} params.location - Assist location ID
-   * @param {Object[]} params.cues - Array of { type, purpose } objects
-   * @param {string} params.goal - Goal text
-   * @param {string} params.tolerance - Tolerance ID
-   * @param {string} params.progress - Progress ID
-   * @param {string} params.plan - Plan ID
-   * @param {Object} params.partB - Optional Part B expansion data
-   * @returns {string} Generated clinical note
+   * Generate a 97530-shaped clinical note.
+   * Returns string on success; { error, partial } on required-slot failure.
    */
   generate: function(params) {
-    const {
-      activities,
-      performanceSkills,
-      assist,
-      location,
-      cues,
-      goal,
-      tolerance,
-      progress,
-      plan,
-      partB
-    } = params;
+    const note = {
+      opener: this._renderOpener(params),
+      preObs: this._renderPreObs(params),
+      activitySentences: this._renderActivityStack(params),
+      summaryObs: this._renderSummaryObs(params),
+      tolerance: this._renderTolerance(params),
+      closer: this._renderCloser(params)
+    };
+    return this._assembleNote(note);
+  },
 
+  // ───────────────────────────────────────────────────────────────
+  // OPENER (P1 / P2 / P3)
+  // ───────────────────────────────────────────────────────────────
+
+  /**
+   * Returns one of:
+   *   string ending in ',' (P2/P3 — joins to next sentence-fragment)
+   *   string ending in '.' (standalone opener)
+   *   null  (no opener emitted; activity stack carries the note)
+   *   { error } if a required field for the chosen type is missing
+   */
+  _renderOpener: function(params) {
+    const op = params.opener;
+    if (!op || !op.type || op.type === 'none') return null;
+
+    if (op.type === 'to-promote') {
+      // P2: "To [promote|improve|facilitate] X, [activity clause]."
+      // The opener is a sentence-initial infinitive phrase that joins
+      // to the first activity sentence with a comma.
+      if (!op.goal) {
+        return { error: 'opener_to_promote_missing_goal' };
+      }
+      const verb = op.verb || 'promote';
+      return `To ${verb} ${op.goal},`;
+    }
+
+    if (op.type === 'skilled-interventions') {
+      // P3: "Skilled interventions [focused on|included] X to Y."
+      // Standalone sentence. Activity stack follows.
+      if (!op.focus) {
+        return { error: 'opener_skilled_missing_focus' };
+      }
+      const verb = op.verb || 'focused on';
+      const tail = op.purpose ? ` to ${op.purpose}` : '';
+      return `Skilled interventions ${verb} ${op.focus}${tail}.`;
+    }
+
+    if (op.type === 'activity-as-subject' || op.type === 'patient-as-agent') {
+      // P1.a / P1.b: opener is null; the first activity sentence is
+      // the opener. The activity-stack renderer handles subject choice
+      // via params.activities[0].subject.
+      return null;
+    }
+
+    return { error: 'opener_unknown_type', type: op.type };
+  },
+
+  // ───────────────────────────────────────────────────────────────
+  // ACTIVITY STACK (P4 orchestrator + P15 foregrounding per activity)
+  // ───────────────────────────────────────────────────────────────
+
+  /**
+   * Returns string[] (one rendered sentence per activity) | null | { error }.
+   * Owns the per-note cause registry (P12) — wired into per-activity
+   * sentence rendering in a later slice.
+   */
+  _renderActivityStack: function(params) {
+    const activities = params.activities || [];
+    if (activities.length === 0) return null;
+
+    const registry = { causesNamed: [] };
     const sentences = [];
 
-    // ─────────────────────────────────────────────────────────────
-    // SENTENCE 1: Activity + Assist + Goal
-    // ─────────────────────────────────────────────────────────────
-    const activityLabels = (activities || []).map(id =>
-      this._findActivityLabel(id)
-    ).filter(Boolean);
-
-    if (activityLabels.length > 0) {
-      const activityStr = this._formatList(activityLabels);
-      const assistData = this.data.assistLevels.find(a => a.id === assist);
-      const assistPhrase = assistData?.phrase || '';
-      const locationData = this.data.assistLocations.find(l => l.id === location);
-      const locationPhrase = locationData?.label || '';
-
-      let opening = `Patient participated in ${activityStr}`;
-      if (assistPhrase) {
-        opening += ` ${assistPhrase}`;
+    for (const raw of activities) {
+      const activity = typeof raw === 'string' ? { id: raw } : raw;
+      const result = this._renderActivitySentence(activity, params, registry);
+      if (result && result.error) {
+        return result; // bubble up
       }
-      if (locationPhrase) {
-        opening += ` ${locationPhrase}`;
-      }
-      if (goal) {
-        opening += ` to ${goal.toLowerCase()}`;
-      }
-      opening += '.';
-      sentences.push(opening);
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // SENTENCE 2: Cues (if any)
-    // ─────────────────────────────────────────────────────────────
-    if (cues && cues.length > 0) {
-      const cueStrs = cues.map(c => {
-        const type = this.data.cueTypes.find(t => t.id === c.type);
-        const purpose = this.data.cuePurposes.find(p => p.id === c.purpose);
-        return `${type?.label || c.type} cues ${purpose?.label || ''}`.trim();
-      });
-      sentences.push(`${this._formatList(cueStrs)} provided.`);
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // SENTENCE 3: Performance Skills Addressed
-    // ─────────────────────────────────────────────────────────────
-    if (performanceSkills && performanceSkills.length > 0) {
-      const skillLabels = performanceSkills.map(id => {
-        const skill = this.data.findSkill(id);
-        return skill ? skill.label.toLowerCase() : null;
-      }).filter(Boolean);
-
-      if (skillLabels.length > 0) {
-        const skillCategory = this._categorizeSkills(performanceSkills);
-        sentences.push(`Activity addressed ${skillCategory} skills including: ${this._formatList(skillLabels)}.`);
+      sentences.push(result.sentence);
+      if (result.registryUpdate) {
+        registry.causesNamed.push(result.registryUpdate);
       }
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // SENTENCE 4: Tolerance
-    // ─────────────────────────────────────────────────────────────
-    if (tolerance) {
-      const tolData = this.data.tolerance.find(t => t.id === tolerance);
-      if (tolData) {
-        sentences.push(tolData.phrase);
+    // P-Stack-Connectors logic deferred: default sentence-boundary stacking.
+    return sentences;
+  },
+
+  /**
+   * Render one activity sentence using P15 foregrounding.
+   * Returns { sentence } | { error, ... }.
+   */
+  _renderActivitySentence: function(activity, params, registry) {
+    const label = activity.label || this._findActivityLabel(activity.id);
+    if (!label) {
+      return { error: 'activity_label_unresolved', activityId: activity.id };
+    }
+
+    const foreground = this._pickForegroundedComponent(activity);
+    const isOpener = !!(params.opener && (params.opener.type === 'to-promote'
+      || params.opener.type === 'patient-as-agent'
+      || params.opener.type === 'activity-as-subject'));
+    // Per-activity subject takes precedence; opener.type is fallback; default
+    // is activity-as-subject. Lets stacked notes mix subjects.
+    const subject = activity.subject
+      || (params.opener && params.opener.type === 'patient-as-agent' ? 'patient-as-agent' : null)
+      || 'activity-as-subject';
+
+    if (foreground === 'quantification') {
+      return this._renderQuantificationLed(activity, label, isOpener, subject);
+    }
+    if (foreground === 'equipment-substrate') {
+      return this._renderEquipmentSubstrateLed(activity, label, isOpener);
+    }
+    if (foreground === 'position') {
+      return this._renderPositionLed(activity, label, isOpener, subject);
+    }
+    if (foreground === 'activity-as-event') {
+      return this._renderActivityAsEvent(activity, label, isOpener, subject);
+    }
+
+    return { error: 'no_foregroundable_signal', activityId: activity.id };
+  },
+
+  // ───────────────────────────────────────────────────────────────
+  // FOREGROUNDING (P15: 4-component test, 8-step tiebreaker, omit-on-no-signal)
+  // ───────────────────────────────────────────────────────────────
+
+  /**
+   * Returns one of: 'quantification' | 'equipment-substrate' | 'position'
+   *   | 'activity-as-event' | null (no signal; caller emits error).
+   */
+  _pickForegroundedComponent: function(activity) {
+    const q = this._classifyQuantification(activity.quantification);
+    const e = this._classifyEquipment(activity.equipment);
+    const p = this._classifyPosition(activity.position);
+
+    // Tiebreaker: fraction > set > count > duration > distance
+    //           > equipment-substrate > equipment-graded > equipment-qualifying
+    //           > position > activity-as-event
+    const ranked = [
+      { key: 'quantification', sub: 'fraction',  rank: 1, present: q === 'fraction' },
+      { key: 'quantification', sub: 'sets',      rank: 2, present: q === 'sets' },
+      { key: 'quantification', sub: 'count',     rank: 3, present: q === 'count' },
+      { key: 'quantification', sub: 'duration',  rank: 4, present: q === 'duration' },
+      { key: 'quantification', sub: 'distance',  rank: 5, present: q === 'distance' },
+      { key: 'equipment-substrate',  rank: 6, present: e.substrate },
+      { key: 'equipment-graded',     rank: 7, present: e.graded },
+      { key: 'equipment-qualifying', rank: 8, present: e.qualifying },
+      { key: 'position',             rank: 9, present: p }
+    ];
+    const winner = ranked.find(r => r.present);
+    if (winner) {
+      // equipment-graded and equipment-qualifying still foreground as
+      // 'equipment-substrate' rendering path; the distinction matters
+      // for inline rendering, not for the lead.
+      if (winner.key === 'equipment-graded' || winner.key === 'equipment-qualifying') {
+        return 'equipment-substrate';
+      }
+      return winner.key;
+    }
+    // No signal foregrounded; activity-as-event is the fallback when
+    // there's at least an activity label. Otherwise null (caller errors).
+    return 'activity-as-event';
+  },
+
+  /**
+   * Quantification operational test.
+   * notable if: fraction (X/Y), set notation (NxR), count (specific N),
+   *   duration (with implied baseline), distance (with clinical meaning).
+   * not notable: generic ("multiple trials").
+   * Returns the kind ('fraction'|'sets'|'count'|'duration'|'distance') or null.
+   */
+  _classifyQuantification: function(q) {
+    if (!q || q.notable === false) return null;
+    if (typeof q === 'string') {
+      // String shortcut: try to detect kind
+      if (/^\d+\/\d+/.test(q)) return 'fraction';
+      if (/^\d+x\d+/i.test(q)) return 'sets';
+      if (/\b(feet|ft|meters|m)\b/i.test(q)) return 'distance';
+      if (/\b(minutes?|seconds?|min|sec)\b/i.test(q)) return 'duration';
+      if (/^\d+\s+(reps?|trials?|items?)/i.test(q)) return 'count';
+      return null;
+    }
+    if (q.type && q.value) {
+      const kind = q.type;
+      if (['fraction','sets','count','duration','distance'].indexOf(kind) === -1) return null;
+      return kind;
+    }
+    return null;
+  },
+
+  /**
+   * Equipment operational test.
+   * Returns { substrate, graded, qualifying } booleans.
+   */
+  _classifyEquipment: function(eq) {
+    if (!eq) return { substrate: false, graded: false, qualifying: false };
+    return {
+      substrate:  Array.isArray(eq.substrate)  && eq.substrate.length > 0,
+      graded:     Array.isArray(eq.graded)     && eq.graded.length > 0,
+      qualifying: Array.isArray(eq.qualifying) && eq.qualifying.length > 0
+    };
+  },
+
+  /**
+   * Position operational test.
+   * notable if: non-default | transition | graded-variable | progression-marker.
+   * not notable: default (the position the activity is always done in).
+   */
+  _classifyPosition: function(pos) {
+    if (!pos) return false;
+    if (typeof pos === 'string') return false; // bare strings are treated as default modifiers
+    if (pos.notable === false) return false;
+    if (pos.kind === 'default') return false;
+    return !!pos.value;
+  },
+
+  // ───────────────────────────────────────────────────────────────
+  // ACTIVITY-SENTENCE RENDERERS (one per foregrounded component)
+  // Each returns { sentence } | { error }.
+  // ───────────────────────────────────────────────────────────────
+
+  /**
+   * Quantification leads. Three shapes selected by subject + materialVerb:
+   *
+   *   Shape "patientQS" — patient-as-agent:
+   *     "Patient <verb> <qStr> from <substrate>[ to <purpose>]."
+   *     e.g. "Patient untied 9/9 knots from theraband."
+   *
+   *   Shape "qVerbS" — activity-as-subject WITH materialVerb:
+   *     "<qStr> of <substrate-pivot> during <activity-label>[ <tail-pos>]."
+   *     e.g. "4 feet of a lightweight rope rolled onto a dowel bar during
+   *           wrist roller activity performed bilaterally."
+   *
+   *   Shape "qActivityS" — activity-as-subject WITHOUT materialVerb:
+   *     "<qStr> of [<pre-pos> ]<activity-label>[ using <substrate>][ <tail-pos>]."
+   *     e.g. "6 trials of standing Ring toss activity using 5 large
+   *           lightweight rings."
+   */
+  _renderQuantificationLed: function(activity, label, isOpener, subject) {
+    const q = activity.quantification;
+    const qStr = this._renderQuantificationPhrase(q);
+    if (!qStr) return { error: 'quantification_unrenderable', activityId: activity.id };
+
+    const eq = activity.equipment || {};
+    const substrate = (eq.substrate && eq.substrate.length) ? eq.substrate : null;
+    const graded    = (eq.graded    && eq.graded.length)    ? eq.graded    : null;
+    const pos = activity.position;
+    const posKind = (pos && typeof pos === 'object') ? pos.kind : null;
+    const posValue = (pos && typeof pos === 'object') ? pos.value : (typeof pos === 'string' ? pos : null);
+    const prePosition  = (posKind === 'pre-modifier'  && posValue) ? posValue : null;
+    const tailPosition = (posKind === 'tail-modifier' && posValue) ? posValue : null;
+
+    let sentence;
+
+    if (subject === 'patient-as-agent') {
+      const verb = activity.verb;
+      if (!verb) return { error: 'patient_as_agent_missing_verb', activityId: activity.id };
+      sentence = `Patient ${verb} ${qStr}`;
+      if (substrate) sentence += ` from ${this._formatList(substrate)}`;
+      if (activity.purpose) sentence += ` to ${activity.purpose}`;
+      sentence += '.';
+      return { sentence };
+    }
+
+    // activity-as-subject paths
+    if (substrate && activity.materialVerb) {
+      // Shape "qVerbS" — substrate pivots through the middle of the sentence.
+      const matVerb = activity.materialVerb;
+      const pivot = substrate.length === 2
+        ? `${substrate[0]} ${matVerb} ${substrate[1]}`
+        : this._formatList(substrate);
+      sentence = `${qStr} of ${pivot} during ${label}`;
+      if (tailPosition) sentence += ` ${tailPosition}`;
+      sentence += '.';
+    } else {
+      // Shape "qActivityS" — substrate (if any) attaches via "using" after activity.
+      sentence = `${qStr} of `;
+      if (prePosition) sentence += `${prePosition} `;
+      sentence += label;
+      if (substrate) {
+        sentence += ` using ${this._formatList(substrate)}`;
+      } else if (graded) {
+        sentence += ` using ${this._formatList(graded)}`;
+      }
+      if (tailPosition) sentence += ` ${tailPosition}`;
+      sentence += '.';
+    }
+
+    sentence = sentence.charAt(0).toUpperCase() + sentence.slice(1);
+    return { sentence };
+  },
+
+  /**
+   * Substrate equipment leads. Used when no notable quantification but
+   * substrate equipment is present.
+   */
+  _renderEquipmentSubstrateLed: function(activity, label, isOpener) {
+    const eq = activity.equipment || {};
+    const substrate = (eq.substrate && eq.substrate.length) ? eq.substrate : null;
+    if (!substrate) return { error: 'substrate_unrenderable', activityId: activity.id };
+    const positionTail = this._renderPositionTail(activity.position);
+    let sentence = `${this._formatList(substrate)} used during ${label}`;
+    if (positionTail) sentence += ` ${positionTail}`;
+    sentence += '.';
+    sentence = sentence.charAt(0).toUpperCase() + sentence.slice(1);
+    return { sentence };
+  },
+
+  /**
+   * Position leads — "While <position>, <activity clause>."
+   * Used for position-as-progression-marker per P15 refinement.
+   */
+  _renderPositionLed: function(activity, label, isOpener, subject) {
+    const pos = activity.position;
+    const posValue = typeof pos === 'string' ? pos : pos.value;
+    if (!posValue) return { error: 'position_unrenderable', activityId: activity.id };
+    const subjectStr = subject === 'patient-as-agent' ? 'the patient' : label;
+    let sentence = `While ${posValue}, ${subjectStr}`;
+    if (subject === 'patient-as-agent') {
+      sentence += ` ${activity.verb || 'performed'} ${label}`;
+    } else {
+      sentence += ` performed`;
+    }
+    sentence += '.';
+    return { sentence: sentence.charAt(0).toUpperCase() + sentence.slice(1) };
+  },
+
+  /**
+   * Activity-as-event fallback. Emits a minimal sentence from label only.
+   * Used when no foregrounding signal is present but an activity label is.
+   */
+  _renderActivityAsEvent: function(activity, label, isOpener, subject) {
+    const verb = activity.verb || 'performed';
+    let sentence;
+    if (subject === 'patient-as-agent') {
+      sentence = `Patient ${verb} ${label}.`;
+    } else {
+      sentence = `${label} ${verb}.`;
+      sentence = sentence.charAt(0).toUpperCase() + sentence.slice(1);
+    }
+    return { sentence };
+  },
+
+  // ───────────────────────────────────────────────────────────────
+  // SUB-RENDERERS: quantification phrase, position tail
+  // ───────────────────────────────────────────────────────────────
+
+  _renderQuantificationPhrase: function(q) {
+    if (!q) return null;
+    if (typeof q === 'string') return q;
+    if (q.value) return q.value;
+    return null;
+  },
+
+  _renderPositionTail: function(pos) {
+    if (!pos) return null;
+    if (typeof pos === 'string') return pos;
+    if (pos.kind === 'progression') return null; // handled by position-led renderer
+    if (pos.value) return pos.value;
+    return null;
+  },
+
+  // ───────────────────────────────────────────────────────────────
+  // STUBBED RENDERERS (return null until later slices)
+  // ───────────────────────────────────────────────────────────────
+
+  _renderPreObs: function(params) { return null; },
+  _renderSummaryObs: function(params) { return null; },
+  _renderTolerance: function(params) { return null; },
+  _renderCloser: function(params) { return null; },
+
+  // ───────────────────────────────────────────────────────────────
+  // ASSEMBLY (dumb: filter, propagate errors, join)
+  // ───────────────────────────────────────────────────────────────
+
+  _assembleNote: function(note) {
+    // Error propagation: if any required slot returned an error object,
+    // bubble it up with whatever partial string we can assemble from the
+    // remaining successful slots.
+    const slots = ['opener','preObs','activitySentences','summaryObs','tolerance','closer'];
+    for (const s of slots) {
+      if (note[s] && note[s].error) {
+        return { error: note[s].error, partial: this._joinPartial(note), slot: s };
       }
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // SENTENCE 5: Progress
-    // ─────────────────────────────────────────────────────────────
-    if (progress) {
-      const progData = this.data.progress.find(p => p.id === progress);
-      if (progData) {
-        sentences.push(progData.phrase);
+    const parts = [];
+    if (note.opener) parts.push(note.opener);
+    if (note.preObs) parts.push(note.preObs);
+    if (Array.isArray(note.activitySentences)) parts.push(...note.activitySentences);
+    if (note.summaryObs) parts.push(note.summaryObs);
+    if (note.tolerance)  parts.push(note.tolerance);
+    if (note.closer)     parts.push(note.closer);
+
+    // P2 opener ends with ',' and joins to next part with a space then
+    // a lowercase first letter of the next part.
+    let out = '';
+    for (let i = 0; i < parts.length; i++) {
+      const p = parts[i];
+      if (i === 0) { out = p; continue; }
+      const prev = parts[i - 1];
+      if (typeof prev === 'string' && prev.endsWith(',')) {
+        out += ' ' + (p.charAt(0).toLowerCase() + p.slice(1));
+      } else {
+        out += ' ' + p;
       }
     }
+    return out;
+  },
 
-    // ─────────────────────────────────────────────────────────────
-    // SENTENCE 6: Plan
-    // ─────────────────────────────────────────────────────────────
-    if (plan) {
-      const planData = this.data.plan.find(p => p.id === plan);
-      if (planData) {
-        sentences.push(planData.phrase);
-      }
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // PART B EXPANSION (if enabled)
-    // ─────────────────────────────────────────────────────────────
-    if (partB) {
-      const partBSentences = this._generatePartB(partB);
-      sentences.push(...partBSentences);
-    }
-
-    return sentences.join(' ');
+  _joinPartial: function(note) {
+    const ok = (v) => typeof v === 'string' ? v : (Array.isArray(v) ? v.filter(s => typeof s === 'string').join(' ') : '');
+    return [
+      ok(note.opener),
+      ok(note.preObs),
+      ok(note.activitySentences),
+      ok(note.summaryObs),
+      ok(note.tolerance),
+      ok(note.closer)
+    ].filter(Boolean).join(' ');
   },
 
   /**
