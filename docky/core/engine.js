@@ -7,12 +7,25 @@
  * 2-4 until per-CPT assemblers land. v1 fallback unaffected.
  *
  * Architecture: per-note flow is opener -> pre-obs -> activity stack
- * -> summary-obs -> tolerance -> closer. No plan tail (P10).
+ * -> cues -> summary-obs -> tolerance -> closer. No plan tail (P10).
  *
  * Each _render* helper returns string | null | { error, ... }.
  * Errors propagate; generate() returns string OR
  * { error, partial } so the translation layer can decide whether
  * to use the partial output or fall back to v1 entirely.
+ *
+ * Required-path vs optional-flow asymmetry (apply to all renderers):
+ *   Hard-fail (return { error }) when a field is REQUIRED by the
+ *     rendering path the engine has already committed to. e.g. once
+ *     foregrounding picks "lead with quantification", a malformed
+ *     quantification field is a developer bug — error and let the
+ *     translation layer decide to fall back to v1.
+ *   Graceful-degrade (return null) when a field is OPTIONAL in the
+ *     per-note flow. Cues, observations, tolerance, closers are
+ *     optional flow slots — if the input doesn't carry enough to
+ *     render them in corpus voice, skip the slot, emit the rest of
+ *     the note. No error.
+ *   Test: required-path-component vs. optional-flow-slot.
  *
  * Patterns implemented:
  *   slice 1 — P1, P2, P3, P4 (orchestrator only), P7 (goal in opener
@@ -25,6 +38,10 @@
  * closers, P10 plan, P12 causal connectors, P-BackRef,
  * P-Stack-Connectors. Slice goal is sentence-shape match for verbatim
  * corpus fragments.
+ *
+ * Note: docs/97530-patterns.md is referenced by the corpus annotation
+ * doc but not yet present in the repo. The pattern names above are the
+ * single source of truth until that lands.
  */
 
 const DockyEngine = {
@@ -409,6 +426,16 @@ const DockyEngine = {
 
   // ───────────────────────────────────────────────────────────────
   // CUES (P6 — flat cue form only; chained-cue form deferred)
+  //
+  // GAP: the spec recognizes both flat ("Min verbal cues for pacing")
+  // and chained ("min verbal cues to use previously trained breathing
+  // techniques to improve activity tolerance and task performance,
+  // secondary to symptoms of COPD") cue forms. The chained form is
+  // the high-skill version that ties cueing -> means -> outcome and
+  // optionally to a P12 cause. Until it ships, the engine emits only
+  // the flat form, systematically under-reading skilled cueing on
+  // any input that carries that structure. Close this before week 2
+  // wraps.
   // ───────────────────────────────────────────────────────────────
 
   /**
@@ -472,6 +499,15 @@ const DockyEngine = {
    *   "The patient continues to make good progress toward therapeutic goals."
    * Other closer types (within-session improvement, cross-session
    * improvement) return null until a later slice.
+   *
+   * P9 floor, not default: the generic closer is the floor when no
+   * specific within-session observation is available. Once
+   * _renderSummaryObs / within-session improvement closers land, this
+   * renderer should defer to them (i.e. only emit the generic closer
+   * when no more specific closing observation has been emitted).
+   * Today the deference check is implicit because the only thing
+   * competing for the closer slot is this renderer; that changes when
+   * P-Obs-Within and the specific-improvement closer ship.
    */
   _renderCloser: function(params) {
     const c = params.closer;
