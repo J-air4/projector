@@ -32,12 +32,17 @@
  *     position), P15 (foregrounding rule + operational tests + tiebreaker).
  *   slice 2 — P6 flat-cue form (single cue per note), P9 generic-progress
  *     closer.
- * Stubbed (return null): P-Obs-Pre/Within/Summary, P5 quantification
- * rendering for non-foregrounded slots, P6 chained-cue form and multi-cue
- * stacks, P8 tolerance, P9 within-session and cross-session improvement
- * closers, P10 plan, P12 causal connectors, P-BackRef,
- * P-Stack-Connectors. Slice goal is sentence-shape match for verbatim
- * corpus fragments.
+ *   slice 3 — P-Obs-Pre/Within/Summary (single renderer, caller-tagged
+ *     position) for kinds 'noted' / 'count-instances' / 'negation';
+ *     P12 causal connector primitive ('secondary to' / '2/2', plus
+ *     caller-controlled 'due to') with per-note cause registry
+ *     (first-occurrence-wins dedup). Registry is threaded from
+ *     generate() through every renderer that may emit a connector.
+ * Stubbed (return null): P5 quantification rendering for non-foregrounded
+ * slots, P6 chained-cue form and multi-cue stacks, P8 tolerance, P9
+ * within-session and cross-session improvement closers, P10 plan,
+ * P-BackRef (return shape reserved in P12 primitive), P-Stack-Connectors.
+ * Slice goal is sentence-shape match for verbatim corpus fragments.
  *
  * Note: docs/97530-patterns.md is referenced by the corpus annotation
  * doc but not yet present in the repo. The pattern names above are the
@@ -55,14 +60,22 @@ const DockyEngine = {
   /**
    * Generate a 97530-shaped clinical note.
    * Returns string on success; { error, partial } on required-slot failure.
+   *
+   * The per-note cause registry (P12) is created here and threaded
+   * through every renderer that might emit a causal connector. Today
+   * that's the observation slots; when P8 tolerance and P6 chained-cue
+   * ship they pick up the registry by adding it to their signature
+   * with no rewrite to the primitive.
    */
   generate: function(params) {
+    const registry = { causesNamed: new Set() };
     const note = {
       opener: this._renderOpener(params),
-      preObs: this._renderPreObs(params),
-      activitySentences: this._renderActivityStack(params),
+      preObs: this._renderObservationsAt(params, 'pre', registry),
+      activitySentences: this._renderActivityStack(params, registry),
+      withinObs: this._renderObservationsAt(params, 'within', registry),
       cues: this._renderCues(params),
-      summaryObs: this._renderSummaryObs(params),
+      summaryObs: this._renderObservationsAt(params, 'summary', registry),
       tolerance: this._renderTolerance(params),
       closer: this._renderCloser(params)
     };
@@ -122,14 +135,15 @@ const DockyEngine = {
 
   /**
    * Returns string[] (one rendered sentence per activity) | null | { error }.
-   * Owns the per-note cause registry (P12) — wired into per-activity
-   * sentence rendering in a later slice.
+   * The cause registry (P12) is created at generate() level and threaded
+   * through here so activity sentences and observations share the same
+   * dedup state. Activity-level P12 emission is deferred — when it
+   * lands, it calls _renderCausalConnector(cause, registry) directly.
    */
-  _renderActivityStack: function(params) {
+  _renderActivityStack: function(params, registry) {
     const activities = params.activities || [];
     if (activities.length === 0) return null;
 
-    const registry = { causesNamed: [] };
     const sentences = [];
 
     for (const raw of activities) {
@@ -139,9 +153,6 @@ const DockyEngine = {
         return result; // bubble up
       }
       sentences.push(result.sentence);
-      if (result.registryUpdate) {
-        registry.causesNamed.push(result.registryUpdate);
-      }
     }
 
     // P-Stack-Connectors logic deferred: default sentence-boundary stacking.
@@ -519,11 +530,176 @@ const DockyEngine = {
   },
 
   // ───────────────────────────────────────────────────────────────
+  // OBSERVATIONS (P-Obs-Pre / P-Obs-Within / P-Obs-Summary)
+  //
+  // Single renderer; placement is caller-controlled via the
+  // observation's `position` field ('pre' | 'within' | 'summary',
+  // default 'within' — the most common position in the corpus).
+  // The engine never infers position from content. If translation
+  // can't decide, it tags 'within' explicitly or omits the
+  // observation entirely.
+  //
+  // Observation kinds (sentence shapes):
+  //   'noted'           — "<content> noted [<context>]."
+  //                       e.g. "Posterior retropulsion noted when standing from w/c."
+  //   'count-instances' — "<count> instance[s] of <content>[ <qualifier>] noted."
+  //                       e.g. "1 instance of instability without physcial assist to correct noted."
+  //                       Pluralization: count starting with "1 " or being
+  //                       exactly "1" -> "instance"; everything else
+  //                       (including "multiple") -> "instances".
+  //   'negation'        — "<phrase>[ <temporal>]."
+  //                       e.g. "No loss of balance this session."
+  //
+  // Causal tail (P12): if obs.cause is set, the renderer asks
+  // _renderCausalConnector for the connector phrase. On 'emit', the
+  // tail ", <connector> <cause.phrase>" is appended before the period.
+  // On 'dedup', the tail is elided (slice 3 simple elision; richer
+  // back-reference forms wait for P-BackRef in a later slice).
+  // ───────────────────────────────────────────────────────────────
+
+  /**
+   * Render observations whose `position` matches the requested slot.
+   * Returns string (sentences joined by single space) | null.
+   * Per the renderer asymmetry rule: observations are an optional
+   * flow slot, so missing/unsupported inputs degrade silently.
+   */
+  _renderObservationsAt: function(params, position, registry) {
+    const all = params.observations;
+    if (!all || !Array.isArray(all) || all.length === 0) return null;
+    const filtered = all.filter(o => (o && (o.position || 'within')) === position);
+    if (filtered.length === 0) return null;
+
+    const sentences = [];
+    for (const obs of filtered) {
+      const s = this._renderObservation(obs, registry);
+      if (s) sentences.push(s);
+    }
+    if (sentences.length === 0) return null;
+    return sentences.join(' ');
+  },
+
+  /**
+   * Render one observation. Returns string | null.
+   */
+  _renderObservation: function(obs, registry) {
+    if (!obs || !obs.kind) return null;
+
+    if (obs.kind === 'noted') {
+      if (!obs.content) return null;
+      let s = obs.content + ' noted';
+      if (obs.context) s += ' ' + obs.context;
+      s = this._appendCausalTail(s, obs, registry);
+      return s + '.';
+    }
+
+    if (obs.kind === 'count-instances') {
+      if (!obs.count || !obs.content) return null;
+      const countStr = String(obs.count).trim();
+      const word = (countStr === '1' || /^1\s/.test(countStr)) ? 'instance' : 'instances';
+      let s = `${countStr} ${word} of ${obs.content}`;
+      if (obs.qualifier) s += ' ' + obs.qualifier;
+      s += ' noted';
+      s = this._appendCausalTail(s, obs, registry);
+      return s + '.';
+    }
+
+    if (obs.kind === 'negation') {
+      if (!obs.phrase) return null;
+      let s = obs.phrase;
+      if (obs.temporal) s += ' ' + obs.temporal;
+      s = this._appendCausalTail(s, obs, registry);
+      return s + '.';
+    }
+
+    return null;
+  },
+
+  /**
+   * Append a P12 causal tail to a sentence body (no terminating period
+   * yet). Caller adds the period after this returns. Honors dedup —
+   * when the connector primitive returns null with reason 'dedup', the
+   * tail is elided entirely.
+   */
+  _appendCausalTail: function(body, obs, registry) {
+    if (!obs.cause) return body;
+    const result = this._renderCausalConnector(obs.cause, registry, {
+      connector: obs.connector
+    });
+    if (result && result.phrase) {
+      return body + ', ' + result.phrase + ' ' + obs.cause.phrase;
+    }
+    // dedup or no-emit -> bare elision (no connector tail)
+    return body;
+  },
+
+  // ───────────────────────────────────────────────────────────────
+  // P12 CAUSAL CONNECTOR PRIMITIVE
+  //
+  // Single point of decision for which connector ("secondary to" /
+  // "2/2" / "due to") attaches a cause to a sentence body, and for
+  // dedup against the per-note cause registry.
+  //
+  // Returns one of three shapes (slice 3 only emits the first two;
+  // the third is reserved for P-BackRef in a later slice and is
+  // included now so the interface doesn't change later):
+  //
+  //   { phrase: '<connector>', reason: 'emit' }
+  //       — caller emits ", <phrase> <cause.phrase>"
+  //   { phrase: null, reason: 'dedup' }
+  //       — caller elides the connector tail (bare elision in slice 3;
+  //         future slices may emit a back-reference form here)
+  //   { phrase: null, reason: 'backref', backRef: '<phrase>' }
+  //       — caller emits the back-reference phrase. Reserved; not
+  //         produced in slice 3.
+  //
+  // Default rules (when caller doesn't specify options.connector):
+  //   functional-state              -> '2/2'
+  //   symptom | diagnostic | behavior -> 'secondary to'
+  //
+  // Caller control: options.connector overrides the default. This is
+  // how 'due to' enters the engine — only when caller asks. The
+  // engine never picks 'due to' on its own; the corpus has too few
+  // instances to lock an attachment rule. If a future slice promotes
+  // 'due to' to a default, this comment block must be updated.
+  //
+  // Dedup uses a normalized cause.phrase as the key (lowercased,
+  // whitespace-trimmed). The locked dedup rule says the proximal
+  // occurrence wins; this primitive is "first occurrence wins"
+  // because callers emit in document order. Anything stricter
+  // (re-ordering, scoring) belongs upstream of this primitive.
+  // ───────────────────────────────────────────────────────────────
+
+  _renderCausalConnector: function(cause, registry, options) {
+    options = options || {};
+    if (!cause || !cause.phrase) {
+      return { phrase: null, reason: 'no-cause' };
+    }
+
+    const key = String(cause.phrase).trim().toLowerCase();
+    if (registry && registry.causesNamed && registry.causesNamed.has(key)) {
+      return { phrase: null, reason: 'dedup' };
+    }
+
+    let phrase;
+    if (options.connector) {
+      // Caller-controlled — passes 'secondary to', '2/2', or 'due to'.
+      phrase = options.connector;
+    } else if (cause.kind === 'functional-state') {
+      phrase = '2/2';
+    } else {
+      phrase = 'secondary to';
+    }
+
+    if (registry && registry.causesNamed) {
+      registry.causesNamed.add(key);
+    }
+    return { phrase, reason: 'emit' };
+  },
+
+  // ───────────────────────────────────────────────────────────────
   // STUBBED RENDERERS (return null until later slices)
   // ───────────────────────────────────────────────────────────────
 
-  _renderPreObs: function(params) { return null; },
-  _renderSummaryObs: function(params) { return null; },
   _renderTolerance: function(params) { return null; },
 
   // ───────────────────────────────────────────────────────────────
@@ -534,7 +710,7 @@ const DockyEngine = {
     // Error propagation: if any required slot returned an error object,
     // bubble it up with whatever partial string we can assemble from the
     // remaining successful slots.
-    const slots = ['opener','preObs','activitySentences','cues','summaryObs','tolerance','closer'];
+    const slots = ['opener','preObs','activitySentences','withinObs','cues','summaryObs','tolerance','closer'];
     for (const s of slots) {
       if (note[s] && note[s].error) {
         return { error: note[s].error, partial: this._joinPartial(note), slot: s };
@@ -545,6 +721,7 @@ const DockyEngine = {
     if (note.opener) parts.push(note.opener);
     if (note.preObs) parts.push(note.preObs);
     if (Array.isArray(note.activitySentences)) parts.push(...note.activitySentences);
+    if (note.withinObs)  parts.push(note.withinObs);
     if (note.cues)       parts.push(note.cues);
     if (note.summaryObs) parts.push(note.summaryObs);
     if (note.tolerance)  parts.push(note.tolerance);
@@ -572,6 +749,7 @@ const DockyEngine = {
       ok(note.opener),
       ok(note.preObs),
       ok(note.activitySentences),
+      ok(note.withinObs),
       ok(note.cues),
       ok(note.summaryObs),
       ok(note.tolerance),
