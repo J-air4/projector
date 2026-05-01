@@ -47,9 +47,13 @@
  * P-BackRef (return shape reserved in P12 primitive), P-Stack-Connectors.
  * Slice goal is sentence-shape match for verbatim corpus fragments.
  *
- * Note: docs/97530-patterns.md is referenced by the corpus annotation
- * doc but not yet present in the repo. The pattern names above are the
- * single source of truth until that lands.
+ * Spec: docs/97530-patterns.md is the bird's-eye spec (locked rules,
+ * pattern catalog, current implementation status). docs/97530-corpus.md
+ * is the evidence (bytes-for-bytes corpus + annotation index +
+ * counter-examples). docs/corpus-typos.md is the registry of corpus
+ * typos that must never appear in engine output. This docstring is
+ * the implementation reference. When the spec and the engine
+ * disagree, fix one, then fix the other in the same commit.
  */
 
 const DockyEngine = {
