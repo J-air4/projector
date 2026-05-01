@@ -1137,9 +1137,12 @@ const DockyEngine = {
   // compounds.
   //
   // Inline assist (assist as a tail on the activity sentence) is NOT
-  // handled here — it gets its own slice with a unified positional-
-  // context tail renderer that handles equipment + position +
-  // supervisory assist together. See slice-N (deferred).
+  // handled here — it gets its own deferred slice flagged
+  // `assistAsPositionalContext`. The flag name encodes the shape:
+  // when supervisory assist + equipment + position co-occur (~58% of
+  // corpus, mostly CGA/SBA + RW pairs), a unified positional-context
+  // tail renderer handles all three together. The flag is per-profile
+  // opt-in; absent the flag, this standalone-sentence path fires.
   //
   // Causal-tail attachment uses tightCause: true by default — assist
   // phrases attach causes to noun-like phrases ("...alignment
