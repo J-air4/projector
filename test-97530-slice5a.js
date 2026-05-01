@@ -67,7 +67,8 @@ const cases = [
     target: '6 trials of standing Ring toss activity using 5 large lightweight rings.',
     run: function() {
       const params = Vocab.compose('ring-toss', {
-        quantification: { type: 'count', value: '6 trials' }
+        quantification: { type: 'count', value: '6 trials' },
+        assists: null  // opt out of slice-7 profile assist auto-surface
       });
       return DockyEngine.generate(params);
     }
@@ -77,7 +78,8 @@ const cases = [
     kind: 'logic',
     run: function() {
       const params = Vocab.compose('ring-toss', {
-        quantification: { type: 'count', value: '6 trials' }
+        quantification: { type: 'count', value: '6 trials' },
+        assists: null  // opt out of slice-7 profile assist auto-surface
       });
       const eq = params.activities[0].equipment || {};
       // Composed substrate is an array of {phrase, class} objects.

@@ -114,6 +114,7 @@ const DockyEngine = {
       opener: this._renderOpener(routed),
       preObs: this._renderObservationsAt(routed, 'pre', registry),
       activitySentences: this._renderActivityStack(routed, registry),
+      assist: this._renderAssistSentence(routed, registry),
       withinObs: this._renderObservationsAt(routed, 'within', registry),
       cues: this._renderCues(routed),
       summaryObs: this._renderObservationsAt(routed, 'summary', registry),
@@ -1121,6 +1122,129 @@ const DockyEngine = {
   },
 
   // ───────────────────────────────────────────────────────────────
+  // ASSIST (P-Assist — slice 7)
+  //
+  // Two corpus shapes covered:
+  //   Standalone: "Required min physical assist at trunk for safety."
+  //   Compound:   "Required CGA during transfer initiation to guard
+  //                against posterior loss of balance and mod physical
+  //                assist at bilateral hips for sustained standing balance."
+  //
+  // The "Required" prefix is hoisted to the sentence level: it fires
+  // once iff ANY assist in the compound is physical (max/mod/min).
+  // CGA/SBA/supervision/independent never trigger the prefix on their
+  // own. This avoids double-printing "required" in CGA+physical
+  // compounds.
+  //
+  // Inline assist (assist as a tail on the activity sentence) is NOT
+  // handled here — it gets its own slice with a unified positional-
+  // context tail renderer that handles equipment + position +
+  // supervisory assist together. See slice-N (deferred).
+  //
+  // Causal-tail attachment uses tightCause: true by default — assist
+  // phrases attach causes to noun-like phrases ("...alignment
+  // secondary to deconditioning"), not sentence bodies. Caller can
+  // force the comma form by passing causalTail.tightCause === false.
+  //
+  // Inputs to level/location accept either a vocabulary id-string or
+  // a pre-resolved { phrase } object. The engine does no vocab lookup;
+  // resolution happens upstream in vocabularies.js compose().
+  // ───────────────────────────────────────────────────────────────
+
+  /**
+   * Returns string[] (one phrase per assist) | null | { error }.
+   * No "Required" prefix — that's the wrapper's job.
+   */
+  _renderAssist: function(params, registry) {
+    if (!params.assists || params.assists.length === 0) return null;
+
+    const phrases = [];
+    for (let i = 0; i < params.assists.length; i++) {
+      const a = params.assists[i];
+      if (!a.level) return { error: 'assist_missing_level', index: i };
+
+      const levelPhrase = this._resolvePhrase(a.level);
+      if (!levelPhrase) return { error: 'assist_unknown_level', level: a.level, index: i };
+
+      let phrase = levelPhrase;
+
+      if (a.location) {
+        const locPhrase = this._resolvePhrase(a.location);
+        if (locPhrase) {
+          phrase += ' at ' + locPhrase;
+        } else if (typeof console !== 'undefined' && console.warn) {
+          // Warn-and-omit. Unknown location id usually indicates an
+          // upstream typo; loud fallback matches the slice-6 discipline.
+          console.warn('[engine] assist location did not resolve; omitting: ' + JSON.stringify(a.location));
+        }
+      }
+
+      if (a.context) phrase += ' ' + a.context;
+      if (a.purpose) phrase += ' ' + a.purpose;
+
+      if (a.causalTail) {
+        const tight = a.causalTail.tightCause === false ? false : true;
+        phrase = this._appendCausalTail(phrase, {
+          cause: a.causalTail.cause,
+          connector: a.causalTail.connector,
+          tightCause: tight
+        }, registry);
+      }
+
+      phrases.push(phrase);
+    }
+    return phrases;
+  },
+
+  /**
+   * Wraps _renderAssist into a sentence. Single "Required" prefix
+   * iff any assist is physical (max/mod/min). Compound assists join
+   * with " and ".
+   */
+  _renderAssistSentence: function(params, registry) {
+    if (!params.assists || params.assists.length === 0) return null;
+
+    // 'independent' and 'modified-i' are non-skilled levels — the
+    // corpus has no voice for "Independent." as a standalone sentence.
+    // When every assist in the array is non-skilled, suppress emission
+    // entirely (a profile-level typicalAssistLevel: 'independent' is
+    // the composer's way of saying "no assist sentence by default").
+    // Mixed arrays where at least one assist is skilled still render.
+    const allNonSkilled = params.assists.every(a => this._isNonSkilledAssist(a.level));
+    if (allNonSkilled) return null;
+
+    const phrases = this._renderAssist(params, registry);
+    if (!phrases) return null;
+    if (phrases.error) return phrases;
+
+    const anyPhysical = params.assists.some(a => this._isPhysicalAssist(a.level));
+    const body = phrases.join(' and ');
+    return (anyPhysical ? 'Required ' : '') + body + '.';
+  },
+
+  _isPhysicalAssist: function(level) {
+    const id = (typeof level === 'string') ? level : (level && level.id);
+    return id === 'max' || id === 'mod' || id === 'min';
+  },
+
+  _isNonSkilledAssist: function(level) {
+    const id = (typeof level === 'string') ? level : (level && level.id);
+    return id === 'independent' || id === 'modified-i';
+  },
+
+  /**
+   * Accepts a vocabulary id-string or a { phrase } object. Returns
+   * the rendered phrase or null. Keeps the engine free of a direct
+   * vocabulary dependency — composers pre-resolve.
+   */
+  _resolvePhrase: function(item) {
+    if (!item) return null;
+    if (typeof item === 'string') return item;
+    if (typeof item === 'object' && typeof item.phrase === 'string') return item.phrase;
+    return null;
+  },
+
+  // ───────────────────────────────────────────────────────────────
   // STUBBED RENDERERS (return null until later slices)
   // ───────────────────────────────────────────────────────────────
 
@@ -1133,7 +1257,7 @@ const DockyEngine = {
     // Error propagation: if any required slot returned an error object,
     // bubble it up with whatever partial string we can assemble from the
     // remaining successful slots.
-    const slots = ['opener','preObs','activitySentences','withinObs','cues','summaryObs','tolerance','closer'];
+    const slots = ['opener','preObs','activitySentences','assist','withinObs','cues','summaryObs','tolerance','closer'];
     for (const s of slots) {
       if (note[s] && note[s].error) {
         return { error: note[s].error, partial: this._joinPartial(note), slot: s };
@@ -1144,6 +1268,7 @@ const DockyEngine = {
     if (note.opener) parts.push(note.opener);
     if (note.preObs) parts.push(note.preObs);
     if (Array.isArray(note.activitySentences)) parts.push(...note.activitySentences);
+    if (note.assist)     parts.push(note.assist);
     if (note.withinObs)  parts.push(note.withinObs);
     if (note.cues)       parts.push(note.cues);
     if (note.summaryObs) parts.push(note.summaryObs);
@@ -1232,6 +1357,7 @@ const DockyEngine = {
       ok(note.opener),
       ok(note.preObs),
       ok(note.activitySentences),
+      ok(note.assist),
       ok(note.withinObs),
       ok(note.cues),
       ok(note.summaryObs),

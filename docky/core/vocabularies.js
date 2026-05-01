@@ -877,6 +877,33 @@ function compose(activityId, overrides) {
   if (ov.tolerance)    params.tolerance = ov.tolerance;
   if (ov.closer)       params.closer = ov.closer;
 
+  // P-Assist (slice 7). Per-call override convention matches
+  // rendersAsActivityList: explicit ov.assists (any value, including
+  // null/[]) means caller has spoken — pass through truthy, suppress
+  // otherwise. ov.assists === undefined means inherit profile default.
+  //
+  // Profile auto-surface skips non-skilled levels ('independent' /
+  // 'modified-i'): a profile listing those as typical means "no
+  // assist phrase by default" — surfacing them would only produce a
+  // no-op array the engine has to filter back out.
+  if (ov.assists !== undefined) {
+    if (ov.assists) params.assists = ov.assists;
+  } else if (profile && profile.typicalAssistLevel
+             && profile.typicalAssistLevel !== 'independent'
+             && profile.typicalAssistLevel !== 'modified-i') {
+    const level    = ASSIST_LEVELS[profile.typicalAssistLevel] || null;
+    const location = profile.typicalAssistLocation
+      ? (ASSIST_LOCATIONS[profile.typicalAssistLocation] || null) : null;
+    const purpose  = profile.typicalAssistPurpose
+      ? (ASSIST_PURPOSES[profile.typicalAssistPurpose] || null) : null;
+    if (level) {
+      const entry = { level: level };
+      if (location) entry.location = location;
+      if (purpose)  entry.purpose  = purpose.phrase;
+      params.assists = [entry];
+    }
+  }
+
   return params;
 }
 
@@ -906,6 +933,7 @@ function composeMany(items, sharedOverrides) {
   if (ov.observations) params.observations = ov.observations;
   if (ov.tolerance)    params.tolerance = ov.tolerance;
   if (ov.closer)       params.closer = ov.closer;
+  if (ov.assists)      params.assists = ov.assists;
   return params;
 }
 

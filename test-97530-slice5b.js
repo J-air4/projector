@@ -64,7 +64,8 @@ const cases = [
         // tail-modifier positions don't lead a sentence, only attach
         // as tails to other foregrounding paths. activity-as-event
         // doesn't render tails today, so position is silent here.
-        verb: 'performed'
+        verb: 'performed',
+        assists: null  // opt out of slice-7 profile assist auto-surface
       });
       return DockyEngine.generate(params);
     }
@@ -85,7 +86,8 @@ const cases = [
           verb: 'improve',
           goal: 'overall task performance during ADLs'
         },
-        label: 'Dynamic standing balance'
+        label: 'Dynamic standing balance',
+        assists: null  // opt out of slice-7 profile assist auto-surface
       });
       return DockyEngine.generate(params);
     }
