@@ -25,6 +25,7 @@
 
 const DockyData = require('./docky/core/data.js');
 const DockyEngine = require('./docky/core/engine.js');
+const { assertSpellCorrect } = require('./docky/core/typo-gate.js');
 DockyEngine.init(DockyData);
 
 const cases = [
@@ -138,6 +139,20 @@ for (const c of cases) {
   const got = typeof out === 'string' ? out : JSON.stringify(out);
 
   if (c.kind === 'voice') {
+    // Spell-correctness gate. Voice tests must pass through the
+    // typo gate before the byte-string compare. If the engine ever
+    // emits a corpus typo verbatim, the gate throws and the test
+    // fails with a specific error pointing at the typo and its
+    // corrected form. The gate is the structural enforcement of the
+    // "engine output is always spell-correct" rule.
+    try {
+      assertSpellCorrect(got);
+    } catch (gateErr) {
+      console.log('FAIL', '[voice]', c.name);
+      console.log('  gate:    ', gateErr.message.split('\n').map((l,i) => i===0 ? l : '           ' + l).join('\n'));
+      fail++;
+      continue;
+    }
     const ok = got === c.target;
     console.log(ok ? 'PASS' : 'FAIL', '[voice]', c.name);
     if (!ok) {
