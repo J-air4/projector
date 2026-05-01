@@ -808,10 +808,15 @@ const DockyEngine = {
   // ───────────────────────────────────────────────────────────────
   // CUES (P6 — slice 8: flat + chained, single-cue, with P12 causal tail)
   //
-  // Single-cue renderer. Multi-cue stacks deferred (n=2 in corpus,
-  // two structurally different shapes — locking a renderer on that
-  // sample is the inline-assist trap). Multi-cue input warns loudly
-  // and renders the first cue only — best-effort with a visible gap.
+  // Closes the chained-cue gap flagged in slice 2 ("the engine emits
+  // only the flat form, systematically under-reading skilled cueing"
+  // — slice 2's section header, now superseded by this one).
+  //
+  // Single-cue renderer. Multi-cue stacks deferred (n=2 in 97530
+  // corpus, two structurally different shapes — locking a renderer on
+  // that sample is the inline-assist trap). Multi-cue input warns
+  // loudly and renders the first cue only — best-effort with a
+  // visible gap.
   //
   // Field shape:
   //   <quantity> <type> cues <purpose> [<chain>] [<context>] [<causalTail>]
@@ -855,7 +860,12 @@ const DockyEngine = {
       };
     }
 
-    const lead = cue.quantity || cue.level;  // v1-compat fallback (slice 2)
+    // v1-compat fallback. Slice 2 normalized the field to `quantity`,
+    // but v1->v2-translated inputs (test-acceptance.js scenarios 1-3:
+    // UB Bathing, UB Dressing, sit-stand) still emit `level`. Don't
+    // drop the `|| cue.level` in future refactors — it's a regression
+    // guard for v1 acceptance, not redundant.
+    const lead = cue.quantity || cue.level;
     if (!lead) return null;
     if (!cue.type) return null;
     if (!cue.purpose) return null;
