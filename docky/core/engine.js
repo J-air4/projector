@@ -38,9 +38,12 @@
  *     caller-controlled 'due to') with per-note cause registry
  *     (first-occurrence-wins dedup). Registry is threaded from
  *     generate() through every renderer that may emit a connector.
+ *   slice 4 — P8 concrete tolerance for kinds 'np-required' /
+ *     'patient-required'; uses the slice-3 P12 primitive + cause
+ *     registry without rewrite (the seam was built in slice 3).
  * Stubbed (return null): P5 quantification rendering for non-foregrounded
- * slots, P6 chained-cue form and multi-cue stacks, P8 tolerance, P9
- * within-session and cross-session improvement closers, P10 plan,
+ * slots, P6 chained-cue form and multi-cue stacks, P9 within-session
+ * and cross-session improvement closers, P10 plan,
  * P-BackRef (return shape reserved in P12 primitive), P-Stack-Connectors.
  * Slice goal is sentence-shape match for verbatim corpus fragments.
  *
@@ -76,7 +79,7 @@ const DockyEngine = {
       withinObs: this._renderObservationsAt(params, 'within', registry),
       cues: this._renderCues(params),
       summaryObs: this._renderObservationsAt(params, 'summary', registry),
-      tolerance: this._renderTolerance(params),
+      tolerance: this._renderTolerance(params, registry),
       closer: this._renderCloser(params)
     };
     return this._assembleNote(note);
@@ -543,7 +546,7 @@ const DockyEngine = {
   //   'noted'           — "<content> noted [<context>]."
   //                       e.g. "Posterior retropulsion noted when standing from w/c."
   //   'count-instances' — "<count> instance[s] of <content>[ <qualifier>] noted."
-  //                       e.g. "1 instance of instability without physcial assist to correct noted."
+  //                       e.g. "1 instance of instability without physical assist to correct noted."
   //                       Pluralization: count starting with "1 " or being
   //                       exactly "1" -> "instance"; everything else
   //                       (including "multiple") -> "instances".
@@ -619,6 +622,14 @@ const DockyEngine = {
    * yet). Caller adds the period after this returns. Honors dedup —
    * when the connector primitive returns null with reason 'dedup', the
    * tail is elided entirely.
+   *
+   * Separator: by default a comma joins body and connector
+   *   ("X required, secondary to Y") because that's the dominant
+   *   form in the corpus. The corpus also contains compact
+   *   no-comma attachments ("X required secondary to Y") with no
+   *   clean rule distinguishing the two. Caller controls via
+   *   obs.tightCause: when true, the separator is a single space
+   *   instead of ", ". Default false.
    */
   _appendCausalTail: function(body, obs, registry) {
     if (!obs.cause) return body;
@@ -626,7 +637,8 @@ const DockyEngine = {
       connector: obs.connector
     });
     if (result && result.phrase) {
-      return body + ', ' + result.phrase + ' ' + obs.cause.phrase;
+      const sep = obs.tightCause ? ' ' : ', ';
+      return body + sep + result.phrase + ' ' + obs.cause.phrase;
     }
     // dedup or no-emit -> bare elision (no connector tail)
     return body;
@@ -697,10 +709,55 @@ const DockyEngine = {
   },
 
   // ───────────────────────────────────────────────────────────────
+  // TOLERANCE (P8 — concrete tolerance sentence)
+  //
+  // Two sentence shapes covering the corpus tolerance forms:
+  //
+  //   'np-required'      — "<np> required[ <temporal>][, <P12 tail>]."
+  //                        e.g. "Short rest period required throughout session."
+  //                        e.g. "Multiple trials with short recovery periods required."
+  //                        e.g. "2 rest required secondary to decreased activity tolerance."
+  //
+  //   'patient-required' — "Patient required <np>[, <P12 tail>]."
+  //                        e.g. "Patient required multiple short breaks."
+  //
+  // Both shapes accept an optional `cause` (P12) tail, threaded
+  // through _appendCausalTail and the per-note cause registry.
+  // Caller controls the connector via t.connector — the corpus
+  // counter-example "2 rest required secondary to decreased activity
+  // tolerance" attaches 'secondary to' to a bare functional-state
+  // noun, contradicting the engine's default ('2/2' for
+  // functional-state). The override is how the caller honors the
+  // counter-example without changing the default rule.
+  //
+  // Tolerance is an OPTIONAL flow slot: missing / unsupported inputs
+  // return null and the engine emits the rest of the note.
+  // ───────────────────────────────────────────────────────────────
+
+  _renderTolerance: function(params, registry) {
+    const t = params.tolerance;
+    if (!t || !t.kind) return null;
+
+    let body;
+    if (t.kind === 'np-required') {
+      if (!t.np) return null;
+      body = t.np + ' required';
+      if (t.temporal) body += ' ' + t.temporal;
+    } else if (t.kind === 'patient-required') {
+      if (!t.np) return null;
+      body = 'Patient required ' + t.np;
+    } else {
+      return null;
+    }
+
+    body = this._appendCausalTail(body, t, registry);
+    return body + '.';
+  },
+
+  // ───────────────────────────────────────────────────────────────
   // STUBBED RENDERERS (return null until later slices)
   // ───────────────────────────────────────────────────────────────
 
-  _renderTolerance: function(params) { return null; },
 
   // ───────────────────────────────────────────────────────────────
   // ASSEMBLY (dumb: filter, propagate errors, join)
