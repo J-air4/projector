@@ -41,6 +41,19 @@
  *   slice 4 — P8 concrete tolerance for kinds 'np-required' /
  *     'patient-required'; uses the slice-3 P12 primitive + cause
  *     registry without rewrite (the seam was built in slice 3).
+ *   slice 5a — vocabulary-composed activity entries (foundation):
+ *     compose(activityId, overrides) -> engine params. Adds
+ *     bundled-substrate equipment classification (substrate-graded-
+ *     bundled class) so atomic substrate phrases route through the
+ *     engine without being re-joined as a list.
+ *   slice 5b — 11-activity vocabulary expansion + list-member
+ *     partition routing. Activities whose profile carries
+ *     rendersAsActivityList=true partition into the P3 opener's
+ *     focus list rather than rendering their own activity sentences.
+ *     Foregrounding refined: equipment-qualifying dropped (RW / gait
+ *     belt don't lead a sentence); tail-modifier positions filtered
+ *     from position foregrounding. _renderEquipmentSubstrateLed
+ *     falls back to graded items when substrate is empty.
  * Stubbed (return null): P5 quantification rendering for non-foregrounded
  * slots, P6 chained-cue form and multi-cue stacks, P9 within-session
  * and cross-session improvement closers, P10 plan,
@@ -76,17 +89,113 @@ const DockyEngine = {
    */
   generate: function(params) {
     const registry = { causesNamed: new Set() };
+
+    // Partition list-member activities (those with profile flag
+    // rendersAsActivityList === true, surfaced onto the activity by
+    // the vocabulary composer). They route into a P3 opener's focus
+    // list rather than into the activity stack. Standalone activities
+    // render via the normal stack path.
+    const routed = this._partitionListMembers(params);
+
     const note = {
-      opener: this._renderOpener(params),
-      preObs: this._renderObservationsAt(params, 'pre', registry),
-      activitySentences: this._renderActivityStack(params, registry),
-      withinObs: this._renderObservationsAt(params, 'within', registry),
-      cues: this._renderCues(params),
-      summaryObs: this._renderObservationsAt(params, 'summary', registry),
-      tolerance: this._renderTolerance(params, registry),
-      closer: this._renderCloser(params)
+      opener: this._renderOpener(routed),
+      preObs: this._renderObservationsAt(routed, 'pre', registry),
+      activitySentences: this._renderActivityStack(routed, registry),
+      withinObs: this._renderObservationsAt(routed, 'within', registry),
+      cues: this._renderCues(routed),
+      summaryObs: this._renderObservationsAt(routed, 'summary', registry),
+      tolerance: this._renderTolerance(routed, registry),
+      closer: this._renderCloser(routed)
     };
     return this._assembleNote(note);
+  },
+
+  // ───────────────────────────────────────────────────────────────
+  // LIST-MEMBER PARTITION (P3 routing for rendersAsActivityList profiles)
+  //
+  // Activities whose profile carries rendersAsActivityList=true do
+  // not render their own activity sentences. They render as members
+  // of a P3 opener's focus list — "Skilled interventions focused
+  // on [list], to [goal]." — and the standalone activities follow
+  // as their own sentences.
+  //
+  // Mixed-case rule (decided alongside the bending-lifting-carrying
+  // profile in slice 5b):
+  //   - All list-members + no standalones -> P3 opener is the entire
+  //     activity-bearing portion of the note. activities[] becomes
+  //     empty for the activity-stack render.
+  //   - Mix of list-members + standalones -> P3 opener fires;
+  //     standalone activities follow as sentences after it.
+  //   - All standalones, no list-members -> partition is a no-op;
+  //     activities[] passes through; opener (if any) is whatever
+  //     the caller set.
+  //
+  // Caller-set opener wins. If params.opener is already populated,
+  // the partition does NOT overwrite it — list-members still get
+  // moved out of the activity stack, but the focus/purpose the
+  // partition would have built are dropped. This preserves caller
+  // intent at the cost of dropping list-member content; callers
+  // that want both must build their opener manually after running
+  // a partition.
+  // ───────────────────────────────────────────────────────────────
+
+  _partitionListMembers: function(params) {
+    const activities = params.activities || [];
+    const listMembers = [];
+    const standalones = [];
+
+    for (const raw of activities) {
+      const activity = typeof raw === 'string' ? { id: raw } : raw;
+      if (activity && activity.rendersAsActivityList) {
+        listMembers.push(activity);
+      } else {
+        standalones.push(activity);
+      }
+    }
+
+    if (listMembers.length === 0) return params;
+
+    // Build a derived params (don't mutate caller input).
+    const derived = Object.assign({}, params, { activities: standalones });
+
+    // Caller-set opener wins. Skip building one when params.opener
+    // is already populated.
+    if (!params.opener) {
+      const focus = listMembers.map(a => a.label).filter(Boolean).join(', ');
+      const purpose = this._composeGoalFromListMembers(listMembers);
+      if (focus) {
+        derived.opener = {
+          type: 'skilled-interventions',
+          focus: focus,
+          purpose: purpose || null
+        };
+      }
+    }
+
+    return derived;
+  },
+
+  /**
+   * Aggregate goal phrasing from list-member activities.
+   *
+   * Slice 5b rule: pick the first list-member's goalPhrasing
+   * (which the composer surfaces as the first entry of the
+   * activity's typicalGoalPhrasings array). Returns null if no
+   * goal phrasing is available — _renderOpener handles the null
+   * by emitting the P3 opener without a 'to <purpose>' tail.
+   *
+   * Revisit when corpus surfaces a paragraph that aggregates
+   * goals across list-members differently (e.g., concatenation,
+   * goal-per-member).
+   */
+  _composeGoalFromListMembers: function(listMembers) {
+    if (!Array.isArray(listMembers) || listMembers.length === 0) return null;
+    for (const m of listMembers) {
+      if (m && typeof m.goalPhrasing === 'string' && m.goalPhrasing.length > 0) {
+        return m.goalPhrasing;
+      }
+    }
+    return null;
   },
 
   // ───────────────────────────────────────────────────────────────
@@ -215,9 +324,23 @@ const DockyEngine = {
     const e = this._classifyEquipment(activity.equipment);
     const p = this._classifyPosition(activity.position);
 
-    // Tiebreaker: fraction > set > count > duration > distance
-    //           > equipment-substrate > equipment-graded > equipment-qualifying
-    //           > position > activity-as-event
+    // Tiebreaker (refined in slice 5b based on 11-activity coverage):
+    //   fraction > set > count > duration > distance
+    //   > equipment-substrate > equipment-graded
+    //   > position
+    //   > activity-as-event
+    //
+    // equipment-qualifying (RW, gait belt, shower bench) was removed
+    // from foregrounding entirely. Qualifying equipment doesn't
+    // sentence-lead — "RW used during X" is awkward and not
+    // corpus-attested. Qualifying items render inline in other
+    // paths but never carry a sentence on their own.
+    //
+    // Position foregrounding now requires the position to be
+    // sentence-leading (pre-modifier or progression kinds).
+    // Tail-modifier positions ("from w/c", "while seated EOB",
+    // "performed bilaterally") cannot lead a sentence — "While
+    // from w/c, X" doesn't read. _classifyPosition filters those.
     const ranked = [
       { key: 'quantification', sub: 'fraction',  rank: 1, present: q === 'fraction' },
       { key: 'quantification', sub: 'sets',      rank: 2, present: q === 'sets' },
@@ -226,15 +349,14 @@ const DockyEngine = {
       { key: 'quantification', sub: 'distance',  rank: 5, present: q === 'distance' },
       { key: 'equipment-substrate',  rank: 6, present: e.substrate },
       { key: 'equipment-graded',     rank: 7, present: e.graded },
-      { key: 'equipment-qualifying', rank: 8, present: e.qualifying },
-      { key: 'position',             rank: 9, present: p }
+      { key: 'position',             rank: 8, present: p }
     ];
     const winner = ranked.find(r => r.present);
     if (winner) {
-      // equipment-graded and equipment-qualifying still foreground as
-      // 'equipment-substrate' rendering path; the distinction matters
-      // for inline rendering, not for the lead.
-      if (winner.key === 'equipment-graded' || winner.key === 'equipment-qualifying') {
+      // equipment-graded foregrounds via the substrate rendering
+      // path (substrate-led shape "X used during Y"). The substrate
+      // renderer falls back to graded items when substrate is empty.
+      if (winner.key === 'equipment-graded') {
         return 'equipment-substrate';
       }
       return winner.key;
@@ -321,12 +443,20 @@ const DockyEngine = {
    * Position operational test.
    * notable if: non-default | transition | graded-variable | progression-marker.
    * not notable: default (the position the activity is always done in).
+   *
+   * Tail-modifier positions ("from w/c", "while seated EOB",
+   * "performed bilaterally") are NOT sentence-leading — they
+   * attach as a tail to whatever the foreground is. Filter them
+   * out of position foregrounding so the "While X, Y" renderer
+   * never fires on a tail-modifier and produces awkward output
+   * like "While from w/c, ...".
    */
   _classifyPosition: function(pos) {
     if (!pos) return false;
     if (typeof pos === 'string') return false; // bare strings are treated as default modifiers
     if (pos.notable === false) return false;
     if (pos.kind === 'default') return false;
+    if (pos.kind === 'tail-modifier') return false;
     return !!pos.value;
   },
 
@@ -417,10 +547,14 @@ const DockyEngine = {
    */
   _renderEquipmentSubstrateLed: function(activity, label, isOpener) {
     const eq = activity.equipment || {};
-    const substrate = this._equipmentPhrases(eq.substrate);
-    if (substrate.length === 0) return { error: 'substrate_unrenderable', activityId: activity.id };
+    // Substrate first, then graded as fallback. Equipment-graded
+    // foregrounding routes here too (per _pickForegroundedComponent),
+    // and graded items render in the same "X used during Y" shape.
+    let items = this._equipmentPhrases(eq.substrate);
+    if (items.length === 0) items = this._equipmentPhrases(eq.graded);
+    if (items.length === 0) return { error: 'substrate_unrenderable', activityId: activity.id };
     const positionTail = this._renderPositionTail(activity.position);
-    let sentence = `${this._formatList(substrate)} used during ${label}`;
+    let sentence = `${this._formatList(items)} used during ${label}`;
     if (positionTail) sentence += ` ${positionTail}`;
     sentence += '.';
     sentence = sentence.charAt(0).toUpperCase() + sentence.slice(1);
