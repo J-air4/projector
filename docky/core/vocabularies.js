@@ -240,6 +240,7 @@ const PROFILES = {
     description: 'Sit-to-stand, stand-pivot, lateral scooting, transfers',
     typicalAssistLevel: 'min',          // varies; 'mod' or 'max' for higher-acuity
     typicalAssistLocation: 'gait-belt',
+    typicalAssistPurpose: 'safety',
     typicalCueQuantity: 'mod',
     typicalCueType: 'verbal',
     typicalCuePurpose: 'safe-sequence-ue',
@@ -285,6 +286,7 @@ const PROFILES = {
     id: 'functional-mobility',
     description: 'Item retrieval, walking with RW, ambulation in hallway',
     typicalAssistLevel: 'cga',
+    typicalAssistPurpose: 'safety',
     typicalCueQuantity: 'min',
     typicalCueType: 'verbal',
     typicalCuePurpose: 'safe-walker-management',
