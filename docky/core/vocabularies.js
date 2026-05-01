@@ -394,6 +394,8 @@ const ACTIVITIES = {
 
     quantificationKind: 'distance',  // typical: "4 feet"
 
+    gerundForm: 'rolling',  // slice 6 stack-connector gerund-shape rendering
+
     typicalGoalPhrasings: [
       'bilateral coordination and forearm/grip strength'  // corpus typo "forearm/ grip" corrected
     ],
@@ -433,6 +435,8 @@ const ACTIVITIES = {
     defaultQualifying: ['rw'],                       // RW qualifies difficulty
 
     quantificationKind: 'count',  // typical: "6 trials"
+
+    gerundForm: 'completing',
 
     typicalGoalPhrasings: [
       'Bilateral shoulder Range of motion for enhanced dressing ability'
@@ -520,6 +524,8 @@ const ACTIVITIES = {
     defaultQualifying: ['rw'],
 
     quantificationKind: 'trials',
+
+    gerundForm: 'completing',
 
     typicalGoalPhrasings: [
       'improve overall task performance during ADLs',
@@ -640,6 +646,8 @@ const ACTIVITIES = {
 
     quantificationKind: 'trials',
 
+    gerundForm: 'reaching',
+
     typicalGoalPhrasings: [
       'increase the ability to reach BLE when donning LB clothing',
       'promote enhanced dressing ability'
@@ -666,6 +674,56 @@ const ACTIVITIES = {
     ],
 
     corpusEvidence: null
+  },
+
+  // ── Slice 6 additions ─────────────────────────────────────────
+  // Two activities that appear in the corpus only as members of a
+  // stack (chained inside wrist-roller-1 with progressed-to and
+  // in-addition-to connectors). Both could compose standalone in
+  // future paragraphs. Profile: bilateral-coordination-task,
+  // matching wrist-roller-activity. Each carries gerundForm so
+  // they can render in gerund shape inside a stack hint chain.
+
+  'plastic-eggs': {
+    id: 'plastic-eggs',
+    label: 'plastic eggs cracking',
+    cpt: '97530',
+    profile: 'bilateral-coordination-task',
+
+    defaultPosition: 'standing',
+    defaultPositionKind: 'pre-modifier',
+    defaultSubstrate: ['plastic-eggs-with-pegs'],
+
+    quantificationKind: 'fraction',  // typical: "6/12"
+
+    gerundForm: 'cracking',
+
+    typicalGoalPhrasings: [
+      'bilateral coordination and forearm/grip strength'
+    ],
+
+    corpusEvidence: 'wrist-roller-1'
+  },
+
+  'theraputty-rolling': {
+    id: 'theraputty-rolling',
+    label: 'theraputty rolling',
+    cpt: '97530',
+    profile: 'bilateral-coordination-task',
+
+    defaultPosition: 'standing',
+    defaultPositionKind: 'pre-modifier',
+    defaultSubstrate: ['orange-theraputty', 'dowel-bar'],
+
+    quantificationKind: null,  // not quantified in corpus
+
+    gerundForm: 'rolling out',
+
+    typicalGoalPhrasings: [
+      'bilateral coordination and forearm/grip strength'
+    ],
+
+    corpusEvidence: 'wrist-roller-1'
   }
 };
 
@@ -785,6 +843,17 @@ function compose(activityId, overrides) {
   // and is also used by composers wiring P2 openers from defaults.
   if (Array.isArray(activity.typicalGoalPhrasings) && activity.typicalGoalPhrasings.length > 0) {
     a.goalPhrasing = activity.typicalGoalPhrasings[0];
+  }
+  // gerundForm surfaces onto the activity so the engine's stack-
+  // connector path (slice 6) can render the activity in gerund shape
+  // when an in-addition-to or progressed-to hint targets it.
+  if (typeof activity.gerundForm === 'string') {
+    a.gerundForm = activity.gerundForm;
+  }
+  // id surfaces too — useful for warn messages on missing-gerundForm
+  // fallback so the operator knows which activity caused the warn.
+  if (typeof activity.id === 'string') {
+    a.id = activity.id;
   }
 
   // Per-call overrides on the activity entry

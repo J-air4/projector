@@ -54,10 +54,23 @@
  *     belt don't lead a sentence); tail-modifier positions filtered
  *     from position foregrounding. _renderEquipmentSubstrateLed
  *     falls back to graded items when substrate is empty.
+ *   slice 5c — capitalization heuristic in _assembleNote (preserves
+ *     activity labels, abbreviations, hyphenated compounds when
+ *     joined after a comma); per-call rendersAsActivityList override
+ *     in compose() with profile-default precedence rule.
+ *   slice 6 — P-Stack-Connectors. Three connector kinds:
+ *     sentence-boundary (default), in-addition-to (continues prior
+ *     sentence with " in addition to <gerund>"), progressed-to
+ *     (starts new clause with "While <toPosition>, the patient
+ *     progressed to <gerund>"). Caller-supplied via
+ *     params.stackHints[]; engine never infers. _renderActivityGerund
+ *     emits gerund-shape sentences using activity.gerundForm + clean
+ *     substrate (articles stripped). Missing-gerundForm warns and
+ *     downgrades to sentence-boundary.
  * Stubbed (return null): P5 quantification rendering for non-foregrounded
  * slots, P6 chained-cue form and multi-cue stacks, P9 within-session
  * and cross-session improvement closers, P10 plan,
- * P-BackRef (return shape reserved in P12 primitive), P-Stack-Connectors.
+ * P-BackRef (return shape reserved in P12 primitive).
  * Slice goal is sentence-shape match for verbatim corpus fragments.
  *
  * Spec: docs/97530-patterns.md is the bird's-eye spec (locked rules,
@@ -255,13 +268,26 @@ const DockyEngine = {
    * through here so activity sentences and observations share the same
    * dedup state. Activity-level P12 emission is deferred — when it
    * lands, it calls _renderCausalConnector(cause, registry) directly.
+   *
+   * Slice 6: when params.stackHints is non-empty, delegates to
+   * _applyStackConnectors which handles in-addition-to and
+   * progressed-to connector kinds with gerund-shape rendering for
+   * the second activity in each connector. When stackHints is
+   * absent or empty, uses the simple per-activity sentence path
+   * (default sentence-boundary stacking).
    */
   _renderActivityStack: function(params, registry) {
     const activities = params.activities || [];
     if (activities.length === 0) return null;
 
-    const sentences = [];
+    const hints = (params.stackHints && Array.isArray(params.stackHints))
+      ? params.stackHints : [];
 
+    if (hints.length > 0) {
+      return this._applyStackConnectors(activities, params, registry);
+    }
+
+    const sentences = [];
     for (const raw of activities) {
       const activity = typeof raw === 'string' ? { id: raw } : raw;
       const result = this._renderActivitySentence(activity, params, registry);
@@ -270,9 +296,172 @@ const DockyEngine = {
       }
       sentences.push(result.sentence);
     }
-
-    // P-Stack-Connectors logic deferred: default sentence-boundary stacking.
     return sentences;
+  },
+
+  // ───────────────────────────────────────────────────────────────
+  // P-STACK-CONNECTORS (slice 6)
+  //
+  // Three connector kinds for joining stacked activities:
+  //   'sentence-boundary' (default) — period + space; second activity
+  //     renders as a normal sentence with capitalized first letter.
+  //   'in-addition-to' — strips the trailing period from the prior
+  //     output and joins with " in addition to "; second activity
+  //     renders in gerund shape ("rolling out orange theraputty
+  //     with dowel bar").
+  //   'progressed-to' — appends ". While <toPosition>, the patient
+  //     progressed to "; second activity renders in gerund shape.
+  //     toPosition is hint-controlled (it's the change axis between
+  //     activities, not a property of either activity).
+  //
+  // Hints are pairwise: { fromIndex, toIndex, connector, toPosition? }.
+  // Chained connectors compose by feeding gerund-mode outputs into
+  // subsequent gerund-mode joins. A subsequent sentence-boundary
+  // hint resets the chain — adds a period and starts a new sentence.
+  //
+  // Gerund-shape fallback: when a hint requests a non-sentence-
+  // boundary connector but the target activity has no gerundForm,
+  // the engine warns and downgrades the join to sentence-boundary.
+  // Loud fallback prevents the silent-deadcode trap that earlier
+  // slices' tests caught (bundled-flag in 5a, list-member route in
+  // 5b). Activity entries declare gerundForm explicitly per slice 6.
+  // ───────────────────────────────────────────────────────────────
+
+  _applyStackConnectors: function(activities, params, registry) {
+    const hints = params.stackHints || [];
+    const hintByTo = new Map();
+    for (const h of hints) {
+      if (h && typeof h.toIndex === 'number') hintByTo.set(h.toIndex, h);
+    }
+
+    // Determine each activity's render mode based on incoming hint.
+    // sentence-boundary or no hint -> sentence; in-addition-to /
+    // progressed-to -> gerund.
+    const modes = activities.map((_, i) => {
+      const h = hintByTo.get(i);
+      if (!h) return 'sentence';
+      if (h.connector === 'in-addition-to' || h.connector === 'progressed-to') {
+        return 'gerund';
+      }
+      return 'sentence';
+    });
+
+    // Render each activity per its mode. On gerund failure (no
+    // gerundForm declared), warn and downgrade to sentence; clear
+    // the hint so the assembly loop joins as sentence-boundary.
+    const rendered = [];
+    for (let i = 0; i < activities.length; i++) {
+      const raw = activities[i];
+      const activity = typeof raw === 'string' ? { id: raw } : raw;
+      if (modes[i] === 'gerund') {
+        const gerund = this._renderActivityGerund(activity);
+        if (gerund) {
+          rendered.push({ mode: 'gerund', text: gerund });
+          continue;
+        }
+        // Fallback: warn + downgrade
+        if (typeof console !== 'undefined' && console.warn) {
+          console.warn('[engine] stack-connector requested gerund-shape but activity '
+            + (activity.id || activity.label || '<unnamed>')
+            + ' has no gerundForm; downgrading to sentence-boundary.');
+        }
+        hintByTo.delete(i);
+        modes[i] = 'sentence';
+      }
+      const result = this._renderActivitySentence(activity, params, registry);
+      if (result && result.error) {
+        return result; // bubble up
+      }
+      rendered.push({ mode: 'sentence', text: result.sentence });
+    }
+
+    // Assemble: walk rendered[] applying connectors per hint.
+    let out = rendered[0].text;
+    for (let i = 1; i < rendered.length; i++) {
+      const hint = hintByTo.get(i);
+      const connector = hint && hint.connector;
+      const piece = rendered[i];
+
+      if (connector === 'in-addition-to') {
+        // Continues the previous sentence: strip trailing period,
+        // join with " in addition to <gerund>".
+        out = out.replace(/\.$/, '');
+        out += ' in addition to ' + piece.text;
+      } else if (connector === 'progressed-to') {
+        // Starts a new sentence-clause: ensure prior ends with
+        // period, then "While <toPosition>, the patient progressed
+        // to <gerund>".
+        if (!/[.!?]$/.test(out)) out += '.';
+        const toPos = hint && hint.toPosition;
+        if (toPos) {
+          out += ' While ' + toPos + ', the patient progressed to ' + piece.text;
+        } else {
+          // No toPosition supplied: drop the "While X," frame.
+          out += ' The patient progressed to ' + piece.text;
+        }
+      } else {
+        // sentence-boundary (default or downgrade): ensure prior
+        // ends with period, then space + capitalized sentence.
+        if (!/[.!?]$/.test(out)) out += '.';
+        out += ' ' + piece.text;
+      }
+    }
+
+    if (!/[.!?]$/.test(out)) out += '.';
+
+    // Return as array-of-1 so _assembleNote spreads it like the
+    // legacy multi-sentence return shape.
+    return [out];
+  },
+
+  /**
+   * Render an activity in gerund shape for stack-connector use.
+   *
+   *   "<gerundForm> [<quantification> ]<substrate>[ with <substrate-2>]..."
+   *
+   * Examples (corpus-anchored):
+   *   "cracking 6/12 plastic eggs with pegs inside"
+   *   "rolling out orange theraputty with dowel bar"
+   *
+   * Returns string | null. Null indicates the activity has no
+   * gerundForm declared; caller falls back to sentence-shape.
+   *
+   * Articles ("a ", "an ") are stripped from substrate phrases when
+   * rendering in gerund context — the corpus uses bare nouns after
+   * "with" ("with dowel bar", not "with a dowel bar"), even when the
+   * same equipment carries an article in qVerbS form.
+   */
+  _renderActivityGerund: function(activity) {
+    if (!activity || typeof activity.gerundForm !== 'string' || activity.gerundForm.length === 0) {
+      return null;
+    }
+
+    const parts = [activity.gerundForm];
+
+    if (activity.quantification) {
+      const qStr = this._renderQuantificationPhrase(activity.quantification);
+      if (qStr) parts.push(qStr);
+    }
+
+    const eq = activity.equipment || {};
+    const subPhrases = this._equipmentPhrases(eq.substrate).map(p => this._stripArticle(p));
+
+    if (subPhrases.length === 1) {
+      parts.push(subPhrases[0]);
+    } else if (subPhrases.length >= 2) {
+      parts.push(subPhrases[0]);
+      for (let i = 1; i < subPhrases.length; i++) {
+        parts.push('with');
+        parts.push(subPhrases[i]);
+      }
+    }
+
+    return parts.join(' ');
+  },
+
+  _stripArticle: function(phrase) {
+    if (typeof phrase !== 'string') return phrase;
+    return phrase.replace(/^(a |an )/i, '');
   },
 
   /**
