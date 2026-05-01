@@ -93,7 +93,8 @@ console.log('--- Logic 1: capitalization heuristic ---');
     opener: { type: 'to-promote', verb: 'promote', goal: 'safety and independence within living environment' },
     label: 'Sit-to-stand transfers',
     verb: 'performed',
-    assists: null  // opt out of slice-7 profile assist auto-surface
+    assists: null,  // opt out of slice-7 profile assist auto-surface
+    cues: null      // opt out of slice-8 profile cue auto-surface
   });
   const out = DockyEngine.generate(params);
   const expected = 'To promote safety and independence within living environment, Sit-to-stand transfers performed.';
@@ -108,7 +109,8 @@ console.log('--- Logic 1: capitalization heuristic ---');
   const params = Vocab.compose('dynamic-standing-balance', {
     opener: { type: 'to-promote', verb: 'improve', goal: 'overall task performance during ADLs' },
     label: 'Dynamic standing balance',
-    assists: null  // opt out of slice-7 profile assist auto-surface
+    assists: null,  // opt out of slice-7 profile assist auto-surface
+    cues: null      // opt out of slice-8 profile cue auto-surface
   });
   const out = DockyEngine.generate(params);
   const expected = 'To improve overall task performance during ADLs, while standing, Dynamic standing balance performed.';

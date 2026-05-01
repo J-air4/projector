@@ -45,7 +45,8 @@ const cases = [
           verb: 'promote',
           goal: 'bilateral coordination and forearm/grip strength'
         },
-        quantification: { type: 'distance', value: '4 feet' }
+        quantification: { type: 'distance', value: '4 feet' },
+        cues: null  // opt out of slice-8 profile cue auto-surface
       });
       return DockyEngine.generate(params);
     }
@@ -56,7 +57,8 @@ const cases = [
     target: 'Patient untied 9/9 knots from theraband.',
     run: function() {
       const params = Vocab.compose('untie-theraband-knots', {
-        quantification: { type: 'fraction', value: '9/9 knots' }
+        quantification: { type: 'fraction', value: '9/9 knots' },
+        cues: null  // opt out of slice-8 profile cue auto-surface
       });
       return DockyEngine.generate(params);
     }
@@ -68,7 +70,8 @@ const cases = [
     run: function() {
       const params = Vocab.compose('ring-toss', {
         quantification: { type: 'count', value: '6 trials' },
-        assists: null  // opt out of slice-7 profile assist auto-surface
+        assists: null,  // opt out of slice-7 profile assist auto-surface
+        cues: null      // opt out of slice-8 profile cue auto-surface
       });
       return DockyEngine.generate(params);
     }
@@ -79,7 +82,8 @@ const cases = [
     run: function() {
       const params = Vocab.compose('ring-toss', {
         quantification: { type: 'count', value: '6 trials' },
-        assists: null  // opt out of slice-7 profile assist auto-surface
+        assists: null,  // opt out of slice-7 profile assist auto-surface
+        cues: null      // opt out of slice-8 profile cue auto-surface
       });
       const eq = params.activities[0].equipment || {};
       // Composed substrate is an array of {phrase, class} objects.

@@ -67,7 +67,7 @@ const cases = [
         level: 'Min',
         type: 'verbal',
         purpose: 'hip mobility',
-        tail: 'when reaching towards the ground'
+        context: 'when reaching towards the ground'  // slice 8: was `tail`
       }]
     }
   }

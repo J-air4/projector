@@ -874,10 +874,10 @@ function compose(activityId, overrides) {
   // Outer params
   const params = { activities: [a] };
   if (ov.opener)       params.opener = ov.opener;
-  if (ov.cues)         params.cues = ov.cues;
   if (ov.observations) params.observations = ov.observations;
   if (ov.tolerance)    params.tolerance = ov.tolerance;
   if (ov.closer)       params.closer = ov.closer;
+  // ov.cues handled by the slice-8 block below (auto-surface + opt-out).
 
   // P-Assist (slice 7). Per-call override convention matches
   // rendersAsActivityList: explicit ov.assists (any value, including
@@ -903,6 +903,32 @@ function compose(activityId, overrides) {
       if (location) entry.location = location;
       if (purpose)  entry.purpose  = purpose.phrase;
       params.assists = [entry];
+    }
+  }
+
+  // P-Cue (slice 8). Same opt-out convention as assists: explicit
+  // ov.cues (any value) means caller has spoken; undefined inherits
+  // profile default. Profile auto-surface emits flat shape only —
+  // chained cues (`chain` field) are caller-passed because shape is
+  // session-specific clinical reasoning, not a profile constant
+  // (the corpus count showed chained-vs-flat is caller-determined
+  // within profile bounds, same as assist purpose).
+  //
+  // Purpose passes the resolved phrase as a bare string (not the id),
+  // matching the slice-7 assist convention. The engine's id-lookup
+  // branch (data.cuePurposes) is unsynchronized with CUE_PURPOSES
+  // here — see TODO in engine._resolveCuePurpose.
+  if (ov.cues !== undefined) {
+    if (ov.cues) params.cues = ov.cues;
+  } else if (profile && profile.typicalCueQuantity && profile.typicalCueType) {
+    const quantity = CUE_QUANTITIES[profile.typicalCueQuantity] || null;
+    const type     = CUE_TYPES[profile.typicalCueType]         || null;
+    const purpose  = profile.typicalCuePurpose
+      ? (CUE_PURPOSES[profile.typicalCuePurpose] || null) : null;
+    if (quantity && type) {
+      const entry = { quantity: quantity.phrase, type: type.phrase };
+      if (purpose) entry.purpose = purpose.phrase;
+      params.cues = [entry];
     }
   }
 

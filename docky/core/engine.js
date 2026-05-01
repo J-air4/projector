@@ -116,7 +116,7 @@ const DockyEngine = {
       activitySentences: this._renderActivityStack(routed, registry),
       assist: this._renderAssistSentence(routed, registry),
       withinObs: this._renderObservationsAt(routed, 'within', registry),
-      cues: this._renderCues(routed),
+      cues: this._renderCues(routed, registry),
       summaryObs: this._renderObservationsAt(routed, 'summary', registry),
       tolerance: this._renderTolerance(routed, registry),
       closer: this._renderCloser(routed)
@@ -806,68 +806,116 @@ const DockyEngine = {
   },
 
   // ───────────────────────────────────────────────────────────────
-  // CUES (P6 — flat cue form only; chained-cue form deferred)
+  // CUES (P6 — slice 8: flat + chained, single-cue, with P12 causal tail)
   //
-  // GAP: the spec recognizes both flat ("Min verbal cues for pacing")
-  // and chained ("min verbal cues to use previously trained breathing
-  // techniques to improve activity tolerance and task performance,
-  // secondary to symptoms of COPD") cue forms. The chained form is
-  // the high-skill version that ties cueing -> means -> outcome and
-  // optionally to a P12 cause. Until it ships, the engine emits only
-  // the flat form, systematically under-reading skilled cueing on
-  // any input that carries that structure. Close this before week 2
-  // wraps.
+  // Single-cue renderer. Multi-cue stacks deferred (n=2 in corpus,
+  // two structurally different shapes — locking a renderer on that
+  // sample is the inline-assist trap). Multi-cue input warns loudly
+  // and renders the first cue only — best-effort with a visible gap.
+  //
+  // Field shape:
+  //   <quantity> <type> cues <purpose> [<chain>] [<context>] [<causalTail>]
+  //
+  // Chained-cue support is `chain`: a freeform string carrying its own
+  // connector word ("facilitating wider BOS for increased stability",
+  // "to improve activity tolerance and task performance",
+  // "to promote timed release for enhanced coordination"). Two-field
+  // representation (purpose + chain) absorbs corpus stylistic variation
+  // without locking a connector vocabulary on n=4.
+  //
+  // tightCause defaults to FALSE for cues. Corpus norm is comma-form
+  // ("...task performance, secondary to symptoms of COPD") — cues
+  // attach causes to clauses, while assists attach to noun-like
+  // phrases (where tightCause defaults to true). Different defaults,
+  // both corpus-correct.
+  //
+  // Inline cue (cue as a tail on the activity sentence — "with min
+  // verbal cues for pacing", 5/15 = 33% of 97530 corpus) is NOT
+  // handled here. Deferred slice flag: `cueAsActivityModifier`,
+  // parallel to `assistAsPositionalContext`. Hypothesis worth
+  // carrying: inline cues correlate with inline assists. When both
+  // deferred slices land they probably want a unified positional-
+  // context tail renderer, not two parallel inline renderers.
+  //
+  // Loud-fail on cue.tail (slice 2 field replaced by chain/context/
+  // causalTail). Silent drop is the dead-code trap; the migration is
+  // one slice 2 test.
   // ───────────────────────────────────────────────────────────────
 
   /**
-   * Flat cue: "[quantity|level] [type] cues for [purpose][ <tail>]."
-   *   - quantity: numeric ("1", "2"), preserved verbatim
-   *   - level:    qualifier ("min", "Min", "mod", "MOD", "Intermittent")
-   *               preserved verbatim — corpus does not normalize case
-   *   - type:     "verbal" | "tactile" | "visual" (verbatim)
-   *   - purpose:  free-text phrase. May begin with "for" already, or
-   *               with "to" (purpose-clause form) — caller controls.
-   *   - tail:     optional trailing phrase ("were required",
-   *               "when reaching towards the ground"). Verbatim.
-   *
-   * Returns a single sentence string for now. When called with
-   * cues = [], returns null (no sentence emitted).
-   * Multi-cue stacking deferred — flag and bail with error.
+   * Render one cue. Returns string (no terminating period) | { error }.
+   * Caller (`_renderCues`) wraps into a sentence.
    */
-  _renderCues: function(params) {
+  _renderCue: function(cue, registry) {
+    if (!cue) return null;
+    if (cue.tail !== undefined) {
+      return {
+        error: 'cue_tail_field_removed',
+        hint: 'slice 8 splits cue.tail into chain | context | causalTail'
+      };
+    }
+
+    const lead = cue.quantity || cue.level;  // v1-compat fallback (slice 2)
+    if (!lead) return null;
+    if (!cue.type) return null;
+    if (!cue.purpose) return null;
+
+    const purposePhrase = this._resolveCuePurpose(cue.purpose);
+
+    let phrase = lead + ' ' + cue.type + ' cues ' + purposePhrase;
+    if (cue.chain)   phrase += ' ' + String(cue.chain).trim();
+    if (cue.context) phrase += ' ' + String(cue.context).trim();
+
+    if (cue.causalTail) {
+      const tight = cue.causalTail.tightCause === true ? true : false;
+      phrase = this._appendCausalTail(phrase, {
+        cause: cue.causalTail.cause,
+        connector: cue.causalTail.connector,
+        tightCause: tight
+      }, registry);
+    }
+
+    return phrase;
+  },
+
+  /**
+   * Sentence wrapper. Single-cue only this slice.
+   */
+  _renderCues: function(params, registry) {
     const cues = params.cues;
     if (!cues || !Array.isArray(cues) || cues.length === 0) return null;
 
-    // Multi-cue stacking is deferred (chained cues + sentence-boundary
-    // stack connectors land in a later slice). Skip silently rather than
-    // erroring so a partially-mappable v1->v2 input still produces a
-    // best-effort note.
-    if (cues.length > 1) return null;
-
-    const cue = cues[0];
-    if (!cue.type || !cue.purpose) return null;
-    const lead = cue.quantity || cue.level;
-    if (!lead) return null;
-
-    // If purpose matches a known v2 cuePurpose id, use its label (which
-    // already begins with "for"). Otherwise treat as free text and
-    // prepend "for" only when the phrase doesn't already start with
-    // a binding word.
-    let purposePhrase;
-    const lookup = this.data && this.data.cuePurposes
-      ? this.data.cuePurposes.find(p => p.id === cue.purpose)
-      : null;
-    if (lookup && lookup.label) {
-      purposePhrase = lookup.label;
-    } else {
-      const p = String(cue.purpose).trim();
-      purposePhrase = /^(for|to)\b/i.test(p) ? p : `for ${p}`;
+    if (cues.length > 1 && typeof console !== 'undefined' && console.warn) {
+      console.warn('[engine] multi-cue stacks deferred to a later slice; '
+        + 'rendering first cue only (' + (cues.length - 1) + ' dropped)');
     }
 
-    let sentence = `${lead} ${cue.type} cues ${purposePhrase}`;
-    if (cue.tail) sentence += ` ${String(cue.tail).trim()}`;
-    sentence += '.';
-    return sentence;
+    const phrase = this._renderCue(cues[0], registry);
+    if (phrase && phrase.error) return phrase;
+    if (!phrase) return null;
+    return phrase + '.';
+  },
+
+  /**
+   * Cue-purpose resolution. Slice 2 logic preserved.
+   *
+   * TODO (data-layer rationalization): two purpose tables exist and
+   * are unsynchronized. `data.cuePurposes` (data.js, ~8 entries with
+   * simple ids) is what this id-lookup hits; `CUE_PURPOSES`
+   * (vocabularies.js:116, ~17 entries with rich ids like
+   * 'safety-awareness', 'pacing-and-task-management') is what the
+   * compose() patch in slice 8 references. Most LAYER-1 vocab ids
+   * miss this lookup and fall through to free-text. Reconciling the
+   * two tables is its own slice — flagging here so the next reader
+   * of this branch sees it.
+   */
+  _resolveCuePurpose: function(purpose) {
+    const lookup = this.data && this.data.cuePurposes
+      ? this.data.cuePurposes.find(p => p.id === purpose)
+      : null;
+    if (lookup && lookup.label) return lookup.label;
+    const p = String(purpose).trim();
+    return /^(for|to)\b/i.test(p) ? p : 'for ' + p;
   },
 
   // ───────────────────────────────────────────────────────────────

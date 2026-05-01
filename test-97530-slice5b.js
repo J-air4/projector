@@ -65,7 +65,8 @@ const cases = [
         // as tails to other foregrounding paths. activity-as-event
         // doesn't render tails today, so position is silent here.
         verb: 'performed',
-        assists: null  // opt out of slice-7 profile assist auto-surface
+        assists: null,  // opt out of slice-7 profile assist auto-surface
+        cues: null      // opt out of slice-8 profile cue auto-surface
       });
       return DockyEngine.generate(params);
     }
@@ -87,7 +88,8 @@ const cases = [
           goal: 'overall task performance during ADLs'
         },
         label: 'Dynamic standing balance',
-        assists: null  // opt out of slice-7 profile assist auto-surface
+        assists: null,  // opt out of slice-7 profile assist auto-surface
+        cues: null      // opt out of slice-8 profile cue auto-surface
       });
       return DockyEngine.generate(params);
     }
