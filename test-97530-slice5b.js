@@ -41,14 +41,15 @@ const cases = [
   {
     name: 'Voice — sit-stand-transfers with P2 opener (sts-1)',
     kind: 'voice',
-    // P2 opener ends with comma; the assembler lowercases the first
-    // character of the next part when the previous part ends with
-    // ','. That's why "Sit-to-stand" becomes "sit-to-stand" here —
-    // same rule that correctly produces "while standing" elsewhere.
-    // The corpus paragraph this anchors against is run-on (no comma)
-    // so byte-match is approximate; the test verifies shape and
-    // engine behavior consistency, not byte-exact corpus replication.
-    target: 'To promote safety and independence within living environment, sit-to-stand transfers performed.',
+    // P2 opener ends with comma; the assembler usually lowercases
+    // the first character of the next part. The slice 5c
+    // capitalization heuristic preserves the case here because
+    // "Sit-to-stand transfers" is a known activity label (and also
+    // a hyphenated compound — both prongs fire). The corpus
+    // paragraph this anchors against is run-on (no comma) so the
+    // byte-match is to a corrected/structured form, not the raw
+    // corpus text.
+    target: 'To promote safety and independence within living environment, Sit-to-stand transfers performed.',
     run: function() {
       const params = Vocab.compose('sit-stand-transfers', {
         opener: {
@@ -94,33 +95,18 @@ const cases = [
     kind: 'voice',
     target: 'Skilled interventions focused on bending/lifting/carrying tasks, side stepping to increase functional skill performance.',
     run: function() {
-      // Both activities have rendersAsActivityList: true via their
-      // profiles (bending-lifting-carrying) and via... wait, only
-      // bending-lifting-carrying has the profile flag. side-stepping
-      // is on dynamic-functional-task profile (rendersAsActivityList:
-      // false). For this test we want both to participate in the P3
-      // list — so we override side-stepping's flag at compose time.
-      // In a real session the user would either (a) flag side-stepping
-      // explicitly via overrides, or (b) we'd add a second profile
-      // for IADL-task-list-members. For 5b we use override (a).
+      // bending-lifting-carrying inherits rendersAsActivityList=true
+      // from its profile. side-stepping is on dynamic-functional-task
+      // (profile default false), but the corpus side-stepping-1
+      // paragraph routes it as a list-member alongside
+      // bending-lifting-carrying — that's a per-note routing
+      // decision, not a profile property. Slice 5c added a per-call
+      // override in compose's overrides arg; precedence is per-call
+      // override > profile default.
       const params = Vocab.composeMany([
         { id: 'bending-lifting-carrying' },
-        {
-          id: 'side-stepping',
-          // Override: surface rendersAsActivityList=true so this
-          // activity routes into the P3 list along with bending-
-          // lifting-carrying. The corpus `side-stepping-1` paragraph
-          // shows both in the same P3 opener, so this override
-          // matches corpus voice for this paragraph.
-          overrides: { /* engine-level override applied below */ }
-        }
+        { id: 'side-stepping', overrides: { rendersAsActivityList: true } }
       ]);
-      // Apply the rendersAsActivityList flag on the second activity
-      // post-compose (compose() reads the profile, not per-call
-      // overrides for that flag). This keeps the override explicit
-      // and visible at the test site rather than hidden in the
-      // compose contract.
-      params.activities[1].rendersAsActivityList = true;
       return DockyEngine.generate(params);
     }
   },

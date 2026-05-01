@@ -107,7 +107,7 @@ const DockyEngine = {
       tolerance: this._renderTolerance(routed, registry),
       closer: this._renderCloser(routed)
     };
-    return this._assembleNote(note);
+    return this._assembleNote(note, routed);
   },
 
   // ───────────────────────────────────────────────────────────────
@@ -940,7 +940,7 @@ const DockyEngine = {
   // ASSEMBLY (dumb: filter, propagate errors, join)
   // ───────────────────────────────────────────────────────────────
 
-  _assembleNote: function(note) {
+  _assembleNote: function(note, params) {
     // Error propagation: if any required slot returned an error object,
     // bubble it up with whatever partial string we can assemble from the
     // remaining successful slots.
@@ -962,19 +962,79 @@ const DockyEngine = {
     if (note.closer)     parts.push(note.closer);
 
     // P2 opener ends with ',' and joins to next part with a space then
-    // a lowercase first letter of the next part.
+    // a lowercase first letter of the next part — UNLESS that part
+    // begins with a clinical term that must preserve case
+    // (abbreviation, hyphenated compound, or known activity label).
+    // See _shouldPreserveCase for the heuristic.
+    const knownLabels = this._collectKnownLabels(params);
     let out = '';
     for (let i = 0; i < parts.length; i++) {
       const p = parts[i];
       if (i === 0) { out = p; continue; }
       const prev = parts[i - 1];
       if (typeof prev === 'string' && prev.endsWith(',')) {
-        out += ' ' + (p.charAt(0).toLowerCase() + p.slice(1));
+        if (this._shouldPreserveCase(p, knownLabels)) {
+          out += ' ' + p;
+        } else {
+          out += ' ' + (p.charAt(0).toLowerCase() + p.slice(1));
+        }
       } else {
         out += ' ' + p;
       }
     }
     return out;
+  },
+
+  /**
+   * Build a Set of activity labels currently in play. Used by the
+   * comma-join lowercaser to skip activity-label-leading parts.
+   * Labels come from params.activities[*].label — the engine doesn't
+   * consult the vocabulary module directly because activities are
+   * already engine-shape objects by the time they reach assembly.
+   */
+  _collectKnownLabels: function(params) {
+    const labels = new Set();
+    if (!params || !Array.isArray(params.activities)) return labels;
+    for (const a of params.activities) {
+      if (a && typeof a.label === 'string' && a.label.length > 0) {
+        labels.add(a.label);
+      }
+    }
+    return labels;
+  },
+
+  /**
+   * Three-prong heuristic for "should this part preserve its first
+   * character's case when joined after a comma?" Yes if any prong fires:
+   *
+   *   1. Abbreviation — first two characters are both uppercase
+   *      ("RW used during X", "BUE support required").
+   *   2. Compound clinical term — first word contains a hyphen
+   *      ("Sit-to-stand transfers performed", "Half-kneel maintained").
+   *   3. Known activity label — the part starts with one of the
+   *      labels in params.activities[*].label.
+   *
+   * Otherwise lowercase the first character (default; preserves the
+   * grammatical join: "ADLs, while standing, ...").
+   *
+   * If slice 6+ surfaces a counter-example, the right fix is usually
+   * to add the term to the activity registry (where it probably
+   * belongs anyway) rather than maintain a separate allowlist.
+   */
+  _shouldPreserveCase: function(part, knownLabels) {
+    if (typeof part !== 'string' || part.length === 0) return false;
+    // Prong 1 — abbreviation
+    if (part.length >= 2 && /^[A-Z][A-Z]/.test(part)) return true;
+    // Prong 2 — compound clinical term (hyphen in the first word)
+    const firstWord = part.split(/\s+/)[0];
+    if (firstWord && firstWord.indexOf('-') !== -1) return true;
+    // Prong 3 — known activity label
+    if (knownLabels && knownLabels.size > 0) {
+      for (const label of knownLabels) {
+        if (label && part.indexOf(label) === 0) return true;
+      }
+    }
+    return false;
   },
 
   _joinPartial: function(note) {

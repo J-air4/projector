@@ -766,7 +766,19 @@ function compose(activityId, overrides) {
 
   // Surface engine-relevant profile flags onto the activity object
   // so the engine can partition without consulting the vocabulary.
-  if (profile && profile.rendersAsActivityList) {
+  //
+  // rendersAsActivityList precedence: per-call override wins over
+  // profile default. The choice between standalone-sentence and
+  // list-member-in-P3-opener isn't really a profile property — it's
+  // a per-note routing decision the caller (UI, clinician, test)
+  // makes based on what's stacked alongside this activity. Profile
+  // sets the default; ov.rendersAsActivityList overrides it
+  // explicitly. Pass `false` to opt out, `true` to opt in; omit to
+  // inherit the profile default.
+  const profileSays  = !!(profile && profile.rendersAsActivityList);
+  const overrideSays = ov.rendersAsActivityList;
+  const finalRenders = (overrideSays === undefined) ? profileSays : !!overrideSays;
+  if (finalRenders) {
     a.rendersAsActivityList = true;
   }
   // First typicalGoalPhrasings entry feeds list-member goal aggregation
