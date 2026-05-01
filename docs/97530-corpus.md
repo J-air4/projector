@@ -83,6 +83,56 @@ Functional sit-to-stand transfers from w/c to RW trained during room organizatio
 
 ---
 
+# Section 1.5 — Anchor index
+
+Stable IDs that point at paragraphs in Section 1. The corpus block
+itself stays one uninterrupted verbatim quote — the bytes-for-bytes
+rule applies to the contents AND to the framing. Anchor IDs live
+out here so they can be referenced from `corpusEvidence` fields in
+activity entries (`docky/core/vocabularies.js`) and from the
+annotation index in Section 2 without modifying the corpus.
+
+**Naming convention:** `{activity-shorthand}-{ordinal}`. Activity-
+shorthand is the dominant activity in the paragraph, ordinal is
+1-based across paragraphs covering the same activity in document
+order. Anchors number STANDALONE paragraphs only — embedded
+instances of a sentence inside another paragraph share that
+paragraph's anchor.
+
+**Stability rule:** anchors never get reused. Once `wrist-roller-1`
+exists, it points at that paragraph forever, even if the paragraph
+is later edited, moved, or duplicated. When a paragraph is added,
+extend the index; when reordered, the index reflects the new order
+but the IDs themselves are unchanged.
+
+Listed in document order:
+
+| Anchor ID                  | Paragraph opening phrase                                                  | CPT  |
+|----------------------------|----------------------------------------------------------------------------|------|
+| `number-tap-1`             | "To promote functional transfer skills, the patient completed sequenced number tap activity..." | 97530 |
+| `scapular-rom-1`           | "The patient verbalized pain on left side of body..."                     | 97112 (set aside) |
+| `theraband-knots-1`        | "Patient untied 9/9 knots from theraband..."                               | 97530 |
+| `stand-pivot-1`            | "With RW and SBA for safety, patient facilitated in stand pivot transfer..." | 97530 |
+| `wrist-roller-1`           | " To promote bilateral coordination and forearm/ grip strength, 4 feet of a lightweight rope rolled onto a dowel bar..." (first version) | 97530 |
+| `wrist-roller-2`           | " Session focused on promoting bilateral coordination and forearm/ grip strength..." (second version) | 97530 |
+| `sts-1`                    | "o promote safety and independence within living environment Sit-to-stand transfers..." | 97530 |
+| `item-retrieval-1`         | "Item retrieval completed while seated EOB to promote trunk control..."   | 97530 |
+| `bedside-care-1`           | "Self-care tasks at the bedside..."                                       | 97535 (set aside) |
+| `side-stepping-1`          | "Patient instructed in 4/4 trials  of a dynamic standing and side stepping activity..." | 97530 |
+| `bending-lifting-1`        | "Skilled interventions focused on bending/lifting/carrying tasks, side stepping..." (first instance) | 97530 |
+| `dynamic-standing-1`       | " Dynamic standing balance with tasks with rollator and 15/15  trials..." (first standalone) | 97530 |
+| `ec-concepts-1`            | ", the patient was educated on energy conservation concepts and strategies..." | 97530 |
+| `item-retrieval-2`         | "Item retrieval tasks completed outside with RW..." (also embeds a `dynamic-standing` instance) | 97530 |
+| `bathing-1`                | "Skilled interventions included energy conservation training during bathing..." | 97535 (set aside) |
+| `bending-lifting-2`        | "Skilled interventions focused on bending/lifting/carrying tasks, side stepping..." (duplicate of `bending-lifting-1`) | 97530 |
+| `dynamic-standing-2`       | " Dynamic standing balance with tasks with rollator and 15/15  trials..." (second standalone, with trailing 97535 fragment) | 97530 |
+| `adl-balance-1`            | "To improve overall task performance during ADLs, patient facilitated skilled interventions..." | 97530 |
+| `ring-toss-1`              | " 6 trials of standing Ring toss activity using 5 large lightweight rings..." (paragraph also covers functional floor level reaching) | 97530 |
+| `sts-2`                    | "Sit-to-stand transfer trained and rehearsed with min verbal cues..."     | 97530 |
+| `sts-3`                    | "Functional sit-to-stand transfers from w/c to RW trained during room organization tasks..." | 97530 |
+
+---
+
 # Section 2 — Annotation index
 
 Paragraphs are referenced by their opening phrase, not by numbers

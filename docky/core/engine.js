@@ -272,15 +272,49 @@ const DockyEngine = {
 
   /**
    * Equipment operational test.
-   * Returns { substrate, graded, qualifying } booleans.
+   *
+   * Equipment items may be strings (legacy form, e.g. 'theraband')
+   * or objects { phrase, class } produced by the vocabulary
+   * composer. The classification reads:
+   *   - `substrate` / `graded` / `qualifying` from the field name
+   *     (this keeps backward compat with slice 1 fixtures).
+   *   - `bundled` from any item carrying a class containing
+   *     'bundled' (e.g. 'substrate-graded-bundled'). Used by
+   *     renderers that need to know the substrate phrase is
+   *     atomic — must not be split or re-joined as a list.
+   *
+   * Returns { substrate, graded, qualifying, bundled } booleans.
    */
   _classifyEquipment: function(eq) {
-    if (!eq) return { substrate: false, graded: false, qualifying: false };
+    if (!eq) return { substrate: false, graded: false, qualifying: false, bundled: false };
+    const hasBundle = (arr) => Array.isArray(arr) && arr.some(item =>
+      item && typeof item === 'object' && typeof item.class === 'string' &&
+      item.class.indexOf('bundled') !== -1
+    );
     return {
       substrate:  Array.isArray(eq.substrate)  && eq.substrate.length > 0,
       graded:     Array.isArray(eq.graded)     && eq.graded.length > 0,
-      qualifying: Array.isArray(eq.qualifying) && eq.qualifying.length > 0
+      qualifying: Array.isArray(eq.qualifying) && eq.qualifying.length > 0,
+      bundled:    hasBundle(eq.substrate) || hasBundle(eq.graded) || hasBundle(eq.qualifying)
     };
+  },
+
+  /**
+   * Extract render-ready phrases from an equipment items array.
+   * Items may be strings (legacy) or { phrase, class } objects
+   * (vocabulary-composed). Returns a plain string[] for renderers
+   * that pass through _formatList. Items without a resolvable
+   * phrase are dropped silently — composition errors don't stop
+   * rendering.
+   */
+  _equipmentPhrases: function(items) {
+    if (!Array.isArray(items)) return [];
+    const out = [];
+    for (const item of items) {
+      if (typeof item === 'string') out.push(item);
+      else if (item && typeof item === 'object' && typeof item.phrase === 'string') out.push(item.phrase);
+    }
+    return out;
   },
 
   /**
@@ -324,8 +358,10 @@ const DockyEngine = {
     if (!qStr) return { error: 'quantification_unrenderable', activityId: activity.id };
 
     const eq = activity.equipment || {};
-    const substrate = (eq.substrate && eq.substrate.length) ? eq.substrate : null;
-    const graded    = (eq.graded    && eq.graded.length)    ? eq.graded    : null;
+    const substrate = this._equipmentPhrases(eq.substrate);
+    const graded    = this._equipmentPhrases(eq.graded);
+    const hasSubstrate = substrate.length > 0;
+    const hasGraded    = graded.length > 0;
     const pos = activity.position;
     const posKind = (pos && typeof pos === 'object') ? pos.kind : null;
     const posValue = (pos && typeof pos === 'object') ? pos.value : (typeof pos === 'string' ? pos : null);
@@ -338,14 +374,14 @@ const DockyEngine = {
       const verb = activity.verb;
       if (!verb) return { error: 'patient_as_agent_missing_verb', activityId: activity.id };
       sentence = `Patient ${verb} ${qStr}`;
-      if (substrate) sentence += ` from ${this._formatList(substrate)}`;
+      if (hasSubstrate) sentence += ` from ${this._formatList(substrate)}`;
       if (activity.purpose) sentence += ` to ${activity.purpose}`;
       sentence += '.';
       return { sentence };
     }
 
     // activity-as-subject paths
-    if (substrate && activity.materialVerb) {
+    if (hasSubstrate && activity.materialVerb) {
       // Shape "qVerbS" — substrate pivots through the middle of the sentence.
       const matVerb = activity.materialVerb;
       const pivot = substrate.length === 2
@@ -356,12 +392,15 @@ const DockyEngine = {
       sentence += '.';
     } else {
       // Shape "qActivityS" — substrate (if any) attaches via "using" after activity.
+      // Bundled-class substrate phrases are atomic; _formatList of a
+      // single-item array returns the phrase verbatim, which is the
+      // correct behavior for bundles.
       sentence = `${qStr} of `;
       if (prePosition) sentence += `${prePosition} `;
       sentence += label;
-      if (substrate) {
+      if (hasSubstrate) {
         sentence += ` using ${this._formatList(substrate)}`;
-      } else if (graded) {
+      } else if (hasGraded) {
         sentence += ` using ${this._formatList(graded)}`;
       }
       if (tailPosition) sentence += ` ${tailPosition}`;
@@ -378,8 +417,8 @@ const DockyEngine = {
    */
   _renderEquipmentSubstrateLed: function(activity, label, isOpener) {
     const eq = activity.equipment || {};
-    const substrate = (eq.substrate && eq.substrate.length) ? eq.substrate : null;
-    if (!substrate) return { error: 'substrate_unrenderable', activityId: activity.id };
+    const substrate = this._equipmentPhrases(eq.substrate);
+    if (substrate.length === 0) return { error: 'substrate_unrenderable', activityId: activity.id };
     const positionTail = this._renderPositionTail(activity.position);
     let sentence = `${this._formatList(substrate)} used during ${label}`;
     if (positionTail) sentence += ` ${positionTail}`;
