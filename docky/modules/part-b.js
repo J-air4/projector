@@ -445,3 +445,6 @@ const PartBExpansion = {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = PartBExpansion;
 }
+if (typeof window !== 'undefined') {
+  window.PartBExpansion = PartBExpansion;
+}

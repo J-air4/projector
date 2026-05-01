@@ -627,3 +627,6 @@ DockyData.initShortcuts();
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = DockyData;
 }
+if (typeof window !== 'undefined') {
+  window.DockyData = DockyData;
+}

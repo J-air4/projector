@@ -362,3 +362,6 @@ const DockyValidator = {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = DockyValidator;
 }
+if (typeof window !== 'undefined') {
+  window.DockyValidator = DockyValidator;
+}

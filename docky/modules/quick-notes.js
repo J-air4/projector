@@ -395,3 +395,6 @@ const QuickNotes = {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = QuickNotes;
 }
+if (typeof window !== 'undefined') {
+  window.QuickNotes = QuickNotes;
+}
